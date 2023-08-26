@@ -1,4 +1,4 @@
-baseURL = 'https://x4ndri.github.io/blog'
+baseURL = 'https://x4ndri.github.io/eblog'
 languageCode = 'en-us'
 title = 'D0WN$AMPLED'
 theme = 'archie'
