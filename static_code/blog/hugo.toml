@@ -1,0 +1,4 @@
+baseURL = 'https://x4ndri.github.io/blog'
+languageCode = 'en-us'
+title = 'D0WN$AMPLED'
+theme = 'archie'
