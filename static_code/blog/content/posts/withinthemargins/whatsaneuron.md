@@ -1,5 +1,5 @@
 ---
-title: "<coming soon> What is a neuron? And how does it **fire**?"
+title: "What is a neuron? And how does it **fire**? <in progress>"
 date: 2023-08-26T18:42:05-04:00
 draft: false
 ---
@@ -22,10 +22,14 @@ Cell membranes are known as a 'Phospholipid Bilayer'. As the name suggests, a pa
 Although it might not seem like it, but the molecules in this resulting structure -the membrane- are **very** tightly packed together, so no molecules or ions can pass through the membrane. Instead, there are channels that the cell produces and embeds within the membrane to act like a tunnel for ions to pass through in and out of the cell. The result therefore is a semi-permeable membrane -only permeable to select ions to pass- while blocking the passage of all other species. This is where all the magic starts!
 
 ## Nernst and the ionic tug of war
-Consider a didactic square container divided in the middle by a similar semi-permeable membrane forming Compratment \\(A\\) and Compratment \\(B\\). Each compratment contains a solution containing different concentrations of molecule \\(X\\) and molecule \\(Y\\). Let there be more \\(X\\) in compartment \\(A\\) and more \\(Y\\) in compartment \\(B\\). In other words: \\([X]_A > [X]_B\\)  and \\([Y]_B > [Y]_A\\). If the membrane is permeable to \\(X\\), then \\(X\\) will flow from \\(A\\) to \\(B\\) along the concentration gradient until the concentration is equalized. But what if \\(X\\) and \\(Y\\) have a charge? say \\(X^+\\) and \\(Y^+\\).
+Consider a didactic square container divided in the middle by a similar semi-permeable membrane forming Compratment \\(A\\) and Compratment \\(B\\). Each compratment contains a solution containing different concentrations of molecule \\(X\\) and molecule \\(Y\\). Let there be more \\(X\\) in compartment \\(A\\) and more \\(Y\\) in compartment \\(B\\). In other words: \\([X]_A > [X]_B\\)  and \\([Y]_B > [Y]_A\\). If the membrane is permeable to \\(X\\), then \\(X\\) will flow from \\(A\\) to \\(B\\) along the concentration gradient until the concentration is equalized. 
+{{< figure src="../../assets/images/whatsaneuron/free.gif" width="400"  class="center-image">}}
 
-Well now \\(X^+\\) will flow from \\(A\\) to \\(B\\) as before, but as more of it flow to \\(B\\), they experience a repelling force from all the other positive ions in \\(B\\). Moreover, now that \\(A\\) has less positive ions than \\(B\\), it is relatively negative to \\(B\\), meaning that \\(X^+\\) ions also experience an attractive force pulling them back to \\(A\\). Therefore there are two gradients at play here, diffusion gradient, and electrochemical gradient. When these two gradients are equal, the system is said to have reached equilibrium and the resulting potential difference between compartments \\(A\\) and \\(B\\) is called the *Equilibrium Potential*. At this state, the number of \\(X^+\\) leaving \\(A\\) due to the concentration gradient is equal to the number of \\(X^+\\) entering \\(A\\) due to the electrical gradient.
-This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$
+
+ But what if \\(X\\) and \\(Y\\) have a charge? say \\(X^+\\) and \\(Y^+\\). Well now \\(X^+\\) will flow from \\(A\\) to \\(B\\) as before, but as more of it flow to \\(B\\), they experience a repelling force from all the other positive ions in \\(B\\). Moreover, now that \\(A\\) has less positive ions than \\(B\\), it is relatively negative to \\(B\\), meaning that \\(X^+\\) ions also experience an attractive force pulling them back to \\(A\\). Therefore there are two gradients at play here, diffusion gradient, and electrochemical gradient. When these two gradients are equal, the system is said to have reached equilibrium and the resulting potential difference between compartments \\(A\\) and \\(B\\) is called the *Equilibrium Potential*. At this state, the number of \\(X^+\\) leaving \\(A\\) due to the concentration gradient is equal to the number of \\(X^+\\) entering \\(A\\) due to the electrical gradient.
+This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$ 
+{{< figure src="../../assets/images/whatsaneuron/charged.gif" width="400"  class="center-image">}}
+
 
 You can probably tell that this is the beginning of some sort of an electrical signal, but how does this signal originate and propagate if we're always at the equilibrium potential? In one word: *Channels*
 
