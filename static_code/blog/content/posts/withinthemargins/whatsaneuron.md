@@ -4,9 +4,6 @@ date: 2023-08-26T18:42:05-04:00
 draft: false
 ---
 
-# What is a neuron? And how does it *fire*?
-<br>
-
 ## But what is a neuron?
 <br>
 
