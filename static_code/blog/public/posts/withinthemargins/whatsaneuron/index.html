@@ -69,7 +69,7 @@
 <p>Cell membranes are known as a &lsquo;Phospholipid Bilayer&rsquo;. As the name suggests, a patch of membrane is made up from lots of repeating molecules called &lsquo;Phospholipids&rsquo; stacked next to one another. Each of these molecules contains a phosphate head and two fatty acid tails. For the membrane to be doing its job, it has to act as a barrier isolating the inside (intracellular space) of the cell from the outside (extracellular space). Both of these spaces contain lots of water. Now the phosphate head likes to be in contact with water and hence it is called &lsquo;hydrophilic&rsquo;, while the fatty acid tails are repelled from water and called &lsquo;hydrophobic&rsquo;. Due to this dichotomous property, if we add these molecules to water, they will arrange themselves in such a way that &lsquo;protects&rsquo; the tails from water, while exposing the head to water. One possible arrangement, as you can imagine, is for every two phospholipid molecules to align their fatty acid tails facing one another hiding them from water. This gives the rise to a bilayer sheet of phospholipids - or a phospholipid bilayer.
 <!-- raw HTML omitted --></p>
 <p><!-- raw HTML omitted --> <!-- raw HTML omitted -->
-<figure><img src="../../assets/images/whatsaneuron/membrane.png"/>
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/membrane1.png" width="500"/>
 </figure>
 
 <!-- raw HTML omitted --></p>
@@ -80,13 +80,19 @@
 </figure>
 </p>
 <p>But what if \(X\) and \(Y\) have a charge? say \(X^+\) and \(Y^+\). Well now \(X^+\) will flow from \(A\) to \(B\) as before, but as more of it flow to \(B\), they experience a repelling force from all the other positive ions in \(B\). Moreover, now that \(A\) has less positive ions than \(B\), it is relatively negative to \(B\), meaning that \(X^+\) ions also experience an attractive force pulling them back to \(A\). Therefore there are two gradients at play here, diffusion gradient, and electrochemical gradient. When these two gradients are equal, the system is said to have reached equilibrium and the resulting potential difference between compartments \(A\) and \(B\) is called the <em>Equilibrium Potential</em>. At this state, the number of \(X^+\) leaving \(A\) due to the concentration gradient is equal to the number of \(X^+\) entering \(A\) due to the electrical gradient.
-This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$
 <figure class="center-image"><img src="../../assets/images/whatsaneuron/charged.gif" width="400"/>
 </figure>
 </p>
-<p>You can probably tell that this is the beginning of some sort of an electrical signal, but how does this signal originate and propagate if we&rsquo;re always at the equilibrium potential? In one word: <em>Channels</em></p>
+<p>This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$</p>
+<p>$$X$$
+Without going into the details of the equation, the equilibrium potential is mainly decided by the valence of the ion \(z\)- or the charge- and the ratio of its concentrations on both sides of the membrane. You can probably tell that this is the beginning of some sort of an electrical signal, but how does this signal originate and propagate if we&rsquo;re always at the equilibrium potential \(E\)  ? In one word: <em>Channels</em></p>
 <h2 id="channels-channels-channels">Channels Channels Channels!</h2>
-<p>Well, more like three words: <em>voltage-sensitive channels</em>.</p>
+<p><strong>Well, more like three words: <em>voltage-sensitive channels</em>.</strong> <br>
+So far we&rsquo;ve only considered one ionic species crossing the membrane. But what if by the flip of a switch, the membrane becomes permeable to \(Y^+\) too? Well then \(X^+\) has an \(E_{eq}^{X^+}\)  associated with it and \(Y^+\) has an \(E_{eq}^{Y^+}\) associated with it. Once we flip the switch, the voltage across the membrane will start to shift from \(E_{eq}^{X^+}\) <strong>towards</strong> \(E_{eq}^{Y^+}\), not quite reaching it but towards its direction. Goldman, Hodgkin, and Katz figured out how to calculate the equilibrium potential with the membrane permeable to multiple ions - <a href="https://www.physiologyweb.com/calculators/ghk_equation_calculator.html">lookup <em>GHK Equation</em>.</a>. Now we can see that by somehow changing the permeability of the membrane to certain ionic species, we can generate a transient in the potential difference across its both sides! Let us now bring it back to the biological neuron. \</p>
+<p>The neuron&rsquo;s intracellular space - the lumen - is concentrated with Potassium ions \(K^+\), while the extracellular space surrounding the neuron is deficit in \(K^+\) but rich in Sodium \(Na^+\). Think of a banana covered in salt whenver you want to remember which side is rich in what. The neuronal membrane has \(K^+\) channels and \(Na^+\) that allow \(K^+\) and \(Na^+\) to pass through, respectively. These channels can be opened and closed to different levels, therefore changing the relative permeability of each of the ionic species. At rest, approximately half of the \(K^+\) channels are open, meaning that \(K^+\) is leaking out of the neuron and the membrane&rsquo;s potential sits close to $E_{eq}^{K^+} \approx -75mV$. Remarkably, these channels are voltage-sensitive, or voltage-gates, meaning that the potential difference dictates membrane permeability, and membrane permeability in turn dictates membrane potential difference! For example, \(Na^+\) channels open at around $-55mV$ and <em>inactivates</em> $\approx 0mV$. \(K^+\) open around $0-20mV$ and start closing upon repolarization. Given all of that, let us zoom in on a single firing event from a neuron:
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/ap.gif" width="550"/>
+</figure>
+</p>
 
 		</section>
 
