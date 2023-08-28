@@ -1,5 +1,6 @@
 ---
 title: "How does a neuron really *fire*?"
+og_image: "../../assets/images/whatsaneuron/thumbnail.png"
 date: 2023-08-26T18:42:05-04:00
 draft: false
 ---
