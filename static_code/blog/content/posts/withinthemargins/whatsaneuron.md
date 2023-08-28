@@ -32,7 +32,6 @@ Consider a didactic square container divided in the middle by a similar semi-per
 
 This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$
 
-$$X$$
 Without going into the details of the equation, the equilibrium potential is mainly decided by the valence of the ion \\(z\\)- or the charge- and the ratio of its concentrations on both sides of the membrane. You can probably tell that this is the beginning of some sort of an electrical signal, but how does this signal originate and propagate if we're always at the equilibrium potential \\(E\\)  ? In one word: *Channels*
 ## Channels Channels Channels!
 **Well, more like three words: *voltage-sensitive channels*.** \
