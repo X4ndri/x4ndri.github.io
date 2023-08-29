@@ -1,6 +1,6 @@
 ---
 title: "How does a neuron really *fire*?"
-og_image: "../../assets/images/whatsaneuron/thumbnail.png"
+og_image : "assets/images/whatsaneuron/thumbnail.png"
 date: 2023-08-26T18:42:05-04:00
 draft: false
 ---
@@ -16,8 +16,8 @@ A neuron, without loss of generality, is made up from a cell body connected to d
 Cell membranes are known as a 'Phospholipid Bilayer'. As the name suggests, a patch of membrane is made up from lots of repeating molecules called 'Phospholipids' stacked next to one another. Each of these molecules contains a phosphate head and two fatty acid tails. For the membrane to be doing its job, it has to act as a barrier isolating the inside (intracellular space) of the cell from the outside (extracellular space). Both of these spaces contain lots of water. Now the phosphate head likes to be in contact with water and hence it is called 'hydrophilic', while the fatty acid tails are repelled from water and called 'hydrophobic'. Due to this dichotomous property, if we add these molecules to water, they will arrange themselves in such a way that 'protects' the tails from water, while exposing the head to water. One possible arrangement, as you can imagine, is for every two phospholipid molecules to align their fatty acid tails facing one another hiding them from water. This gives the rise to a bilayer sheet of phospholipids - or a phospholipid bilayer. 
 <br>
 
-<img src="../assets/images/whatsaneuron/membrane1.png" width="700" class="center-image"> <br>
 {{< figure src="../../assets/images/whatsaneuron/membrane1.png" width="500"  class="center-image">}}
+
 <br>
 
 Although it might not seem like it, but the molecules in this resulting structure -the membrane- are **very** tightly packed together, so no molecules or ions can pass through the membrane. Instead, there are channels that the cell produces and embeds within the membrane to act like a tunnel for ions to pass through in and out of the cell. The result therefore is a semi-permeable membrane -only permeable to select ions to pass- while blocking the passage of all other species. This is where all the magic starts!
