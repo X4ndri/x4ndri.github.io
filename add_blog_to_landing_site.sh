@@ -1,1 +1,0 @@
-cp -r static_code/blog/public ./blog

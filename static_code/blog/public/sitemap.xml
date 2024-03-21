@@ -2,32 +2,32 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>//localhost:1313/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/beyondthemargins/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/beyondthemargins/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/</loc>
+    <loc>https://x4ndri.github.io/eblog/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/beyondthemargins/tinroof/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/beyondthemargins/tinroof/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/withinthemargins/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/withinthemargins/</loc>
     <lastmod>2023-08-26T18:42:05-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/withinthemargins/whatsaneuron/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/withinthemargins/whatsaneuron/</loc>
     <lastmod>2023-08-26T18:42:05-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/beyondthemargins/transplant/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/beyondthemargins/transplant/</loc>
     <lastmod>2019-08-30T12:12:26-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/posts/beyondthemargins/jerusalem/</loc>
+    <loc>https://x4ndri.github.io/eblog/posts/beyondthemargins/jerusalem/</loc>
     <lastmod>2015-03-21T14:21:26-04:00</lastmod>
   </url><url>
-    <loc>//localhost:1313/categories/</loc>
+    <loc>https://x4ndri.github.io/eblog/categories/</loc>
   </url><url>
-    <loc>//localhost:1313/tags/</loc>
+    <loc>https://x4ndri.github.io/eblog/tags/</loc>
   </url>
 </urlset>

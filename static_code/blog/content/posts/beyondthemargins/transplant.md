@@ -13,4 +13,4 @@ From the part of the world where tears of agony bruise peoples’ cheeks every s
 
 {{< figure src="../../assets/images/transplant/ache.jpg" >}}
 
-Photograph: “Ache” | Grace Kathryn -flikr
+" Photogragh credits: “Ache” -Grace Kathryn -flikr"
