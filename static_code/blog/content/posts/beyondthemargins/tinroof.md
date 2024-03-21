@@ -11,4 +11,4 @@ Between him and safety, space warps, expands, and shakes him to his knees. And n
 
 {{< figure src="../../assets/images/transplant/tinroof.jpg" >}}
 
-Photogragh credits: Barricade -Ian Abbott -flikr
+Photograph: "Barricade" | Ian Abbott -flikr
