@@ -1,0 +1,19 @@
+baseURL = 'qader.xyz/blog'
+languageCode = 'en-us'
+title = 'D0WN$AMPLED'
+theme = 'archie'
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 1
+
+[[menu.main]]
+  name = "Beyond The Margins"
+  url = "/posts/beyondthemargins"
+  weight = 2
+
+[[menu.main]]
+  name = "Within The Margins"
+  url = "/posts/withinthemargins"
+  weight = 3
