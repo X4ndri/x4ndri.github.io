@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on D0WN$AMPLED</title>
-    <link>http://localhost:44271/blog/posts/</link>
+    <link>https://www.qader.xyz/blog/posts/</link>
     <description>Recent content in Posts on D0WN$AMPLED</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:44271/blog/posts/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.qader.xyz/blog/posts/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

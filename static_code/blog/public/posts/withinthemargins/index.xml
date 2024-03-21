@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>D0WN$AMPLED</title>
-    <link>http://localhost:44271/blog/posts/withinthemargins/</link>
+    <link>https://www.qader.xyz/blog/posts/withinthemargins/</link>
     <description>Recent content on D0WN$AMPLED</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 26 Aug 2023 18:42:05 -0400</lastBuildDate>
-    <atom:link href="http://localhost:44271/blog/posts/withinthemargins/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.qader.xyz/blog/posts/withinthemargins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How does a neuron really *fire*?</title>
-      <link>http://localhost:44271/blog/posts/withinthemargins/whatsaneuron/</link>
+      <link>https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/</link>
       <pubDate>Sat, 26 Aug 2023 18:42:05 -0400</pubDate>
-      <guid>http://localhost:44271/blog/posts/withinthemargins/whatsaneuron/</guid>
+      <guid>https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/</guid>
       <description>But what is a neuron? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level.</description>
     </item>
   </channel>
