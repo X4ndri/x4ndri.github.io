@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>D0WN$AMPLED</title>
-    <link>qader.xyz/blog/posts/beyondthemargins/</link>
+    <link>http://localhost:44271/blog/posts/beyondthemargins/</link>
     <description>Recent content on D0WN$AMPLED</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 14 Oct 2023 15:57:54 -0400</lastBuildDate>
-    <atom:link href="qader.xyz/blog/posts/beyondthemargins/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:44271/blog/posts/beyondthemargins/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Under The Tin Roof</title>
-      <link>qader.xyz/blog/posts/beyondthemargins/tinroof/</link>
+      <link>http://localhost:44271/blog/posts/beyondthemargins/tinroof/</link>
       <pubDate>Sat, 14 Oct 2023 15:57:54 -0400</pubDate>
-      <guid>qader.xyz/blog/posts/beyondthemargins/tinroof/</guid>
+      <guid>http://localhost:44271/blog/posts/beyondthemargins/tinroof/</guid>
       <description>He was born under a tin roof above which projectiles flew. He was born from anxiety, for you see, the bombs find their way through the sky, dark and blue. The hum was loud, so were the screams. He still remembers, the smell of fear and yellow hue. Between him and safety, space warps, expands, and shakes him to his knees. And now, the only rhythm he hears, is the sound of his weak heartbeats.</description>
     </item>
     <item>
       <title>The Transplant</title>
-      <link>qader.xyz/blog/posts/beyondthemargins/transplant/</link>
+      <link>http://localhost:44271/blog/posts/beyondthemargins/transplant/</link>
       <pubDate>Fri, 30 Aug 2019 12:12:26 -0400</pubDate>
-      <guid>qader.xyz/blog/posts/beyondthemargins/transplant/</guid>
+      <guid>http://localhost:44271/blog/posts/beyondthemargins/transplant/</guid>
       <description>From the part of the world where wind sounds like death, where cold carves on his bones a sad sonnet, where his heart fails to keep a rhythm the same way he fails to figure out who he is. From the part of the world where he sees the eyes of old men filled with misery every time he takes a bus, where he fails to remember childhood memories and even doubt that he had one, where he overthinks about solipsism instead of thermodynamics, where a fraction of his soul vanishes day after another, with every tear, with every laughter; from there he always wonders how he ended up here, in this place, with this mind, with this body, with these scars and their ache.</description>
     </item>
     <item>
       <title>Jerusalem And The Cursed Classroom</title>
-      <link>qader.xyz/blog/posts/beyondthemargins/jerusalem/</link>
+      <link>http://localhost:44271/blog/posts/beyondthemargins/jerusalem/</link>
       <pubDate>Sat, 21 Mar 2015 14:21:26 -0400</pubDate>
-      <guid>qader.xyz/blog/posts/beyondthemargins/jerusalem/</guid>
+      <guid>http://localhost:44271/blog/posts/beyondthemargins/jerusalem/</guid>
       <description>I wrote this three years ago in Arabic, it felt weird reading it again and translating it, Arabic follows English: - Start from the first time you ever dreamt, from the school bell, the folds of your copybook, and in between the letters of “good job”, and “keep it up”. From the cement throne, the broken doorstep of your classroom where you could see the mosque and from its window through which you could see the prison.</description>
     </item>
   </channel>
