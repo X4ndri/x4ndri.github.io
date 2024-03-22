@@ -4,16 +4,22 @@ title = 'D0WN$AMPLED'
 theme = 'archie'
 
 [[menu.main]]
-  name = "Home"
-  url = "/"
+  name = "Homepage"
+  url = "www.qader.xyz"
   weight = 1
+
+[[menu.main]]
+  name = "All Blogs"
+  url = "/"
+  weight = 2
+
 
 [[menu.main]]
   name = "Beyond The Margins"
   url = "/posts/beyondthemargins"
-  weight = 2
+  weight = 3
 
 [[menu.main]]
   name = "Within The Margins"
   url = "/posts/withinthemargins"
-  weight = 3
+  weight = 4
