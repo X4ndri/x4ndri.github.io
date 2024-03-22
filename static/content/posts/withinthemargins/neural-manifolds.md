@@ -5,5 +5,5 @@ draft: false
 ---
 
 
-{{< figure src="../../../assets/images/neuralmanifolds/animation_rates.gif" class="center-image">}}
+{{< figure src="../../../assets/images/neuralmanifolds/animation_rates.gif" title="Low dimensional circle embedded in 3D" alt="low-dimensional circle" class="center-image">}}
 
