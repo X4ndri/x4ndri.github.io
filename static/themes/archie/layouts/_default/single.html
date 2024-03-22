@@ -28,6 +28,7 @@
 			{{ end }}
 			{{ end }}
 		</div>
+		{{- partial "giscus.html" . -}}
 		{{- $.Scratch.Set "isDisqus" true -}}
 		<!-- Check if disqus short name is given -->
 		{{ if not .Site.DisqusShortname }}
