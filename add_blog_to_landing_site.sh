@@ -8,4 +8,4 @@ sleep 1
 
 git add .
 git commit -m "degub deploy"
-git push origin main
+git push origin dev
