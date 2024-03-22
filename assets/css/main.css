@@ -3815,8 +3815,128 @@ input, select, textarea {
 
 		}
 
-/* popup */
-	.box {
+		.box {
+			width: 20%;
+			margin: 0 auto;
+			background: rgba(255, 255, 255, 0.2);
+			padding: 35px;
+			border: 2px solid #fff;
+			border-radius: 20px/50px;
+			background-clip: padding-box;
+			text-align: center;
+			cursor: pointer; /* Add pointer cursor to indicate interactivity */
+		}
+
+		.overlay {
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(0, 0, 0, 0);
+			transition: opacity 500ms;
+			visibility: hidden;
+			opacity: 0;
+			overflow-y:scroll;
+			height: auto; /* Change height to 100% */
+			display:flex; /* Use flexbox to center the popup vertically */
+			justify-content: center;
+			margin-top: calc(10vh);
+		}
+
+		
+		.overlay:target {
+			visibility: visible;
+			opacity: 1;
+		}
+		
+		.popup {
+			-moz-transform: translateY(0.25rem);
+			-webkit-transform: translateY(0.25rem);
+			-ms-transform: translateY(0.25rem);
+			transform: translateY(0.25rem);
+			-moz-transition: opacity 0.325s ease-in-out, -moz-transform 0.325s ease-in-out;
+			-webkit-transition: opacity 0.325s ease-in-out, -webkit-transform 0.325s ease-in-out;
+			-ms-transition: opacity 0.325s ease-in-out, -ms-transform 0.325s ease-in-out;
+			transition: opacity 0.325s ease-in-out, transform 0.325s ease-in-out;
+			padding: 4.5rem 2.5rem 1.5rem 2.5rem;
+			position: relative;
+			width: 40rem;
+			max-width: 100%;
+			background-color: rgba(16, 20, 22, 0.911);
+			border-radius: 4px;
+			opacity: 0;
+			z-index: 999; /* Ensure the popup is on top of other content */
+		}
+		
+		.overlay:target .popup {
+			opacity: 1; /* Set opacity to 1 when the overlay is active */
+			transform: translateY(0); /* Set transform to default when the overlay is active */
+		}
+		
+		.popup h2 {
+			margin-top: 0;
+			color: #76ddff;
+			font-family: Tahoma, Arial, sans-serif;
+		}
+		
+		.popup .close {
+			display:grid;
+			position:absolute;
+			top: 20px;
+			right: 30px;
+			transition: all 200ms;
+			font-size: 30px;
+			font-weight: bold;
+			text-decoration: none;
+			color: #333;
+		}
+		
+		.popup .close:before {
+			-moz-transition: background-color 0.2s ease-in-out;
+			-webkit-transition: background-color 0.2s ease-in-out;
+			-ms-transition: background-color 0.2s ease-in-out;
+			transition: background-color 0.2s ease-in-out;
+			content: '';
+			display: block;
+			width: 2.5rem;
+			height: 2.5rem;
+			border-radius: 100%;
+			background-position: center;
+			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20px' height='20px' viewBox='0 0 20 20' zoomAndPan='disable'%3E%3Cstyle%3Eline %7B stroke: %23ffffff%3B stroke-width: 1%3B %7D%3C/style%3E%3Cline x1='2' y1='2' x2='18' y2='18' /%3E%3Cline x1='18' y1='2' x2='2' y2='18' /%3E%3C/svg%3E");
+			background-size: 20px 20px;
+			background-repeat: no-repeat;
+		}
+		
+		.popup .close:hover:before {
+			background-color: rgba(255, 255, 255, 0.075);
+		}
+		
+		.popup .close:active:before {
+			background-color: rgba(255, 255, 255, 0.175);
+		}
+		
+		@media screen and (max-width: 736px) {
+			.popup {
+				padding: 3.5rem 2rem 0.5rem 2rem;
+			}
+			.popup .close:before {
+				width: 2.25rem;
+				height: 2.25rem;
+				background-size: 14px 14px;
+			}
+		}
+		
+		@media screen and (max-width: 480px) {
+			.popup {
+				padding: 3rem 1.5rem 0.5rem 1.5rem;
+			}
+		}
+				
+
+
+/* OLD POPUP */
+	/* .box {
 		width: 20%;
 		margin: 0 auto;
 		background: rgba(255, 255, 255, 0.2);
@@ -3875,13 +3995,6 @@ input, select, textarea {
 		color: #333;
 	}
 
-	  /* Media query for smartphones */
-	  @media screen and (max-width: 768px) {
-		.popup {
-		  width: 90%; /* Adjust the width for smaller screens */
-		}
-	  }
-	  
 			
 /* Wrapper */
 
