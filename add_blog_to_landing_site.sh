@@ -7,5 +7,5 @@ cp -r static/public ./blog
 sleep 1
 
 git add .
-git commit -m "degub deploy"
+git commit -m "new deploy"
 git push origin dev
