@@ -23,7 +23,8 @@ extend their hands<br>
 and mend my heart <br>
 from the tumoil which I have sought<br>
 <br>
-...
+{{< figure src="../../../assets/images/mightyhill/mightyhill.jpg"  title="Sacremanto Poppies - Edited for warmth" class="center-image">}}
+
 
 
 
