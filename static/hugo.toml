@@ -9,7 +9,7 @@ theme = 'archie'
   weight = 1
 
 [[menu.main]]
-  name = "All Blogs"
+  name = "All Posts"
   url = "/"
   weight = 2
 

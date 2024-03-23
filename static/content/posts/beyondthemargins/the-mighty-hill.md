@@ -4,6 +4,7 @@ date: 2024-03-22T23:32:15-04:00
 draft: false
 ---
 {{< center >}}
+<div style="font-size: larger;text-align: center;">
 
 When does all of this end <br>
 When do sweet devils rise<br>
@@ -23,11 +24,13 @@ extend their hands<br>
 and mend my heart <br>
 from the tumoil which I have sought<br>
 <br>
-{{< figure src="../../../assets/images/mightyhill/mightyhill.jpg"  title="Sacremanto Poppies - Edited for warmth" class="center-image">}}
-
-
-
-
+</div>
 {{< /center >}}
+
+{{< figure src="../../../assets/images/mightyhill/mightyhill.jpg"  title="Sacramento Poppies - Edited for warmth" class="center-image">}}
+
+
+
+
 
 

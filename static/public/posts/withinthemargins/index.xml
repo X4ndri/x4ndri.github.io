@@ -9,11 +9,11 @@
     <lastBuildDate>Fri, 22 Mar 2024 14:01:37 -0400</lastBuildDate>
     <atom:link href="https://www.qader.xyz/blog/posts/withinthemargins/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Neural Manifolds</title>
+      <title>Neural Manifolds &lt;coming soon&gt;</title>
       <link>https://www.qader.xyz/blog/posts/withinthemargins/neural-manifolds/</link>
       <pubDate>Fri, 22 Mar 2024 14:01:37 -0400</pubDate>
       <guid>https://www.qader.xyz/blog/posts/withinthemargins/neural-manifolds/</guid>
-      <description> Low dimensional circle embedded in 3D </description>
+      <description> A 2D ring trajectory embedded in 3D space </description>
     </item>
     <item>
       <title>How does a neuron really *fire*?</title>
