@@ -22,7 +22,7 @@ new and old<br>
 When do Gods of ancient lore<br>
 extend their hands<br>
 and mend my heart <br>
-from the tumoil which I have sought<br>
+from the turmoil which I have sought<br>
 <br>
 </div>
 {{< /center >}}
