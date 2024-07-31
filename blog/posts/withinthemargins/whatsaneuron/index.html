@@ -15,23 +15,24 @@
 	<meta charset="utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge"><title>How does a neuron really *fire*? - D0WN$AMPLED</title><meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="But what is a neuron? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level." />
-	<meta property="og:image" content="https://www.qader.xyz/blog//posts/assets/images/whatsaneuron/thumbnail.png"/>
+	<meta property="og:image" content="https://www.qader.dev/blog//posts/assets/images/whatsaneuron/thumbnail.png"/>
 	<meta name="author" content="Ahmad Abdal Qader">
 	<meta property="og:title" content="How does a neuron really *fire*?" />
 <meta property="og:description" content="But what is a neuron? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/" /><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://www.qader.dev/blog/posts/withinthemargins/whatsaneuron/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-08-26T18:42:05-04:00" />
 <meta property="article:modified_time" content="2023-08-26T18:42:05-04:00" />
+
 <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="How does a neuron really *fire*?"/>
 <meta name="twitter:description" content="But what is a neuron? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level."/>
 
 	
-        <link href="https://www.qader.xyz/blog/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
+        <link href="https://www.qader.dev/blog/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
 	
 
 	
-	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qader.xyz/blog/css/main.6624d5f650fbb71d503088afd57c9692c2510bac5207fe26a5ef815930b28eb0.css" />
+	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qader.dev/blog/css/main.6624d5f650fbb71d503088afd57c9692c2510bac5207fe26a5ef815930b28eb0.css" />
 
 	
 	
@@ -44,11 +45,11 @@
 <body>
         <div class="content"><header>
 	<div class="main">
-		<a href="https://www.qader.xyz/blog/">D0WN$AMPLED</a>
+		<a href="https://www.qader.dev/blog/">D0WN$AMPLED</a>
 	</div>
 	<nav>
 		
-		<a href="https://www.qader.xyz">Homepage</a>
+		<a href="https://www.qader.dev">Homepage</a>
 		
 		<a href="/blog/">All Blogs</a>
 		
@@ -76,19 +77,19 @@
 <h3 id="the-membrane">The Membrane:</h3>
 <p>Cell membranes are known as a &lsquo;Phospholipid Bilayer&rsquo;. As the name suggests, a patch of membrane is made up from lots of repeating molecules called &lsquo;Phospholipids&rsquo; stacked next to one another. Each of these molecules contains a phosphate head and two fatty acid tails. For the membrane to be doing its job, it has to act as a barrier isolating the inside (intracellular space) of the cell from the outside (extracellular space). Both of these spaces contain lots of water. Now the phosphate head likes to be in contact with water and hence it is called &lsquo;hydrophilic&rsquo;, while the fatty acid tails are repelled from water and called &lsquo;hydrophobic&rsquo;. Due to this dichotomous property, if we add these molecules to water, they will arrange themselves in such a way that &lsquo;protects&rsquo; the tails from water, while exposing the head to water. One possible arrangement, as you can imagine, is for every two phospholipid molecules to align their fatty acid tails facing one another hiding them from water. This gives the rise to a bilayer sheet of phospholipids - or a phospholipid bilayer.
 <!-- raw HTML omitted --></p>
-<figure class="center-image"><img src="../../assets/images/whatsaneuron/membrane1.png" width="500"><figcaption>
-      <h4>Adapted from chem.UCLA</h4>
-    </figcaption>
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/membrane1.png" width="500"/><figcaption>
+            <h4>Adapted from chem.UCLA</h4>
+        </figcaption>
 </figure>
 
 <p>Although it might not seem like it, but the molecules in this resulting structure -the membrane- are <strong>very</strong> tightly packed together, so no molecules or ions can pass through the membrane. Instead, there are channels that the cell produces and embeds within the membrane to act like a tunnel for ions to pass through in and out of the cell. The result therefore is a semi-permeable membrane -only permeable to select ions to pass- while blocking the passage of all other species. This is where all the magic starts!</p>
 <h2 id="nernst-and-the-ionic-tug-of-war">Nernst and the ionic tug of war</h2>
 <p>Consider a didactic square container divided in the middle by a similar semi-permeable membrane forming Compartment \(A\) and Compartment \(B\). Each Compartment contains a solution containing different concentrations of molecule \(X\) and molecule \(Y\). Let there be more \(X\) in compartment \(A\) and more \(Y\) in compartment \(B\). In other words: \([X]_A &gt; [X]_B\)  and \([Y]_B &gt; [Y]_A\). If the membrane is permeable to \(X\), then \(X\) will flow from \(A\) to \(B\) along the concentration gradient until the concentration is equalized. See animation below: red particles diffuse freely to the right compartment until the gradient is equalized.
-<figure class="center-image"><img src="../../assets/images/whatsaneuron/free.gif" width="400">
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/free.gif" width="400"/>
 </figure>
 </p>
 <p>But what if \(X\) and \(Y\) have a charge? say \(X^+\) and \(Y^+\). Well now \(X^+\) will flow from \(A\) to \(B\) as before, but as more of it flow to \(B\), they experience a repelling force from all the other positive ions in \(B\). Moreover, now that \(A\) has less positive ions than \(B\), it is relatively negative to \(B\), meaning that \(X^+\) ions also experience an attractive force pulling them back to \(A\). Therefore there are two gradients at play here, diffusion gradient, and electrochemical gradient. When these two gradients are equal, the system is said to have reached equilibrium and the resulting potential difference between compartments \(A\) and \(B\) is called the <em>Equilibrium Potential</em>. At this state, the number of \(X^+\) leaving \(A\) due to the concentration gradient is equal to the number of \(X^+\) entering \(A\) due to the electrical gradient - see animation below: as more red particles move to the right side, they start to experience an attraction force back towards the left side.
-<figure class="center-image"><img src="../../assets/images/whatsaneuron/charged.gif" width="400">
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/charged.gif" width="400"/>
 </figure>
 </p>
 <p>This quantity can be calculated by what is known as the Nernst equation: $$E = E_{\text{eq}} + \frac{RT}{zF} \ln\left(\frac{[C_{\text{in}}]}{[C_{\text{out}}]}\right)$$</p>
@@ -97,7 +98,7 @@
 <p><strong>Well, more like three words: <em>voltage-sensitive channels</em>.</strong> <br>
 So far we&rsquo;ve only considered one ionic species crossing the membrane. But what if by the flip of a switch, the membrane becomes permeable to \(Y^+\) too? Well then \(X^+\) has an \(E_{eq}^{X^+}\)  associated with it and \(Y^+\) has an \(E_{eq}^{Y^+}\) associated with it. Once we flip the switch, the voltage across the membrane will start to shift from \(E_{eq}^{X^+}\) <strong>towards</strong> \(E_{eq}^{Y^+}\), not quite reaching it but towards its direction. Goldman, Hodgkin, and Katz figured out how to calculate the equilibrium potential with the membrane permeable to multiple ions - <a href="https://www.physiologyweb.com/calculators/ghk_equation_calculator.html">lookup <em>GHK Equation</em>.</a>. Now we can see that by somehow changing the permeability of the membrane to certain ionic species, we can generate a transient in the potential difference across its both sides! Let us now bring it back to the biological neuron.</p>
 <p>The neuron&rsquo;s intracellular space - the lumen - is concentrated with Potassium ions \(K^+\), while the extracellular space surrounding the neuron is deficit in \(K^+\) but rich in Sodium \(Na^+\). Think of a banana covered in salt whenever you want to remember which side is rich in what. The neuronal membrane has \(K^+\)  and \(Na^+\) channels that allow \(K^+\) and \(Na^+\) to pass through, respectively. These channels can be opened and closed to different levels, therefore changing the relative permeability of each of the ionic species. At rest, approximately half of the \(K^+\) channels are open, meaning that \(K^+\) is leaking out of the neuron and the membrane&rsquo;s potential sits close to \(E_{eq}^{K^+} \approx -75mV \). Remarkably, these channels are voltage-sensitive, or voltage-gated, meaning that the potential difference dictates membrane permeability, and membrane permeability in turn dictates membrane potential difference! For example, \(Na^+\) channels open at around \(-55mV\) and <em>inactivates</em> \(\approx 0mV\). \(K^+\) open around \(0-20mV\) and start closing upon repolarization. Given all of that, let us zoom in on a single firing event from a neuron:
-<figure class="center-image"><img src="../../assets/images/whatsaneuron/ap.gif" width="550">
+<figure class="center-image"><img src="../../assets/images/whatsaneuron/ap.gif" width="550"/>
 </figure>
  <br>
 When a neuron receives an input -we&rsquo;ll discus this in more detail later on, but for name let&rsquo;s say it&rsquo;s some electric current being injected- the potential difference of the membrane \(V_m\) increases. If it reaches the threshold \(\approx -55mV\), an Action Potential is generated according to the steps below:</p>
@@ -112,7 +113,7 @@ Notice how channels and their voltage sensitivity play the critical role of gene
 <p>Well, gates. Channels have gates.
 The \(Na^+\) channels have two gates. An activation gate, which opens when the membrane potential crosses the threshold, and an inactivation gate which closes after a certain time (tiny tiny amount of time, fraction of a millisecond) stopping \(Na^+\) from entering the neuron. At rest, the activation gate is closed and the inactivation gate is open, no \(Na^+\) flow is allowed. When the threshold is crossed, the activation gate opens, both gates are now open and \(Na^+\) can flow. After some tiny amount of time, the inactivation gate closes stopping the \(Na^+\) flow. When the neuron relaxes back to rest, the activation gate closes. A little after that, the inactivation gate re-opens and the neuron is now ready to fire again. The voltage-gated \(K^+\) channels have one gate that opens when \(V_m\) crosses \(-50mV\), but they are slow compared to \(Na^+\) activation gates. This delay allows for the \(Na^+\) peak we see in the Action Potential.</p>
 <p>The H-H model describes the opening and closing dynamics of these gates using a set of differential equations. <a href="https://neuronaldynamics.epfl.ch/online/Ch2.S2.html">Refer to this great EPFL resource </a> for a deeper dive into the H-H model. <a href="https://github.com/X4ndri/hodgkinhuxley/">Then use my simulation and graphical interface</a> to see how different input amplitudes and timings result in action potentials. You can also change the properties of the channels, add more channels, and experiment with how they affect the overall response of the neuron. See example below:
-<figure><img src="../../assets/images/whatsaneuron/twopulses_white.png">
+<figure><img src="../../assets/images/whatsaneuron/twopulses_white.png"/>
 </figure>
 </p>
 <p>My simulation uses membrane and channel properties approximated by: <code>Svirskis, G., Kotak, V., Sanes, D.H. and Rinzel, J., 2004. Sodium along with low-threshold potassium currents enhance coincidence detection of subthreshold noisy signals in MSO neurons. Journal of neurophysiology, 91(6), pp.2465-2473.</code> Simulation code was written with guidance from <a href="https://www.urmc.rochester.edu/labs/carney.aspx">Professor Laurel Carney</a> during my undergraduate days at the University of Rochester.</p>

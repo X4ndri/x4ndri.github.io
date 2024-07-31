@@ -2,35 +2,35 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.qader.xyz/blog/</loc>
+    <loc>https://www.qader.dev/blog/</loc>
     <lastmod>2024-03-22T14:01:37-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/</loc>
+    <loc>https://www.qader.dev/blog/posts/</loc>
     <lastmod>2024-03-22T14:01:37-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/withinthemargins/</loc>
+    <loc>https://www.qader.dev/blog/posts/withinthemargins/</loc>
     <lastmod>2024-03-22T14:01:37-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/withinthemargins/neural-manifolds/</loc>
+    <loc>https://www.qader.dev/blog/posts/withinthemargins/neural-manifolds/</loc>
     <lastmod>2024-03-22T14:01:37-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/beyondthemargins/</loc>
+    <loc>https://www.qader.dev/blog/posts/beyondthemargins/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/beyondthemargins/tinroof/</loc>
+    <loc>https://www.qader.dev/blog/posts/beyondthemargins/tinroof/</loc>
     <lastmod>2023-10-14T15:57:54-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/</loc>
+    <loc>https://www.qader.dev/blog/posts/withinthemargins/whatsaneuron/</loc>
     <lastmod>2023-08-26T18:42:05-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/beyondthemargins/transplant/</loc>
+    <loc>https://www.qader.dev/blog/posts/beyondthemargins/transplant/</loc>
     <lastmod>2019-08-30T12:12:26-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/posts/beyondthemargins/jerusalem/</loc>
+    <loc>https://www.qader.dev/blog/posts/beyondthemargins/jerusalem/</loc>
     <lastmod>2015-03-21T14:21:26-04:00</lastmod>
   </url><url>
-    <loc>https://www.qader.xyz/blog/categories/</loc>
+    <loc>https://www.qader.dev/blog/categories/</loc>
   </url><url>
-    <loc>https://www.qader.xyz/blog/tags/</loc>
+    <loc>https://www.qader.dev/blog/tags/</loc>
   </url>
 </urlset>

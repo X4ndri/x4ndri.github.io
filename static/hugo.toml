@@ -1,11 +1,11 @@
-baseURL = 'https://www.qader.xyz/blog'
+baseURL = 'https://www.qader.dev/blog'
 languageCode = 'en-us'
 title = 'D0WN$AMPLED'
 theme = 'archie'
 
 [[menu.main]]
   name = "Homepage"
-  url = "https://www.qader.xyz"
+  url = "https://www.qader.dev"
   weight = 1
 
 [[menu.main]]
