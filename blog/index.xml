@@ -2,52 +2,52 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>D0WN$AMPLED</title>
-    <link>https://www.qader.xyz/blog/</link>
+    <link>https://www.qader.dev/blog/</link>
     <description>Recent content on D0WN$AMPLED</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 22 Mar 2024 23:32:15 -0400</lastBuildDate>
-    <atom:link href="https://www.qader.xyz/blog/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.qader.dev/blog/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>The Mighty Hill</title>
-      <link>https://www.qader.xyz/blog/posts/beyondthemargins/the-mighty-hill/</link>
+      <link>https://www.qader.dev/blog/posts/beyondthemargins/the-mighty-hill/</link>
       <pubDate>Fri, 22 Mar 2024 23:32:15 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/beyondthemargins/the-mighty-hill/</guid>
+      <guid>https://www.qader.dev/blog/posts/beyondthemargins/the-mighty-hill/</guid>
       <description>When does all of this end When do sweet devils rise&#xA;come forth and serenade me&#xA;as I fall into perdition&#xA;When does heaven scream and screech&#xA;When does hell laugh then frown&#xA;watching me&#xA;as I bleed on a mighty hill&#xA;of jasmine and poppies&#xA;When do sins forgive their hold&#xA;and let my wounds swiftly heal&#xA;new and old&#xA;When do Gods of ancient lore&#xA;extend their hands</description>
     </item>
     <item>
       <title>Neural Manifolds &lt;coming soon&gt;</title>
-      <link>https://www.qader.xyz/blog/posts/withinthemargins/neural-manifolds/</link>
+      <link>https://www.qader.dev/blog/posts/withinthemargins/neural-manifolds/</link>
       <pubDate>Fri, 22 Mar 2024 14:01:37 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/withinthemargins/neural-manifolds/</guid>
+      <guid>https://www.qader.dev/blog/posts/withinthemargins/neural-manifolds/</guid>
       <description> A 2D ring trajectory embedded in 3D space </description>
     </item>
     <item>
       <title>Under The Tin Roof</title>
-      <link>https://www.qader.xyz/blog/posts/beyondthemargins/tinroof/</link>
+      <link>https://www.qader.dev/blog/posts/beyondthemargins/tinroof/</link>
       <pubDate>Sat, 14 Oct 2023 15:57:54 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/beyondthemargins/tinroof/</guid>
+      <guid>https://www.qader.dev/blog/posts/beyondthemargins/tinroof/</guid>
       <description>He was born under a tin roof above which projectiles flew. He was born from anxiety, for you see, the bombs find their way through the sky, dark and blue. The hum was loud, so were the screams. He still remembers, the smell of fear and yellow hue. Between him and safety, space warps, expands, and shakes him to his knees. And now, the only rhythm he hears, is the sound of his weak heartbeats.</description>
     </item>
     <item>
       <title>How does a neuron really *fire*?</title>
-      <link>https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/</link>
+      <link>https://www.qader.dev/blog/posts/withinthemargins/whatsaneuron/</link>
       <pubDate>Sat, 26 Aug 2023 18:42:05 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/withinthemargins/whatsaneuron/</guid>
+      <guid>https://www.qader.dev/blog/posts/withinthemargins/whatsaneuron/</guid>
       <description>But what is a neuron? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level.</description>
     </item>
     <item>
       <title>The Transplant</title>
-      <link>https://www.qader.xyz/blog/posts/beyondthemargins/transplant/</link>
+      <link>https://www.qader.dev/blog/posts/beyondthemargins/transplant/</link>
       <pubDate>Fri, 30 Aug 2019 12:12:26 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/beyondthemargins/transplant/</guid>
+      <guid>https://www.qader.dev/blog/posts/beyondthemargins/transplant/</guid>
       <description>From the part of the world where wind sounds like death, where cold carves on his bones a sad sonnet, where his heart fails to keep a rhythm the same way he fails to figure out who he is. From the part of the world where he sees the eyes of old men filled with misery every time he takes a bus, where he fails to remember childhood memories and even doubt that he had one, where he overthinks about solipsism instead of thermodynamics, where a fraction of his soul vanishes day after another, with every tear, with every laughter; from there he always wonders how he ended up here, in this place, with this mind, with this body, with these scars and their ache.</description>
     </item>
     <item>
       <title>Jerusalem And The Cursed Classroom</title>
-      <link>https://www.qader.xyz/blog/posts/beyondthemargins/jerusalem/</link>
+      <link>https://www.qader.dev/blog/posts/beyondthemargins/jerusalem/</link>
       <pubDate>Sat, 21 Mar 2015 14:21:26 -0400</pubDate>
-      <guid>https://www.qader.xyz/blog/posts/beyondthemargins/jerusalem/</guid>
+      <guid>https://www.qader.dev/blog/posts/beyondthemargins/jerusalem/</guid>
       <description>I wrote this three years ago in Arabic, it felt weird reading it again and translating it, Arabic follows English: - Start from the first time you ever dreamt, from the school bell, the folds of your copybook, and in between the letters of “good job”, and “keep it up”. From the cement throne, the broken doorstep of your classroom where you could see the mosque and from its window through which you could see the prison.</description>
     </item>
   </channel>
