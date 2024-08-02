@@ -10,10 +10,7 @@
     | Made with &#9829 by <a href="https://www.linkedin.com/in/aaqader"> Ahmad</a>
   </div>
 </footer>
-{{ if not .Site.IsServer }}
-{{ template "_internal/google_analytics_async.html" . }}
-{{ end }}
-
+<!-- removed google analytics template call -->
 {{- if (isset .Site.Params "social") -}}
 <script>
   feather.replace()
