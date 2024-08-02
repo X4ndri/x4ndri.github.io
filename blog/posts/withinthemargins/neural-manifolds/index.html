@@ -26,18 +26,55 @@
 
 <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Neural Manifolds &lt;coming soon&gt;"/>
 <meta name="twitter:description" content=" A 2D ring trajectory embedded in 3D space "/>
-
-	
-        <link href="https://www.qader.dev/blog/css/fonts.2c2227b81b1970a03e760aa2e6121cd01f87c88586803cbb282aa224720a765f.css" rel="stylesheet">
-	
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+	<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@1,500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
 
 	
 	<link rel="stylesheet" type="text/css" media="screen" href="https://www.qader.dev/blog/css/main.6624d5f650fbb71d503088afd57c9692c2510bac5207fe26a5ef815930b28eb0.css" />
+		<link id="darkModeStyle" rel="stylesheet" type="text/css" href="https://www.qader.dev/blog/css/dark.726cd11ca6eb7c4f7d48eb420354f814e5c1b94281aaf8fd0511c1319f7f78a4.css"  disabled />
+	
 
 	
 	
+		<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+		</script>
+	
+		
+		<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+			tex2jax: {
+				inlineMath: [['$','$'], ['\\(','\\)']],
+				displayMath: [['$$','$$'], ['\[','\]']],
+				processEscapes: true,
+				processEnvironments: true,
+				skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+				TeX: { equationNumbers: { autoNumber: "AMS" },
+						 extensions: ["AMSmath.js", "AMSsymbols.js"] }
+			}
+		});
+		</script>
+	
 
 	
+	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.css">
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/katex.min.js"></script>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.15.2/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+		
+		
+		<script>
+			document.addEventListener("DOMContentLoaded", function() {
+					renderMathInElement(document.body, {
+							delimiters: [
+									{left: "$$", right: "$$", display: true},
+									{left: "$", right: "$", display: false}
+							]
+					});
+			});
+			</script>
 	
 	
 	
@@ -57,6 +94,8 @@
 		
 		<a href="/blog/posts/withinthemargins">Within The Margins</a>
 		
+		| <span id="dark-mode-toggle" onclick="toggleTheme()"></span>
+		<script src="https://www.qader.dev/blog/js/themetoggle.js"></script>
 		
 	</nav>
 </header>
@@ -123,12 +162,18 @@
 	
 </main>
 <footer>
-  <div style="display:flex"></div>
+  <div style="display:flex"><a class="soc" href="https://twitter.com/forrealahmad/" rel="me" title="Twitter"><i data-feather="twitter"></i></a>
+    <a class="border"></a><a class="soc" href="https://github.com/x4ndri" rel="me" title="GitHub"><i data-feather="github"></i></a>
+    <a class="border"></a></div>
   <div class="footer-info">
-    2024  
-    | Made with &#9829 by <a href="https://www.linkedin.com/in/aaqader"> Ahmad</a>
+    2024 
+    | Made with a lot of &#9829 |
+     © ahmad ©  
+    
   </div>
 </footer>
-</div>
+<script>
+  feather.replace()
+</script></div>
     </body>
 </html>

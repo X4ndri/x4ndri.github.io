@@ -6,8 +6,10 @@
     {{- end -}}
   </div>
   <div class="footer-info">
-    {{ dateFormat "2006" now }} {{ with .Site.Copyright }} {{ . }} | {{ end }} 
-    | Made with &#9829 by <a href="https://www.linkedin.com/in/aaqader"> Ahmad</a>
+    {{ dateFormat "2006" now }} 
+    | Made with a lot of &#9829 |
+    {{ with .Site.Copyright }} {{ . }} {{ end }} 
+    <!-- | Made with &#9829 by <a href="https://www.linkedin.com/in/aaqader"> Ahmad</a> -->
   </div>
 </footer>
 <!-- removed google analytics template call -->
