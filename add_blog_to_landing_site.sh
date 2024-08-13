@@ -8,4 +8,4 @@ sleep 1
 
 git add .
 git commit -m "new deploy"
-git push origin dev
+git push origin main
