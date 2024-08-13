@@ -1,6 +1,6 @@
 @import url(fontawesome-all.min.css);
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,800,800italic");
-
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 /*
 	Spectral by HTML5 UP
 	html5up.net | @ajlkn
@@ -28,7 +28,13 @@ section, summary, time, mark, audio, video {
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
-body { min-height: 100vh; }
+body {overflow-y: hidden}
+@media (max-width: 768px) {
+	body {
+		overflow-y: clip;
+	}
+
+	}
 
 body {
 	line-height: 1;
@@ -260,7 +266,7 @@ input, select, textarea {
 	}
 
 	pre {
-		-webkit-overflow-scrolling: touch;
+		-webkit-overflow-scrolling: auto;
 		font-family: "Courier New", monospace;
 		font-size: 0.9em;
 		margin: 0 0 2em 0;
@@ -2531,8 +2537,10 @@ input, select, textarea {
 			input[type="button"],
 			button,
 			.button {
-				height: 3.75em;
-				line-height: 3.75em;
+				height: 2.5em;
+				line-height: 2.5em;
+				width: 75% !important;
+				
 			}
 
 		}
@@ -3329,6 +3337,7 @@ input, select, textarea {
 		transition: opacity 0.5s ease;
 		opacity: 1;
 		padding-top: 3em;
+		scroll-behavior: initial;
 	}
 
 		#page-wrapper:before {
@@ -3342,6 +3351,7 @@ input, select, textarea {
 			top: 0;
 			width: 100%;
 			z-index: 10001;
+			overflow-y: hidden
 		}
 
 	#menu {
@@ -3582,7 +3592,7 @@ input, select, textarea {
 		-ms-justify-content: center;
 		justify-content: center;
 		cursor:default;
-		height:100vh;
+		height:98vh !important;
 		min-height: 35em;
 		overflow: hidden;
 		position: relative;
@@ -3604,6 +3614,8 @@ input, select, textarea {
 			padding: 0.35em 1em;
 			position: relative;
 			z-index: 0.0;
+			font-family: 'Roboto';
+			font-weight: bold!important;
 		}
 
 			#banner h2:before, #banner h2:after {
@@ -3636,6 +3648,8 @@ input, select, textarea {
 		#banner p {
 			letter-spacing: 0.225em;
 			text-transform: uppercase;
+			font-family: 'Roboto';
+			font-weight: 200;
 		}
 
 			#banner p a {
@@ -3718,7 +3732,7 @@ input, select, textarea {
 			}
 
 				#banner h2 {
-					font-size: 1.25em;
+					font-size: 1.95em;
 				}
 
 				#banner br {
@@ -3816,7 +3830,7 @@ input, select, textarea {
 		}
 
 		.box {
-			width: 20%;
+			width: 100%;
 			margin: 0 auto;
 			background: rgba(255, 255, 255, 0.2);
 			padding: 35px;
@@ -3826,6 +3840,150 @@ input, select, textarea {
 			text-align: center;
 			cursor: pointer; /* Add pointer cursor to indicate interactivity */
 		}
+
+
+		.modal {
+			display: none;
+			position:fixed;
+			z-index: 1000;
+			left: 0;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+			background-color: rgba(0,0,0,0.4);
+			scrollbar-width: initial;
+		}
+
+		.modal:target {
+			display: block;
+			scroll-behavior: initial;
+			overflow-y: hidden;
+		}
+		
+		.modal-content-big {
+			background-color: rgba(20, 16, 16, 0.9);
+
+			margin: 5% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			height:85%;
+			max-width: 60%;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		}
+		
+		.modal-content-small {
+			background-color: rgba(20, 16, 16, 0.9);
+
+			margin: 5% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			height:60%;
+			max-width: 60%;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		}
+
+
+		.modal-close {
+			color: #3082ee;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			text-decoration: none;
+		}
+		
+		.modal-close:hover{
+			color: #d18153;
+		}
+
+		.modal-close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		
+		.modal-content h2 {
+			margin-top: 0;
+		}
+		
+		.modal-body {
+			max-height: 65%;
+			overflow-y: auto;
+
+		}
+
+		/* Style input fields */
+		.modal-body input[type="text"],
+		.modal-body input[type="email"],
+		.modal-body input[type="password"]  {
+			width: 80%; 
+			height: 2%; 
+			margin: 2% 0 0 10%; 
+			padding: 5px; 
+			box-sizing: border-box; 
+			border-radius: 5px; 
+			border: 1px solid #ccc; 
+		}
+		.modal-body textarea{
+			margin: 2% 0 0 10%;
+			flex-grow:1;
+			width: 80%;
+			border-radius: 5px; 
+			border: 1px solid #ccc; 
+
+
+		}
+
+		.modal-body input[type="text"]:focus,
+		.modal-body input[type="email"]:focus,
+		.modal-body input[type="password"]:focus {
+			border-color: #3082ee; /* Border color on focus */
+			outline: none; /* Remove default outline */
+		}
+
+		@media (max-width: 768px) {
+			/* First do the big version */
+			.modal-content-big {
+			  width: 90% !important;
+			  max-width: 90% !important;
+			  max-height: 80% !important;
+			  height: 90% !important;
+			  margin: 20% auto;
+			}
+
+			.modal-body input {
+				width: 85% !important
+			}
+
+			.modal-content textarea {
+				height: 1000px
+			}
+
+			/* do the same for the small version */
+			.modal-content-small {
+				width: 90% !important;
+				max-width: 90% !important;
+				max-height: 90% !important;
+				height: 70% !important;
+				margin: 25% auto;
+			}
+
+			.modal-body-small input {
+				width: 85% !important
+			}
+
+
+		}
+
+		/* helps center an image using inline */
+        .center-container {
+            text-align: center;
+        }
+		
 
 		.overlay {
 			position: fixed;

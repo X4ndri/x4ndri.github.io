@@ -2,6 +2,17 @@ baseURL = 'https://www.qader.dev/blog'
 languageCode = 'en-us'
 title = 'D0WN$AMPLED'
 theme = 'archie'
+copyright = "© ahmad ©"
+
+[params]
+	mode="toggle" 
+	useCDN=true 
+	mathjax = true 
+	katex = true 
+
+
+
+
 
 [[menu.main]]
   name = "Homepage"
@@ -23,3 +34,15 @@ theme = 'archie'
   name = "Within The Margins"
   url = "/posts/withinthemargins"
   weight = 4
+
+
+[[params.social]]
+name = "Twitter"
+icon = "twitter"
+url = "https://twitter.com/forrealahmad/"
+
+[[params.social]]
+name = "GitHub"
+icon = "github"
+url = "https://github.com/x4ndri"
+

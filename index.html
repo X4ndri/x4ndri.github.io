@@ -20,46 +20,29 @@
 		<link rel="icon" href="images/brain1.png">
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
 	</head>
 	<body class="landing is-preload">
 
 		<!-- Page Wrapper -->
-			<div id="page-wrapper">
-
-				<!-- Header -->
-					<header id="header" class="alt">
-						<h1><a href="index.html">Ahmad AbdalQader</a></h1>
-						<!-- <nav id="nav">
-							<ul>
-								<li class="special">
-									<a href="#menu" class="menuToggle"><span>Menu</span></a>
-									<div id="menu">
-										<ul>
-											<li><a href="index.html">Home</a></li>
-											<li><a href="http://x4ndri.github.io/eblog/posts/withinthemargins">Blog: Posts</a></li>
-											<li><a href="http://x4ndri.github.io/eblog/posts/beyondthemargins">Blog: Beyond the margins</a></li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</nav> -->
-					</header>
-
-				<!-- Banner -->
-					<section id="banner" style="margin-bottom: 0em; padding-bottom: 0em;">
+			<div id="page-wrapper" class="page-wrapper">
+					<section id="banner">
 						<ul class="icons major">
 							<li><span class="icon solid fa-code major style3"><span class="label">code</span></span></li>
 							<li><span class="icon solid fa-brain major style3"><span class="label">brain</span></span></li>
+
 						</ul>
-						<div class="inner" style="margin-bottom: 0em; padding-bottom: 0em;">
+						<div class="inner" >
 							<h2>AHMAD ABDALQADER</h2>
+							<!-- <p>Joint PH.D. STUDENT AT GEORGIA TECH AND EMORY UNIVERSITY<br />
+							in Biomedical Engineering &#x2229 Neuroscience<br /> -->
 							<p>Joint PH.D. STUDENT AT GEORGIA TECH AND EMORY UNIVERSITY<br />
-							in Biomedical Engineering &#x2229 Neuroscience<br />
+								in BME, ML & Motor Neuroscience<br />
 							@ <a href="http://snel.gatech.edu">Systems Neural Engineering Lab</a>. Atlanta, GA</p>
 						</div>
 
 						<section>
-							<ul class="actions special">
+							<ul class="actions special" style="margin-bottom:0%">
 								<li><a href="#research" class="button primary">Research</a></li>
 								<li><a href="assets/cv-redacted.pdf" class="button primary">CV</a></li>
 								<li><a href="http://x4ndri.github.io/blog" class="button primary">Blog</a></li>
@@ -72,7 +55,7 @@
 							
 						<div>
 							<footer id="footer" style="background: transparent;">
-								<ul class="icons">
+								<ul class="icons" style="margin-bottom: 3%;">
 									<!-- <h5 style="font-size: 0.1;">Find me on:</h5> -->
 									<li><a href="https://www.linkedin.com/in/aaqader" class="icon brands fa-linkedin"><span class="label">Facebook</span></a></li>
 									<li><a href="https://www.twitter.com/forrealahmad" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
@@ -89,87 +72,115 @@
 					<!-- Buttons Stuff -->
 					<section>							
 					<div style="height: 0px; width: 1200;">
+					
 
-						<!-- Research -->
-						<div id="research" class="overlay" style="height:auto;">
-							<div class="popup" style="height:fit-content ; width:auto; scroll-behavior:smooth;">
-								<a class="close"  href="#"></a>
-							<h2 style="z-index: 1;"><u style="text-underline-offset: 0.5em; color: white;">Research</u></h2>
-							<div class="content">
-
-							<!-- LAB LOGO -->						
-							<a href="https://snel.gatech.edu">
-							<img src="assets/snel.png" style=" width: 50%; height: 50%; display: block; margin-left: auto; margin-right:auto;"></a>
-							
-							<!-- Conferences Attended -->
-							<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
-								<b>Conferences Attended</b>
-							</h5>
-
-								<ul style="list-style-type: disc; padding-left: 20px;">
-									<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">BrainGate Annual Summit, Atlanta Aug '23</li>
-									<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">Annunal Workshop On Calcium And Voltage Analysis With CaImAn, NYC Feb '23</li>
-									<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">Collaborative Research in Computational Neuroscience Meeting (CRCNS), Atlanta Oct '22</li>
-									<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">Simons-Emory International Consortium on Motor Control, Atlanta Oct '22</li>
-								</ul>
-
-							<!-- Papers and Preprints -->
-							<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
-								<b>Papers And Prepreints</b>
-							</h5>
-							<ul style="list-style-type: disc; padding-left: 20px;">
-								<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">More coming</li>
-							</ul>	
-							<!-- Conference Abstracts -->
-							<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
-								<b>Abstracts</b>
-							</h5>
-							<ul style="list-style-type: disc; padding-left: 20px;">
-								<li style="font-family: 'arial'; font-weight: 100; line-height: 1.5em;">More coming</li>
-							</ul>
-							</div>
-						  </div>
+					<!-- Reseach Modal -->
+					<div id="research" class="modal">
+						<div class="modal-content-big">
+							<a href="#" class="modal-close">&times;</a>
+							<h2>research</h2>
+							<div class="center-container">
+							<img src="assets/snel.png" width="250" height="120">
 						</div>
-
-						<!-- Contact -->
-						<div id="contact-me" class="overlay">
-							<div class="popup" style="height: fit-content; width: fit-content;">
-								<a class="close"  href="#"></a>
-								<h3 style="color: #76ddff; text-underline-offset: 0.3em;"><u>Contact Me:</u></h3>
-							  <div class="content">
-								<form
-								action="https://formspree.io/f/xzbqpjda"
-								method="POST"
-								>
-								<p>Use the form below to reach me if you would like to get in touch.<br> I can also be found via <a href="https://directory.gatech.edu/"> Georgia Tech</a> and <a href="https://directory.service.emory.edu/">Emory</a> directories. </p>
-								<label>
-									Name:
-									<input type="text" name="name">
-									
-								</label>
-								<label>
-									Email:
-									<input type="email" name="email">
-								</label>
-								</label>
-								<label>
-									Message:
-									<textarea name="message" style="height: 8em;" ></textarea>
-								</label>
-								<!-- your other form fields go here -->
-								<button type="submit">Send</button>
-								<div style="float: right;">
-								<ul class="icons">
-									<li><a href="https://www.linkedin.com/in/aaqader" class="icon brands fa-linkedin"><span class="label"> Linkedin</span></a></li>
-									<li><a href="https://www.twitter.com/forrealahmad" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<div class="modal-body">
+								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
+									<b>Conferences Attended</b>
+								</h5>
+	
+									<ul style="list-style-type: disc; padding-left: 20px;">
+										<li> <a href='https://www.braingate.org/' style= "color: skyblue ">BrainGate </a> Annual Summit, Atlanta Aug '23</li>
+										<li> <a href='https://www.simonsfoundation.org/' style="color:skyblue"> Simons Foundation </a>Annunal Workshop On Calcium And Voltage Analysis With CaImAn, NYC Feb '23</li>
+										<li> <a href="https://www.nsf.gov/" style="color:skyblue">NSF</a> Collaborative Research in Computational Neuroscience Meeting (CRCNS), Atlanta Oct '22</li>
+										<li> <a href="http://www.internationalmotorcontrol.org/" style="color:skyblue">Simons-Emory</a> International Consortium on Motor Control, Atlanta Oct '22</li>
+									</ul>
+	
+								<!-- Papers and Preprints -->
+								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
+									<b>Papers And Prepreints</b>
+								</h5>
+								<ul style="list-style-type: disc; padding-left: 20px;">
+									<li>more on the way</li>
+								</ul>	
+								<!-- Conference Abstracts -->
+								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
+									<b>Abstracts</b>
+								</h5>
+								<ul style="list-style-type: disc; padding-left: 20px;">
+									<li>more on the way</li>
 								</ul>
-								</div>
-								</form>
-							  </div>
 							</div>
-						  </div>
-					  </div>
-					</section>
+						</div>
+					</div>
+
+					<!-- Contact -->
+					<div id="contact-me" class="modal" >
+						<div class="modal-content-small" style="width: 40%; height: 80%">
+							<a href="#" class="modal-close">&times;</a>
+							<!-- <div class="modal-body" style="max-height: 100%"> -->
+							<div >
+								<div>
+								<div>
+									<div class="center-container">
+									<h2 >
+										Contact Me!
+									</h2>
+
+									</div>
+									<div>
+										<form action="https://api.web3forms.com/submit" method="POST" id="form">
+											<input type="hidden" name="access_key" value="c353b0c5-2b7a-4263-a0fb-f32588ce499e" />
+											<input type="hidden" name="subject" value="New contact request submission for Ahmad" />
+											<input type="checkbox" name="botcheck" id="" style="display: none;" />
+											
+											<div class="form-group">
+												<label for="name">Full Name</label>
+												<input type="text" name="name" id="name" placeholder="John Doe" required class="form-control" />
+											</div>
+											<div class="form-group">
+												<label for="email">Email Address</label>
+												<input type="email" name="email" id="email" placeholder="free@palestine.com" required class="form-control" />
+											</div>
+											<div class="form-group">
+												<label for="phone">Phone Number</label>
+												<input type="text" name="phone" id="phone" placeholder="+1 (555) 1234-567" required class="form-control" />
+											</div>
+											<div class="form-group">
+												<label for="message">Your Message</label>
+												<textarea rows="3" name="message" id="message" placeholder="Your Message" required class="form-control" style="margin-bottom: 5%;"></textarea>
+											</div>
+											<div class="center-container">
+												<button type="submit" style="text-align: right;">
+													Send Message
+												</button>
+											</div>
+											<p id="result"></p>
+										</form>
+									</div>
+									
+									<style>
+										.form-group {
+											margin-bottom: 16px; /* Add bottom margin to each form group */
+										}
+										.form-control {
+											display: block;
+											width: 100%;
+											padding: 8px;
+											margin-bottom: 16px; /* Add bottom margin to each input and textarea */
+											border-radius: 4px;
+											border: 1px solid #ccc;
+										}
+									</style>
+									
+								</div>
+							</div>
+  						</div>
+					</div>
+				</div>
+			</div>
+					
+
+
+				</section>
 					
 			</div>
 
