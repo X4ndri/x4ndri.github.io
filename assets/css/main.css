@@ -3592,8 +3592,8 @@ input, select, textarea {
 		-ms-justify-content: center;
 		justify-content: center;
 		cursor:default;
-		height:98vh !important;
-		min-height: 35em;
+		height:100vh !important;
+		min-height: 100vh;
 		overflow: hidden;
 		position: relative;
 		text-align: center;
