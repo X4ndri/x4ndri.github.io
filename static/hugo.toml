@@ -11,7 +11,10 @@ copyright = "© ahmad ©"
 	katex = true 
 
 
-
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 
 [[menu.main]]
