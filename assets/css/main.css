@@ -123,11 +123,11 @@ input, select, textarea {
 			transition: none !important;
 		}
 
-	body, input, select, textarea {
+	body, input, select, textarea, button {
 		color: #fff;
-		font-family: "Open Sans", Helvetica, sans-serif;
-		font-size: 15pt;
-		font-weight: 400;
+		font-family: 'Montserrat', sans-serif !important;
+		font-size: 14pt;
+		font-weight: 300;
 		letter-spacing: 0.075em;
 		line-height: 1.65em;
 	}
@@ -191,6 +191,7 @@ input, select, textarea {
 		line-height: 1em;
 		margin: 0 0 1em 0;
 		text-transform: uppercase;
+		font-family: 'Montserrat', sans-serif !important;
 	}
 
 		h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
@@ -3663,7 +3664,7 @@ input, select, textarea {
 		#banner p {
 			letter-spacing: 0.225em;
 			text-transform: uppercase;
-			font-family: 'Roboto';
+			font-family: 'Montserrat', sans-serif !important;
 			font-weight: 200;
 		}
 
@@ -3859,139 +3860,202 @@ input, select, textarea {
 
 		.modal {
 			display: none;
-			position:fixed;
+			position: fixed;
 			z-index: 1000;
 			left: 0;
 			top: 0;
 			width: 100%;
 			height: 100%;
-			overflow: auto;
-			background-color: rgba(0,0,0,0.4);
-			scrollbar-width: initial;
+			background-color: rgba(0,0,0,0.7);
+			overflow-y: auto;
+			-webkit-overflow-scrolling: touch;
+			text-align: center;
+		}
+
+		.modal:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			margin-right: -0.25em;
+		}
+
+		.modal-content-big, .modal-content-small {
+			background: #2a2f4a;
+			position: relative;
+			display: inline-block;
+			vertical-align: middle;
+			padding: 2em;
+			box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+			border-radius: 5px;
+			max-width: 90%;
+			width: 800px;
+			margin: 2em auto;
+			text-align: left;
+		}
+
+		.modal-content-small {
+			width: 500px;
 		}
 
 		.modal:target {
 			display: block;
-			scroll-behavior: initial;
-			overflow-y: hidden;
 		}
-		
-		.modal-content-big {
-			background-color: rgba(20, 16, 16, 0.9);
 
-			margin: 5% auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-			height:85%;
-			max-width: 60%;
-			border-radius: 10px;
-			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+		.modal-content-big, .modal-content-small {
+			background: #202224;
+			width: auto;
+			min-width: 400px;
+			max-width: 800px;
+			height: auto;
+			max-height: 70vh;
+			border-radius: 12px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+			position: relative;
+			overflow-y: auto;
+			transform: translateY(20px);
+			transition: transform 0.3s ease-out;
+			color: #fff;
+			margin: 20px;
+			padding: 32px 32px 24px 32px;
+			box-sizing: border-box;
 		}
-		
+
 		.modal-content-small {
-			background-color: rgba(20, 16, 16, 0.9);
-
-			margin: 5% auto;
-			padding: 20px;
-			border: 1px solid #888;
-			width: 80%;
-			height:60%;
-			max-width: 60%;
-			border-radius: 10px;
-			box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+			background: #202224;
+			width: auto;
+			min-width: 400px;
+			max-width: 600px;
+			height: auto;
+			max-height: 70vh;
+			border-radius: 12px;
+			box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+			position: relative;
+			overflow-y: auto;
+			transform: translateY(20px);
+			transition: transform 0.3s ease-in-out;
+			color: #fff;
+			margin: 20px;
 		}
 
+		.modal:target .modal-content-big,
+		.modal:target .modal-content-small {
+			transform: translateY(0);
+		}
 
 		.modal-close {
-			color: #3082ee;
-			float: right;
-			font-size: 28px;
-			font-weight: bold;
+			position: absolute;
+			top: 15px;
+			right: 15px;
+			width: 40px;
+			height: 40px;
+			background: none !important;
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			text-decoration: none;
-		}
-		
-		.modal-close:hover{
-			color: #d18153;
+			color: #fff;
+			font-size: 2em;
+			line-height: 1;
+			transition: all 0.2s ease;
+			z-index: 1;
+			box-shadow: none !important;
+			outline: none !important;
+			border: none !important;
 		}
 
-		.modal-close:focus {
-			color: #000;
-			text-decoration: none;
-			cursor: pointer;
+		.modal-close:before,
+		.modal-close:after {
+			display: none !important;
+			content: none !important;
+			background: none !important;
+			box-shadow: none !important;
 		}
-		
+
+		.modal-close:hover {
+			background: rgba(255, 255, 255, 0.2);
+			transform: rotate(90deg);
+		}
+
 		.modal-content h2 {
-			margin-top: 0;
+			margin: 0 0 16px 0;
+			padding: 0;
+			border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			font-size: 1.3em;
+			color: #fff;
 		}
-		
+
 		.modal-body {
-			max-height: 65%;
-			overflow-y: auto;
-
+			padding: 0;
 		}
 
-		/* Style input fields */
 		.modal-body input[type="text"],
 		.modal-body input[type="email"],
-		.modal-body input[type="password"]  {
-			width: 80%; 
-			height: 2%; 
-			margin: 2% 0 0 10%; 
-			padding: 5px; 
-			box-sizing: border-box; 
-			border-radius: 5px; 
-			border: 1px solid #ccc; 
-		}
-		.modal-body textarea{
-			margin: 2% 0 0 10%;
-			flex-grow:1;
-			width: 80%;
-			border-radius: 5px; 
-			border: 1px solid #ccc; 
-
-
+		.modal-body input[type="tel"],
+		.modal-body textarea {
+			width: 100%;
+			padding: 12px 15px;
+			margin-bottom: 15px;
+			border: 1px solid rgba(255, 255, 255, 0.2);
+			border-radius: 6px;
+			font-size: 15px;
+			transition: border-color 0.3s ease;
+			background: rgba(255, 255, 255, 0.1);
+			color: #fff;
+			box-sizing: border-box;
 		}
 
-		.modal-body input[type="text"]:focus,
-		.modal-body input[type="email"]:focus,
-		.modal-body input[type="password"]:focus {
-			border-color: #3082ee; /* Border color on focus */
-			outline: none; /* Remove default outline */
+		.modal-body textarea {
+			min-height: 80px;
+			max-height: 150px;
+			resize: vertical;
+		}
+
+		.modal-body label {
+			color: #fff;
+			display: block;
+			margin-bottom: 8px;
+			font-size: 0.9em;
 		}
 
 		@media (max-width: 768px) {
-			/* First do the big version */
-			.modal-content-big {
-			  width: 90% !important;
-			  max-width: 90% !important;
-			  max-height: 80% !important;
-			  height: 90% !important;
-			  margin: 20% auto;
-			}
-
-			.modal-body input {
-				width: 85% !important
-			}
-
-			.modal-content textarea {
-				height: 1000px
-			}
-
-			/* do the same for the small version */
+			.modal-content-big,
 			.modal-content-small {
-				width: 90% !important;
-				max-width: 90% !important;
-				max-height: 90% !important;
-				height: 70% !important;
-				margin: 25% auto;
+				width: 95%;
+				min-width: 0;
+				max-width: none;
+				margin: 10px;
+				max-height: 80vh;
+				padding: 20px 10px 16px 10px;
 			}
-
-			.modal-body-small input {
-				width: 85% !important
+			
+			.modal-body {
+				padding: 20px 30px;
 			}
+			
+			.modal-content h2 {
+				padding: 15px 30px;
+			}
+		}
 
-
+		@media (max-width: 480px) {
+			.modal-content-big,
+			.modal-content-small {
+				width: 100%;
+				min-width: 0;
+				margin: 0;
+				border-radius: 0;
+				max-height: 100vh;
+			}
+			
+			.modal-body {
+				padding: 20px;
+			}
+			
+			.modal-content h2 {
+				padding: 15px 20px;
+			}
 		}
 
 		/* helps center an image using inline */
@@ -4054,39 +4118,36 @@ input, select, textarea {
 		}
 		
 		.popup .close {
-			display:grid;
-			position:absolute;
+			display: grid;
+			position: absolute;
 			top: 20px;
 			right: 30px;
 			transition: all 200ms;
 			font-size: 30px;
 			font-weight: bold;
 			text-decoration: none;
-			color: #333;
-		}
-		
-		.popup .close:before {
-			-moz-transition: background-color 0.2s ease-in-out;
-			-webkit-transition: background-color 0.2s ease-in-out;
-			-ms-transition: background-color 0.2s ease-in-out;
-			transition: background-color 0.2s ease-in-out;
-			content: '';
-			display: block;
+			color: #fff;
+			background: none;
+			border: none;
 			width: 2.5rem;
 			height: 2.5rem;
 			border-radius: 100%;
-			background-position: center;
-			background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='20px' height='20px' viewBox='0 0 20 20' zoomAndPan='disable'%3E%3Cstyle%3Eline %7B stroke: %23ffffff%3B stroke-width: 1%3B %7D%3C/style%3E%3Cline x1='2' y1='2' x2='18' y2='18' /%3E%3Cline x1='18' y1='2' x2='2' y2='18' /%3E%3C/svg%3E");
-			background-size: 20px 20px;
-			background-repeat: no-repeat;
+			align-items: center;
+			justify-items: center;
+			z-index: 2;
 		}
 		
-		.popup .close:hover:before {
-			background-color: rgba(255, 255, 255, 0.075);
+		.popup .close:hover {
+			background-color: rgba(255,255,255,0.075);
 		}
 		
-		.popup .close:active:before {
-			background-color: rgba(255, 255, 255, 0.175);
+		.popup .close:active {
+			background-color: rgba(255,255,255,0.175);
+		}
+		
+		.popup .close:before {
+			content: '';
+			display: none;
 		}
 		
 		@media screen and (max-width: 736px) {
@@ -4369,3 +4430,100 @@ input, select, textarea {
 	body.is-mobile.landing #footer {
 		background-color: transparent;
 	}
+
+.modal-content-big h5 b,
+.modal-content-small h5 b {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    font-size: 1.2em;
+    color: #fff;
+    background: none;
+}
+
+.modal-content-big ul,
+.modal-content-small ul {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 400;
+    font-size: 1em;
+    color: #fff;
+}
+
+.modal-content-big ul b,
+.modal-content-small ul b {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700;
+}
+
+.modal-content-big h2,
+.modal-content-small h2 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: #fff;
+    font-size: 2em;
+    text-align: center;
+    position: relative;
+    margin-bottom: 1.2em;
+}
+
+.modal-content-big h2::after,
+.modal-content-small h2::after {
+    content: '';
+    display: block;
+    margin: 0.5em auto 0 auto;
+    width: 60%;
+    border-bottom: 2px solid #fff;
+    opacity: 0.8;
+}
+
+.modal-content-small input[type="text"],
+.modal-content-small input[type="email"],
+.modal-content-small input[type="tel"],
+.modal-content-small textarea {
+    width: 90%;
+    min-width: 250px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto 16px auto;
+    display: block;
+}
+
+.modal-content-small {
+    max-width: 650px;
+    min-width: 350px;
+    width: 95%;
+}
+
+.modal-content-small form {
+    width: 100%;
+}
+
+.modal-content-small h2 {
+    font-size: 1.4em;
+}
+
+.center-container a img {
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+.center-container a {
+    border-bottom: none !important;
+    outline: none !important;
+}
+
+.modal-content-big a,
+.modal-content-small a {
+    border-bottom: none !important;
+    outline: none !important;
+    text-decoration: none !important;
+}
+
+.modal-content-big {
+    max-width: 900px;
+    min-width: 400px;
+    width: 98%;
+}

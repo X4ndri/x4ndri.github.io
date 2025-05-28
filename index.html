@@ -4,6 +4,7 @@
 		<title>Ahmad AbdalQader</title>
 		<meta charset="utf-8" />
 		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 
 		<!-- ganal -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2SE668F99F"></script>
@@ -19,6 +20,29 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+		<style>
+		title {
+			font-family: 'Montserrat', sans-serif;
+		}
+		.modal-content-big h2,
+		.modal-content-small h2 {
+			font-size: 1.4em;
+		}
+		#banner h2 {
+			font-family: 'Montserrat', sans-serif !important;
+			font-weight: 400;
+			letter-spacing: 0.18em;
+			text-transform: uppercase;
+			font-size: 2.2em; /* or adjust as needed */
+			color: #fff;
+			margin-bottom: 0.5em;
+			text-shadow: none;
+		}
+		body, input, select, textarea, button, a, p, h1, h2, h3, h4, h5, h6, ul, ol, li, label, .form-control {
+			font-family: 'Montserrat', sans-serif !important;
+			font-weight: 300; /* or 400 for regular */
+		}
+		</style>
 	</head>
 
 
@@ -44,12 +68,10 @@
 
 						<section>
 							<ul class="actions special" style="margin-bottom:0%">
-								<li><a href="#research" class="button primary">Research</a></li>
-								<li><a href="assets/cv-redacted.pdf" class="button primary">CV</a></li>
+								<li><a href="#" class="button primary modal-trigger" data-modal="research">Research</a></li>
+								<li><a href="pdfs/cv-redacted.pdf" class="button primary">CV</a></li>
 								<li><a href="http://x4ndri.github.io/blog" class="button primary">Blog</a></li>
-
-								<li><a href="#contact-me" class="button primary">Contact</a></li>
-
+								<li><a href="#" class="button primary modal-trigger" data-modal="contact-me">Contact</a></li>
 							</ul>
 
 							</section>
@@ -73,28 +95,49 @@
 					<!-- Buttons Stuff -->
 					<section>							
 					<div style="height: 0px; width: 1200;">
-					
 
 					<!-- Reseach Modal -->
 					<div id="research" class="modal">
 						<div class="modal-content-big">
-							<a href="#" class="modal-close">&times;</a>
+							<a href="#" class="modal-close">×</a>
 							<h2>research</h2>
 							<div class="center-container">
-							<img src="assets/snel.png" width="250" height="120">
-						</div>
+								<p>
+									<img src="images/orcid.ico" height="12">
+									<a href="https://orcid.org/0009-0001-3030-9864" target="_blank" rel="noopener">
+										orcid.org/0009-0001-3030-9864
+									</a>
+								</p>
+
+								<a href="https://snel.ai/" target="_blank" rel="noopener">
+									<img src="images/snel.png" width="250" height="120">
+								</a>
+							</div>
 							<div class="modal-body">
 								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
+
+									<!-- Conferences Attended -->
 									<b>Conferences Attended</b>
 								</h5>
-	
 									<ul style="list-style-type: disc; padding-left: 20px;">
+										<li> Annual <a href='https://interfaceneuro.org/' style= "color: skyblue ">Interface Neuro </a> Meeting, Atlanta May '25</li>
 										<li> <a href='https://www.braingate.org/' style= "color: skyblue ">BrainGate </a> Annual Summit, Atlanta Aug '23</li>
 										<li> <a href='https://www.simonsfoundation.org/' style="color:skyblue"> Simons Foundation </a>Annunal Workshop On Calcium And Voltage Analysis With CaImAn, NYC Feb '23</li>
 										<li> <a href="https://www.nsf.gov/" style="color:skyblue">NSF</a> Collaborative Research in Computational Neuroscience Meeting (CRCNS), Atlanta Oct '22</li>
 										<li> <a href="http://www.internationalmotorcontrol.org/" style="color:skyblue">Simons-Emory</a> International Consortium on Motor Control, Atlanta Oct '22</li>
 									</ul>
-	
+
+								<!-- Conference Abstracts -->
+								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
+									<b>Conference Abstracts</b>
+								</h5>
+								<ul style="list-style-type: disc; padding-left: 20px;">
+									<li><strong>Abdal Qader A</strong> , Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ (2025) 
+										<a href='pdfs/behavioral_segmentation_poster.pdf' style= "color: skyblue ">
+											<u>Behavioral Signature of Trihexyphenidyl in The Tor1a (DYT1) Knockin Mouse Model of Dystonia.</u></a>
+										Interface Neuro, Atlanta, GA, May 2025.</li>
+								</ul>
+
 								<!-- Papers and Preprints -->
 								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
 									<b>Papers And Prepreints</b>
@@ -102,28 +145,22 @@
 								<ul style="list-style-type: disc; padding-left: 20px;">
 									<li>more on the way</li>
 								</ul>	
-								<!-- Conference Abstracts -->
-								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 3em; color: white;">
-									<b>Abstracts</b>
-								</h5>
-								<ul style="list-style-type: disc; padding-left: 20px;">
-									<li>more on the way</li>
-								</ul>
+
 							</div>
 						</div>
 					</div>
 
 					<!-- Contact -->
 					<div id="contact-me" class="modal" >
-						<div class="modal-content-small" style="width: 40%; height: 80%">
-							<a href="#" class="modal-close">&times;</a>
+						<div class="modal-content-small">
+							<a href="#" class="modal-close">×</a>
 							<!-- <div class="modal-body" style="max-height: 100%"> -->
 							<div >
 								<div>
 								<div>
 									<div class="center-container">
-									<h2 >
-										Contact Me!
+									<h2>
+										Contact Me
 									</h2>
 
 									</div>
@@ -139,7 +176,7 @@
 											</div>
 											<div class="form-group">
 												<label for="email">Email Address</label>
-												<input type="email" name="email" id="email" placeholder="free@palestine.com" required class="form-control" />
+												<input type="email" name="email" id="email" placeholder="example@mail.com" required class="form-control" />
 											</div>
 											<div class="form-group">
 												<label for="phone">Phone Number</label>
@@ -193,6 +230,45 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<script>
+				// Modal handling
+				document.addEventListener('DOMContentLoaded', function() {
+					// Handle modal triggers
+					document.querySelectorAll('.modal-trigger').forEach(trigger => {
+						trigger.addEventListener('click', function(e) {
+							e.preventDefault();
+							const modalId = this.getAttribute('data-modal');
+							const modal = document.getElementById(modalId);
+							modal.style.display = 'block';
+							// Scroll to top of modal
+							modal.scrollTop = 0;
+						});
+					});
+
+					// Handle modal close buttons
+					document.querySelectorAll('.modal-close').forEach(closeBtn => {
+						closeBtn.addEventListener('click', function(e) {
+							e.preventDefault();
+							const modal = this.closest('.modal');
+							modal.style.display = 'none';
+						});
+					});
+
+					// Close modal when clicking outside
+					document.querySelectorAll('.modal').forEach(modal => {
+						modal.addEventListener('click', function(e) {
+							if (e.target === this) {
+								this.style.display = 'none';
+							}
+						});
+					});
+
+					// Close any open modals on page load
+					document.querySelectorAll('.modal').forEach(modal => {
+						modal.style.display = 'none';
+					});
+				});
+			</script>
 
 	</body>
 </html>
