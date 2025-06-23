@@ -6,8 +6,7 @@ author: Ahmad Abdal Qader
 draft: false
 ---
 
-## But what is a neuron?
-Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level. Let's take a deeper look into what makes up a neuron.
+But what is a **neuron**? Think of a neuron as the fundamental unit of processing in our brains. Analogous to transistors in a microcontroller or a processing unit, neurons, when connected intelligently together, can form rather intricate circuits that perform logic and computation quickly and efficiently . Zooming in on these circuits, a neuron receives inputs and decides whether to pass them to other neurons or not. However, this process is not as straight forward as it might first sound; there is a multitude of intertwined variables at play that dictate this process on the single neuron level. Let's take a deeper look into what makes up a neuron.
 
 
 ## The anatomy of a neuron
