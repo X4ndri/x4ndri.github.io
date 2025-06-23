@@ -4168,70 +4168,6 @@ input, select, textarea {
 		}
 				
 
-
-/* OLD POPUP */
-	/* .box {
-		width: 20%;
-		margin: 0 auto;
-		background: rgba(255, 255, 255, 0.2);
-		padding: 35px;
-		border: 2px solid #fff;
-		border-radius: 20px/50px;
-		background-clip: padding-box;
-		text-align: center;
-	}
-	
-	.overlay {
-		position: fixed;
-		top: 0;
-		bottom: 0;
-		left: 0;
-		right: 0;
-		background: rgba(0, 0, 0, 0.7);
-		transition: opacity 500ms;
-		visibility: hidden;
-		opacity: 0;
-		overflow-y: scroll;
-		height: auto;
-	}
-	
-	.overlay:target {
-		visibility: visible;
-		opacity: 1;
-	}
-	
-	.popup {
-		margin: 70px auto;
-		padding: 20px;
-		background: rgb(54, 46, 46);
-		border-radius: 5px;
-		width: 50%;
-		height:auto;
-		position: relative;
-		transition: all 0.5s ease-in-out;
-		opacity: 1;
-	}
-	
-	.popup h2 {
-		margin-top: 0;
-		color: #76ddff;
-		font-family: Tahoma, Arial, sans-serif;
-	}
-	
-	.popup .close {
-		position: absolute;
-		top: 20px;
-		right: 30px;
-		transition: all 200ms;
-		font-size: 30px;
-		font-weight: bold;
-		text-decoration: none;
-		color: #333;
-	}
-
-			
-/* Wrapper */
-
 	#wrapper {
 		display: -moz-flex;
 		display: -webkit-flex;
@@ -4434,32 +4370,33 @@ input, select, textarea {
 .modal-content-big h5 b,
 .modal-content-small h5 b {
     font-family: 'Montserrat', sans-serif !important;
-    font-weight: 700;
+    font-weight: 450;
     text-transform: uppercase;
-    letter-spacing: 0.18em;
-    font-size: 1.2em;
+    letter-spacing: 0.08em;
+    font-size: 1em;
     color: #fff;
     background: none;
+	/* there is a lot of bottom padding here, reduce it */
 }
 
 .modal-content-big ul,
 .modal-content-small ul {
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 400;
-    font-size: 1em;
+    font-size: 0.85em;
     color: #fff;
 }
 
 .modal-content-big ul b,
 .modal-content-small ul b {
     font-family: 'Montserrat', sans-serif !important;
-    font-weight: 700;
+    font-weight: 450;
 }
 
 .modal-content-big h2,
 .modal-content-small h2 {
     font-family: 'Montserrat', sans-serif !important;
-    font-weight: 700;
+    font-weight: 400;
     text-transform: uppercase;
     letter-spacing: 0.18em;
     color: #fff;
