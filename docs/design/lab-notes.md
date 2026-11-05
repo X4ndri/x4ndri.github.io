@@ -15,3 +15,11 @@ inlined in `index.html` so the page has no fetches and works from `file://`.
 
 This is a prototype, not the site. The site is built from whatever this
 settles on; see `../2026-11-04-site-revamp.md`.
+
+## Keeping the preview in step
+
+`preview/index.html` is the lab wrapped as a standalone document: the version
+in the design tool is a fragment with no doctype, viewport or charset, because
+that tool supplies them. Anything regenerated from there needs the same wrapper
+and the `noindex` tag put back, or the page renders in quirks mode and is
+broken at phone width.
