@@ -1,277 +1,1507 @@
-<!DOCTYPE HTML>
-<html>
-	<head>
-		<title>Ahmad AbdalQader</title>
-		<meta charset="utf-8" />
-		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Ahmad Abdal Qader — neural decoding for brain–computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
+<link rel="canonical" href="https://qader.dev/">
+<link rel="icon" href="images/brain1.png">
 
-		<!-- ganal -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-2SE668F99F"></script>
-		<script>
-		window.dataLayer = window.dataLayer || [];
-		function gtag(){dataLayer.push(arguments);}
-		gtag('js', new Date());
-		gtag('config', 'G-2SE668F99F');
-		</script>
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://qader.dev/">
+<meta property="og:title" content="Ahmad Abdal Qader">
+<meta property="og:description" content="Neural decoding for brain–computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
+<meta name="twitter:card" content="summary">
 
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="icon" href="images/brain1.png">
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-		<!-- <script src="https://cdn.tailwindcss.com"></script> -->
-		<style>
-		title {
-			font-family: 'Montserrat', sans-serif;
-		}
-		.modal-content-big h2,
-		.modal-content-small h2 {
-			font-size: 1.4em;
-		}
-		#banner h2 {
-			font-family: 'Montserrat', sans-serif !important;
-			font-weight: 400;
-			letter-spacing: 0.18em;
-			text-transform: uppercase;
-			font-size: 2.2em; /* or adjust as needed */
-			color: #fff;
-			margin-bottom: 0.5em;
-			text-shadow: none;
-		}
-		body, input, select, textarea, button, a, p, h1, h2, h3, h4, h5, h6, ul, ol, li, label, .form-control {
-			font-family: 'Montserrat', sans-serif !important;
-			font-weight: 300; /* or 400 for regular */
-		}
-		</style>
-	</head>
+<!-- Analytics, with the visitor's own preference honoured before anything loads.
+     '1' is an opt-out made by hand on /privacy; '0' is an opt-in made by hand,
+     which overrides the browser signal; neither means follow the signal. -->
+<script>
+  (function () {
+    var ID = 'G-2SE668F99F', K = 'analytics-opt-out';
+    function stored() { try { return localStorage.getItem(K); } catch (e) { return null; } }
+    function signal() {
+      return navigator.globalPrivacyControl === true ||
+             navigator.doNotTrack === '1' || window.doNotTrack === '1';
+    }
+    if (stored() === '1' || (stored() !== '0' && signal())) {
+      window['ga-disable-' + ID] = true;
+    }
+  })();
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2SE668F99F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2SE668F99F');
+</script>
+<title>Ahmad Abdal Qader</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap">
+
+</head>
+<body>
+<style>
+/* ============================================================
+   CONCEPT
+   Each section of the page is a decoder: a real input modality
+   on the left, the readout it produces on the right. Scrolling
+   doesn't cut between them — it interpolates, so the instrument
+   is driven by the scrollbar rather than by a timer.
+
+   Page palette is near-monochrome. Color appears only inside a
+   readout, where it carries meaning. Figure logic.
+   ============================================================ */
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
+
+/* ------------------------------------------------------------------
+   Three coherent worlds, not independent toggles. Colour, type and the
+   treatment of selection move together, because that is what makes a
+   design read as decided rather than assembled.
+
+   --accent is a DATA colour. It marks live and decoded things inside the
+   readouts and nothing else. No part of the interface uses it: selection
+   inverts and links underline, the way print handles emphasis. A page
+   whose brand colour also means "this is the decoded value" is a page
+   where colour means nothing.
+   ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------
+   Terminal. One family, one ground, one live colour. The page is a
+   session readout: fixed width, uniform rhythm, hairlines instead of
+   boxes. --accent marks live and decoded things inside the instrument
+   and the open tile's edge; nothing else in the interface uses it.
+   ------------------------------------------------------------------ */
+/* All dark, but they are not five tints of the same near-black. They differ
+   on three axes at once: how light the ground is, how much hue is IN the
+   ground, and how far the ink sits from the ground. Accent hue is the last
+   thing that separates them, not the first. Measured, left to right:
+     ground L*      0 .. 6 .. 11 .. 9 .. 14
+     ground hue     none, 150deg, 212deg, 16deg, 206deg
+     ink contrast   20:1, 9:1, 13:1, 12:1, 6:1   */
+#stage[data-pal="void"]{       /* no hue anywhere, maximum separation; gallery wall */
+  --bg:#000000; --surface:#0A0A0A; --ink:#FAFAFA; --muted:#767676;
+  --rule:#2B2B2B; --hair:#171717; --tile:#070707; --tileOn:#151515;
+  --accent:#FF4D00; color-scheme:dark;
+}
+#stage{
+  --ff-body:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ff-head:var(--ff-body); --ff-mono:var(--ff-body);
+  --head-weight:500; --head-track:-.012em;
+  --unit:8px; --measure:76ch;
+  --fs-name:28px; --fs-2:19px; --fs-1:16px; --fs-0:13.5px; --fs--1:12.5px; --fs--2:11.5px;
+  min-height:100%;background:var(--bg);color:var(--ink);color-scheme:dark;
+  font-family:var(--ff-body);font-size:var(--fs-0);line-height:1.72;position:relative;
+}
+.s-wrap{width:100%;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.s-name{font-family:var(--ff-head);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  font-size:var(--fs-name);line-height:1.02;margin:0;text-wrap:balance}
+.s-sub{color:var(--muted);font-size:var(--fs--1);margin:calc(var(--unit)*1) 0 0;max-width:72ch}
+.s-lede{font-size:var(--fs-0);line-height:1.6;margin:calc(var(--unit)*2) 0 0;max-width:var(--measure);text-wrap:pretty}
+.s-h2{font-family:var(--ff-head);font-weight:var(--head-weight);letter-spacing:var(--head-track);
+  font-size:var(--fs-2);line-height:1.18;margin:0;text-wrap:balance;max-width:28ch}
+.s-p{margin:calc(var(--unit)*2) 0 0;max-width:var(--measure);text-wrap:pretty}
+.s-mono{font-family:var(--ff-mono);font-size:var(--fs--2);color:var(--muted);font-variant-numeric:tabular-nums}
+.s-a{color:inherit;text-decoration:none;box-shadow:inset 0 -1px 0 var(--accent)}
+.s-a:hover{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
+.s-a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.s-sec{padding-block:clamp(60px,13vh,140px) 0;scroll-margin-top:120px}
+.s-sec:first-of-type{padding-top:clamp(40px,7vh,72px)}
+.s-marker{display:flex;align-items:baseline;gap:calc(var(--unit)*2);font-family:var(--ff-mono);
+  font-size:var(--fs--2);color:var(--muted);border-top:1px solid var(--rule);
+  padding-top:calc(var(--unit)*1.25);margin-bottom:calc(var(--unit)*3.5);letter-spacing:.02em}
+.s-marker i{font-style:normal;color:var(--ink)}
+.s-marker s{text-decoration:none;margin-left:auto;font-variant-numeric:tabular-nums}
+
+.s-fig{position:relative;background:var(--surface);border:1px solid var(--rule);
+  margin:calc(var(--unit)*4) 0 0;aspect-ratio:16/7;max-width:100%;overflow:hidden}
+#stage:not([data-place="inline"]) .s-fig{display:none}
+
+.s-pubs{list-style:none;margin:calc(var(--unit)*3) 0 0;padding:0;display:grid;gap:calc(var(--unit)*3.5)}
+.s-pubs li{max-width:var(--measure)}
+.s-pubs em{color:var(--muted)}
+/* Contact uses the same panel grammar as the instrument and the tiles: a ruled
+   box, a ruled divider, and one inset cell per field. Underlined fields
+   floating loose in a console built entirely of bordered panels were what read
+   as unfinished — the form looked like it belonged to a different page. */
+.s-contact{margin:calc(var(--unit)*3.5) 0 0;max-width:var(--measure);
+  border:1px solid var(--rule);background:var(--surface)}
+.s-cmain{padding:calc(var(--unit)*2.25);display:grid;gap:calc(var(--unit)*1.25);align-content:start}
+.s-cpair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--unit)*1.25)}
+.s-field{display:block;background:var(--tile);border:1px solid var(--rule);
+  padding:calc(var(--unit)*.85) calc(var(--unit)*1.5) calc(var(--unit)*.95);cursor:text}
+.s-field:focus-within{border-color:var(--accent)}
+.s-field>span{display:block;font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.07em;
+  color:var(--muted);line-height:1}
+.s-field input,.s-field textarea{font:inherit;font-size:var(--fs--1);color:var(--ink);
+  background:transparent;border:0;border-radius:0;width:100%;display:block;
+  padding:calc(var(--unit)*.65) 0 0;margin:0}
+.s-field input:focus,.s-field textarea:focus{outline:0}
+.s-field textarea{resize:vertical;min-height:4.5em}
+.s-crow{display:flex;align-items:center;gap:calc(var(--unit)*2);flex-wrap:wrap;
+  margin-top:calc(var(--unit)*.5)}
+.s-send{font:inherit;font-size:var(--fs--1);color:var(--bg);background:var(--ink);border:0;
+  padding:calc(var(--unit)*1.2) calc(var(--unit)*3);cursor:pointer}
+.s-send:hover{background:var(--accent)}
+.s-send:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.s-cnote{margin:0;font-size:var(--fs--2);color:var(--muted);flex:1 1 18ch;min-width:0}
+/* the consent box is drawn rather than left to the OS, so it reads as part of
+   the same instrument and not as a system widget dropped into it */
+.s-check{display:flex;align-items:flex-start;gap:calc(var(--unit)*1.25);cursor:pointer;
+  font-size:var(--fs--2);line-height:1.65;color:var(--muted);margin-top:calc(var(--unit)*.25)}
+.s-check input{appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;position:relative;top:1px;
+  width:15px;height:15px;border:1px solid var(--rule);background:var(--tile);border-radius:0;cursor:pointer}
+.s-check input:checked{border-color:var(--accent);background:var(--accent)}
+.s-check input:checked::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+  border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(42deg)}
+.s-check input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s-check a{color:var(--ink)}
+@media (max-width:620px){ .s-cpair{grid-template-columns:1fr} }
+.s-foot{margin-top:clamp(56px,11vh,120px);padding-block:calc(var(--unit)*4) calc(var(--unit)*12);border-top:1px solid var(--rule)}
+.s-foot a{margin-right:calc(var(--unit)*3)}
+
+/* ---------- console: a 2x2 tile grid with the readout beneath it ---------- */
+.t-top{display:flex;align-items:center;justify-content:space-between;gap:calc(var(--unit)*3);flex-wrap:wrap}
+.t-mark{display:inline-flex;align-items:center;gap:3px;color:var(--ink);font-size:17px;line-height:1}
+.t-mark svg{display:block;color:var(--accent)}
+.t-br{color:var(--muted)}
+.t-links{display:flex;gap:calc(var(--unit)*2.5);flex-wrap:wrap;font-size:var(--fs--1)}
+.t-links a{color:var(--ink);text-decoration:none;border-bottom:1px solid var(--rule);padding-bottom:2px}
+.t-links a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.t-links a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.t-rule{border:0;border-top:1px solid var(--rule);margin:calc(var(--unit)*1.5) 0 calc(var(--unit)*2.25)}
+.t-meta{display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px calc(var(--unit)*2.5);
+  margin:calc(var(--unit)*1.1) 0 0;font-size:var(--fs--2)}
+.t-meta dt{color:var(--ink);white-space:nowrap}
+.t-meta dd{margin:0;color:var(--muted)}
+.t-label{margin:calc(var(--unit)*1.75) 0 calc(var(--unit)*.875);color:var(--muted)}
+.t-label span{color:#5E5B51}
+.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.c-tiles{list-style:none;margin:0;padding:0;display:contents}
+.c-tile{display:grid;gap:0;align-content:start;width:100%;text-align:left;
+  /* equal and fixed, so opening one never resizes the grid */
+  box-sizing:border-box;min-height:clamp(112px,14.6vh,132px);padding:12px 15px 13px;cursor:pointer;
+  font:inherit;color:var(--ink);background:var(--tile);border:1px solid var(--rule)}
+.c-tile:focus-visible{outline:2px solid var(--accent);outline-offset:-3px}
+.c-head{display:flex;justify-content:space-between;align-items:baseline;font-size:var(--fs--2)}
+.c-num,.c-flag{color:var(--muted)}
+.c-title{margin-top:7px;font-size:17px;line-height:1.18;font-weight:var(--head-weight);
+  letter-spacing:var(--head-track)}
+.c-sig{margin-top:7px;font-size:11px;line-height:1.6;color:var(--muted)}
+.c-more{margin-top:7px;font-size:12px;line-height:1.5;max-width:54ch;display:none}
+.c-tile[aria-current="true"]{background:var(--tileOn);border-color:var(--accent)}
+.c-tile[aria-current="true"] .c-num,
+.c-tile[aria-current="true"] .c-sig,
+.c-tile[aria-current="true"] .c-flag{color:#A09A8A}
+/* open swaps the signature for the prose rather than adding to it */
+.c-tile[aria-current="true"] .c-sig{display:none}
+.c-tile[aria-current="true"] .c-more{display:block}
+.c-inst{position:relative;border:1px solid var(--rule);background:var(--surface);
+  min-height:clamp(206px,29vh,300px);overflow:hidden}
+#stage[data-structure="console"]:not([data-place="inline"]) .c-inst{display:none}
+#stage[data-structure="console"]:not([data-place="inline"]) .t-readout{display:none}
+#stage[data-structure="console"] .s-page{max-width:1020px;padding-block:clamp(22px,3vh,36px) calc(var(--unit)*6)}
+@media (max-width:760px){ .c-grid{grid-template-columns:1fr} }
+
+/* instrument placements */
+#inst{background:var(--surface);border:1px solid var(--rule);position:relative;overflow:hidden;z-index:2}
+#ic{display:block;width:100%;height:100%}
+#stage[data-place="rail"] #inst{position:fixed;z-index:3;top:0;bottom:0;
+  left:max(0px,env(safe-area-inset-left,0px));width:clamp(124px,13.5vw,182px);border:0;border-right:1px solid var(--rule)}
+#stage[data-place="rail"] .s-page{margin-left:clamp(124px,13.5vw,182px);max-width:980px}
+#stage[data-place="band"] #inst{position:fixed;z-index:3;left:0;right:0;top:env(safe-area-inset-top,0px);
+  height:clamp(96px,16vh,158px);border:0;border-bottom:1px solid var(--rule)}
+#stage[data-place="band"] .s-page{padding-top:clamp(96px,16vh,158px)}
+#stage[data-place="inline"] #inst{position:absolute;inset:0;border:0;background:transparent}
+#stage[data-place="bleed"] #inst{position:fixed;inset:0;z-index:0;border:0;background:transparent;pointer-events:none}
+#stage[data-place="bleed"] .s-page{position:relative;z-index:1}
+.s-page{max-width:1140px;margin:0 auto;padding-bottom:calc(var(--unit)*4)}
+@media (max-width:760px){
+  #stage[data-place="rail"] #inst{position:fixed;left:0;right:0;top:env(safe-area-inset-top,0px);bottom:auto;
+    width:auto;height:116px;border-right:0;border-bottom:1px solid var(--rule)}
+  #stage[data-place="rail"] .s-page{margin-left:0;padding-top:116px}
+}
+
+.s-hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important;transition-duration:.001ms!important}}
+</style>
+
+<div id="stage" data-pal="void" data-place="inline" data-structure="console">
+  <div id="inst"><canvas id="ic" aria-hidden="true"></canvas></div>
+  <div id="mount"></div>
+</div>
 
 
+<script>
+/* ============================================================
+   CONTENT — provisional copy, real work
+   ============================================================ */
+const SITE={
+  name:"Ahmad Abdal Qader",
+  sub:"PhD candidate \u00b7 biomedical engineering \u00b7 Georgia Tech and Emory \u00b7 Systems Neural Engineering Lab",
+  lede:"I work on neural decoding for brain\u2013computer interfaces. Mostly sequence models on intracortical and surface EMG recordings, run online with people with paralysis.",
+  meta:[["models & systems","sequence-to-sequence and multivariate time-series modeling, domain transfer, closed-loop model deployment, real-time pipelines"],
+        ["modalities","intracortical neural signals, surface electromyography, 3D video, in-vivo one-photon imaging"]],
+  sections:[
+    {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2014",
+     title:"Intracortical handwriting decoding",
+     label:"256-ch intracortical \u00b7 seq2seq + CTC \u00b7 cross-modal transfer",
+     stat:"6% / 14% CER offline / online \u00b7 4\u00d7 data efficiency",
+     more:"Attempted handwriting from a BrainGate2 participant. Adapting a pretrained sEMG decoder to cortex cut the data requirement ~4\u00d7.",
+     body:["Attempted handwriting from a BrainGate2 participant with tetraplegia, decoded with seq2seq models trained with CTC: 6% character error rate offline, 14% online. I collected the corpus and trained and deployed the models.",
+           "These models want more data than a participant can give. Instead of collecting more, I trained a cross-modal adapter into an open-source sEMG handwriting decoder pretrained on thousands of hours of muscle activity. About 4\u00d7 more data-efficient than a tuned GRU trained from scratch, and it produced characters held out of the neural training set."]},
+    {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",year:"2023\u2014",
+     title:"Hybrid continuous\u2013discrete cursor control",
+     label:"velocity decoding + gesture classification \u00b7 closed loop",
+     stat:"zero-shot across sessions \u00b7 JNE, in revision",
+     more:"Velocity decoding is fast but will not settle; gestures are precise but slow. Switching on demand gets both.",
+     body:["Velocity decoding moves the cursor quickly and then cannot settle: the dial-in period is dominated by decoder noise and dwell keeps resetting. Gesture classification is precise but slow.",
+           "We let the user switch between them on demand, locking the cursor to the cell it occupies. Gesture decoders trained on accumulated closed-loop data held up zero-shot in sessions weeks later, through distribution shift in the inputs."]},
+    {head:"emg",readout:"closed-loop 1-D control from residual surface EMG",n:"decoder 03",year:"2024\u2014",
+     title:"Online decoding from high-density sEMG",
+     label:"95-ch sEMG \u00b7 real-time inference \u00b7 Redis / BRAND",
+     stat:"closed-loop 1-D control \u00b7 4 synchronized modalities",
+     more:"Residual sEMG decoded online for 1-D cursor control, plus a wristband logging EMG, PPG, IMU and EDA on one clock.",
+     body:["A participant with tetraplegia and little to no functional hand movement retains residual surface EMG. I built the online pipeline for a 95-channel high-density band and they drove a 1-D cursor in closed loop.",
+           "I then integrated a wireless wristband logging EMG, PPG, IMU and EDA on the same clock as the intracortical stream, giving a multimodal dataset that relates neural activity to physiological state rather than only to intent."]},
+    {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",year:"2022\u20142025",
+     title:"Unsupervised behavioral segmentation",
+     label:"3D depth video \u00b7 AR-HMM (MoSeq) \u00b7 CNMF-E",
+     stat:"first author, Dystonia 2025",
+     more:"Depth video segmented into sub-second motifs with a hierarchical AR-HMM to quantify how an anti-dystonia drug reorganizes behavior.",
+     body:["Spontaneous mouse behavior from 3D depth video, segmented into sub-second motifs with a hierarchical autoregressive HMM. Trihexyphenidyl produced a consistent signature across genotypes, with sex differences.",
+           "Also extracted single-neuron traces from low-SNR one-photon striatal calcium imaging with CNMF-E, including motion correction and batch processing. The depth video beside this section is real: 600 extracted frames, with measured centroid velocity."]}
+  ],
+  pubs:["Ali YH*, <b>Abdal Qader A</b>*, Bechefsky PH, Richards BA, Acosta A, Lacayo B, Williams ZM, Hochberg LR, AuYong N, Pandarinath C. Discrete spatial navigation as a complement to point-and-click in brain–computer interfaces. <em>Journal of Neural Engineering, in revision.</em>",
+        "<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Dystonia, 2025.</em>"]
+};
 
-	<body class="landing is-preload">
+/* ============================================================
+   DRAWING HELPERS
+   ============================================================ */
+const TAU=Math.PI*2;
+const rnd=(a,b)=>a+Math.random()*(b-a);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v;
+const hx=h=>{const s=h.replace('#','');const n=s.length===3?s.split('').map(c=>c+c).join(''):s;
+  return [parseInt(n.slice(0,2),16),parseInt(n.slice(2,4),16),parseInt(n.slice(4,6),16)];};
+const rgba=(h,a)=>{const[r,g,b]=hx(h);return `rgba(${r},${g},${b},${a})`;};
+const dirColor=(a,l)=>`hsl(${(a/TAU*360+360)%360} 72% ${l||50}%)`;
+const lerp=(a,b,t)=>a+(b-a)*t;
+function ramp(stops,v){
+  v=clamp(v,0,1);
+  for(let i=1;i<stops.length;i++){
+    if(v<=stops[i][0]||i===stops.length-1){
+      const [p0,c0]=stops[i-1],[p1,c1]=stops[i];
+      const t=p1===p0?0:(v-p0)/(p1-p0);
+      return [lerp(c0[0],c1[0],t)|0,lerp(c0[1],c1[1],t)|0,lerp(c0[2],c1[2],t)|0];
+    }
+  }
+  return stops[stops.length-1][1];
+}
+const JET=[[0,[8,12,92]],[.35,[12,46,220]],[.62,[24,190,170]],[.85,[120,245,110]],[1,[235,255,170]]];
+/* the rail is narrow; take the longest label that actually fits */
+function fitText(ctx,cands,maxW){
+  for(const s of cands) if(ctx.measureText(s).width<=maxW) return s;
+  return cands[cands.length-1];
+}
 
-		<!-- Page Wrapper -->
-			<div id="page-wrapper" class="page-wrapper">
-					<section id="banner">
-						<ul class="icons major">
-							<li><span class="icon solid fa-code major style3"><span class="label">code</span></span></li>
-							<li><span class="icon solid fa-brain major style3"><span class="label">brain</span></span></li>
+/* ============================================================
+   INPUTS — one per modality, because the modalities differ
+   ============================================================ */
 
-						</ul>
-						<div class="inner" >
-							<h2>AHMAD ABDALQADER</h2>
-							<!-- <p>Joint PH.D. STUDENT AT GEORGIA TECH AND EMORY UNIVERSITY<br />
-							in Biomedical Engineering &#x2229 Neuroscience<br /> -->
-							<p>Joint PH.D. STUDENT AT GEORGIA TECH AND EMORY UNIVERSITY<br />
-								in BME, ML & Motor Neuroscience<br />
-							@ <a href="http://snel.gatech.edu">Systems Neural Engineering Lab</a>. Atlanta, GA</p>
-						</div>
+/* threshold crossings + spike band power, sharing one time axis.
+   Every mark is positioned from its own age, so the raster and the
+   continuous traces scroll at exactly the same rate by construction.
+   The traces are a mixture of three slow latents plus shared transients,
+   and those same latents modulate the firing rates — so the two halves
+   co-vary the way a population recording actually does. */
+const NeuralIn={
+  SPEED:104,            /* px per second, used by both halves */
+  HZ:80,                /* continuous sample rate */
+  t:0,lastS:0,acc:0,ev:[],lat:[0,0,0],burst:0,nextB:1.2,
+  buf:null,w:null,ch:null,nC:0,nR:0,cap:0,head:0,filled:0,
 
-						<section>
-							<ul class="actions special" style="margin-bottom:0%">
-								<li><a href="#" class="button primary modal-trigger" data-modal="research">Research</a></li>
-								<li><a href="pdfs/cv-redacted.pdf" class="button primary">CV</a></li>
-								<li><a href="http://x4ndri.github.io/blog" class="button primary">Blog</a></li>
-								<li><a href="#" class="button primary modal-trigger" data-modal="contact-me">Contact</a></li>
-							</ul>
+  fit(nR,nC,cap){
+    if(this.nR!==nR){
+      this.nR=nR;this.ev=[];this.ch=[];
+      for(let i=0;i<nR;i++)this.ch.push({b:rnd(.5,2.4),g:rnd(-1,1),h:rnd(-.6,1)});
+    }
+    if(this.nC!==nC||this.cap!==cap||!this.buf){
+      this.nC=nC;this.cap=cap;this.head=0;this.filled=0;this.buf=[];this.w=[];this.primed=false;
+      for(let i=0;i<nC;i++){
+        this.buf.push(new Float32Array(cap));
+        this.w.push([rnd(-1.4,1.4),rnd(-1.4,1.4),rnd(-1.4,1.4),rnd(.2,1.1),rnd(-.6,.6)]);
+      }
+    }
+  },
 
-							</section>
-							
-						<div>
-							<footer id="footer" style="background: transparent;">
-								<ul class="icons" style="margin-bottom: 3%;">
-									<!-- <h5 style="font-size: 0.1;">Find me on:</h5> -->
-									<li><a href="https://www.linkedin.com/in/aaqader" class="icon brands fa-linkedin"><span class="label">Facebook</span></a></li>
-									<li><a href="https://www.twitter.com/forrealahmad" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
-									<li><a href="https://www.github.com/X4ndri" class="icon brands fa-github"><span class="label">Github</span></a></li>
-									<li><a href="https://stackoverflow.com/users/20828014/ahmad" class="icon brands fa-stack-overflow"><span class="label">Facebook</span></a></li>
-								</ul>
-								<!-- <a href="#one" class="more scrolly">Learn More</a> -->
-								<p class="copyright">&copy; Made with &#10084 by Ahmad. <br> Photo of alhambra mosque by: <a href="">Diego Allen</a>.</p>
-		
-							</footer>
-						</div>
-					</section>
+  step(dtS){
+    const taus=[1.7,.8,3.4];
+    for(let j=0;j<3;j++){
+      this.lat[j]+=(-this.lat[j]/taus[j])*dtS+Math.sqrt(dtS)*rnd(-1,1)*2.2;
+      this.lat[j]=clamp(this.lat[j],-2.6,2.6);
+    }
+    this.nextB-=dtS;
+    if(this.nextB<=0){this.burst=1;this.nextB=rnd(.9,3.4);}
+    this.burst*=Math.pow(.12,dtS);
+    this.head=(this.head+1)%this.cap;
+    if(this.filled<this.cap)this.filled++;
+    for(let c=0;c<this.nC;c++){
+      const w=this.w[c];
+      const drive=w[0]*this.lat[0]+w[1]*this.lat[1]+w[2]*this.lat[2]+w[3]*this.burst*2.6+w[4];
+      const target=1/(1+Math.exp(-drive));
+      const prev=this.buf[c][(this.head-1+this.cap)%this.cap];
+      this.buf[c][this.head]=clamp(prev+(target-prev)*.22+rnd(-.035,.035),0,1);
+    }
+  },
 
-					<!-- Buttons Stuff -->
-					<section>							
-					<div style="height: 0px; width: 1200;">
+  /* run the simulation forward before the first visible frame, so the axis is
+     already full instead of filling in from the leading edge */
+  prime(axis){
+    const dtS=1/this.HZ, nS=Math.ceil((axis/this.SPEED)*this.HZ)+4;
+    for(let k=0;k<nS;k++) this.step(dtS);
+    this.lastS=this.t; this.acc=0;
+    for(let i=0;i<this.nR;i++){
+      const c=this.ch[i];
+      for(let k=0;k<nS;k++){
+        if(Math.random()<c.b*.85*dtS*4.2) this.ev.push({t:this.t-k*dtS,i});
+      }
+    }
+  },
 
-					<!-- Reseach Modal -->
-					<div id="research" class="modal">
-						<div class="modal-content-big">
-							<a href="#" class="modal-close">×</a>
-							<h2>research</h2>
-							<div class="center-container">
-								<p>
-									<img src="images/orcid.ico" height="12">
-									<a href="https://orcid.org/0009-0001-3030-9864" target="_blank" rel="noopener">
-										orcid.org/0009-0001-3030-9864
-									</a>
-								</p>
+  draw(ctx,r,dt,o,vert){
+    this.t+=dt;
+    /* time runs down the rail and leftward across a band, so the raster and
+       the traces sit beside each other on the same axis rather than stacked
+       on different windows */
+    const axis=vert?r.h:r.w;
+    const R1=vert?{x:r.x,y:r.y,w:r.w*.52,h:r.h}:{x:r.x,y:r.y,w:r.w,h:r.h*.56};
+    const R2=vert?{x:r.x+r.w*.52,y:r.y,w:r.w*.48,h:r.h}:{x:r.x,y:r.y+r.h*.56,w:r.w,h:r.h*.44};
+    const a1=vert?R1.w:R1.h, a2=vert?R2.w:R2.h;
+    const nR=clamp(Math.round(a1/(vert?6:9)),8,46);
+    const nC=clamp(Math.round(a2/12),5,9);
+    const cap=Math.ceil((axis/this.SPEED)*this.HZ)+8;
+    this.fit(nR,nC,cap);
+    if(!this.primed){ this.prime(axis); this.primed=true; }
 
-								<a href="https://snel.ai/" target="_blank" rel="noopener">
-									<img src="images/snel.png" width="250" height="120">
-								</a>
-							</div>
-							<div class="modal-body">
-								<!-- Papers and Preprints -->
-								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 1em; color: white;">
-									<b>Papers And Prepreints</b>
-								</h5>
-								<ul style="list-style-type: disc; padding-left: 20px;">
-									<li><strong>Abdal Qader A</strong> , Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ (2025) 
-										<a href="https://qader.dev/" style= "color:skyblue"><u>Behavioral Signature of Trihexyphenidyl in 
-										The Tor1a (DYT1) Knockin Mouse Model of Dystonia</u></a>. <i>bioRxiv</i>. <a href="https://doi.org/10.1101/2025.06.17.659360">
-										<u>doi: 10.1101/2025.06.17.659360</u></a> </li>
-								</ul>	
+    const dtS=1/this.HZ;
+    this.acc+=dt;
+    let guard=0;
+    while(this.acc>=dtS&&guard++<40){this.acc-=dtS;this.lastS=this.t-this.acc;this.step(dtS);}
 
-								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 1em; color: white;">
-									<!-- Conferences Attended -->
-									<b>Conferences Attended</b>
-								</h5>
-									<ul style="list-style-type: disc; padding-left: 20px;">
-										<li> Annual <a href='https://interfaceneuro.org/' style= "color: skyblue ">Interface Neuro </a> Meeting, Atlanta May '25</li>
-										<li> <a href='https://www.braingate.org/' style= "color: skyblue ">BrainGate </a> Annual Summit, Atlanta Aug '23</li>
-										<li> <a href='https://www.simonsfoundation.org/' style="color:skyblue"> Simons Foundation </a>Annunal Workshop On Calcium And Voltage Analysis With CaImAn, NYC Feb '23</li>
-										<li> <a href="https://www.nsf.gov/" style="color:skyblue">NSF</a> Collaborative Research in Computational Neuroscience Meeting (CRCNS), Atlanta Oct '22</li>
-										<li> <a href="http://www.internationalmotorcontrol.org/" style="color:skyblue">Simons-Emory</a> International Consortium on Motor Control, Atlanta Oct '22</li>
-									</ul>
-									
-									<!-- Conference Abstracts -->
-								<h5 style="font-family: 'arial';font-weight: 200; font-size:large; line-height: 1em; color: white;">
-									<b>Conference Abstracts</b>
-								</h5>
-								<ul style="list-style-type: disc; padding-left: 20px;">
-									<li><strong>Abdal Qader A</strong> , Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ (2025) 
-										<a href='pdfs/behavioral_segmentation_poster.pdf' style= "color: skyblue">
-											<u>Behavioral Signature of Trihexyphenidyl in The Tor1a (DYT1) Knockin Mouse Model of Dystonia.</u></a>
-											Interface Neuro, Atlanta, GA, May 2025.</li>
-								</ul>
+    const lane1=a1/nR;
+    for(let i=0;i<nR;i++){
+      const c=this.ch[i];
+      const m=1/(1+Math.exp(-(c.g*this.lat[0]+c.h*this.burst*2.2)));
+      if(Math.random()<c.b*(.2+1.5*m)*dt*4.2)this.ev.push({t:this.t,i});
+    }
+    const posOf=age=>vert?(r.y+age*this.SPEED):(r.x+r.w-age*this.SPEED);
 
-								
-							</div>
-						</div>
-					</div>
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
 
-					<!-- Contact -->
-					<div id="contact-me" class="modal" >
-						<div class="modal-content-small">
-							<a href="#" class="modal-close">×</a>
-							<!-- <div class="modal-body" style="max-height: 100%"> -->
-							<div >
-								<div>
-								<div>
-									<div class="center-container">
-									<h2>
-										Contact Me
-									</h2>
+    ctx.fillStyle=rgba(o.ink,.55*o.int);
+    for(let k=this.ev.length-1;k>=0;k--){
+      const e=this.ev[k],age=this.t-e.t;
+      if(age*this.SPEED>axis+6){this.ev.splice(k,1);continue;}
+      const p=posOf(age),a=(vert?R1.x:R1.y)+e.i*lane1+lane1*.2,th=Math.max(1.5,lane1*.56);
+      if(vert)ctx.fillRect(a,p,th,1.6); else ctx.fillRect(p,a,1.6,th);
+    }
+    if(this.ev.length>2400)this.ev.splice(0,this.ev.length-2400);
 
-									</div>
-									<div>
-										<form action="https://api.web3forms.com/submit" method="POST" id="form">
-											<input type="hidden" name="access_key" value="c353b0c5-2b7a-4263-a0fb-f32588ce499e" />
-											<input type="hidden" name="subject" value="New contact request submission for Ahmad" />
-											<input type="checkbox" name="botcheck" id="" style="display: none;" />
-											
-											<div class="form-group">
-												<label for="name">Full Name</label>
-												<input type="text" name="name" id="name" placeholder="John Doe" required class="form-control" />
-											</div>
-											<div class="form-group">
-												<label for="email">Email Address</label>
-												<input type="email" name="email" id="email" placeholder="example@mail.com" required class="form-control" />
-											</div>
-											<div class="form-group">
-												<label for="phone">Phone Number</label>
-												<input type="text" name="phone" id="phone" placeholder="+1 (555) 1234-567" required class="form-control" />
-											</div>
-											<div class="form-group">
-												<label for="message">Your Message</label>
-												<textarea rows="3" name="message" id="message" placeholder="Your Message" required class="form-control" style="margin-bottom: 5%;"></textarea>
-											</div>
-											<div class="center-container">
-												<button type="submit" style="text-align: center;">
-													Send Message
-												</button>
-											</div>
-											<p id="result"></p>
-										</form>
-									</div>
-									
-									<style>
-										.form-group {
-											margin-bottom: 16px; /* Add bottom margin to each form group */
-										}
-										.form-control {
-											display: block;
-											width: 100%;
-											padding: 8px;
-											margin-bottom: 16px; /* Add bottom margin to each input and textarea */
-											border-radius: 4px;
-											border: 1px solid #ccc;
-										}
-									</style>
-									
-								</div>
-							</div>
-  						</div>
-					</div>
-				</div>
-			</div>
-					
+    const lane2=a2/nC,amp=lane2*.86,n=this.filled;
+    ctx.lineWidth=1;ctx.lineJoin='round';
+    for(let c=0;c<nC;c++){
+      const base=(vert?R2.x:R2.y)+c*lane2+lane2*(vert?.12:.92);
+      ctx.strokeStyle=rgba(c%2?o.muted:o.ink,(c%2?.48:.6)*o.int);
+      ctx.beginPath();
+      let on=false;
+      for(let k=0;k<n;k++){
+        const age=(this.t-this.lastS)+k*dtS, d=age*this.SPEED;
+        if(d>axis+4)break;
+        const v=this.buf[c][(this.head-k+this.cap*2)%this.cap];
+        const p=posOf(age);
+        const X=vert?base+v*amp:p, Y=vert?p:base-v*amp;
+        on?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),on=true);
+      }
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+};
 
+/* the high-density EMG array, as a channel x time map. This is a view of the
+   input, not a decode, so it belongs on the input side. Column rate is derived
+   from the shared scroll speed, so it travels at the same rate as the raster. */
+const EmgHeatIn={
+  SPEED:104,C:20,T:200,
+  g:null,gx:null,burst:0,nx:1,cen:9,warm:0,acc:0,
+  draw(ctx,r,dt,o,vert){
+    const C=this.C,T=this.T;
+    const pad=Math.min(10,Math.min(r.w,r.h)*.08);
+    const bw=r.w-pad*2, bh=r.h-pad*2;
+    if(!this.g){
+      this.g=document.createElement('canvas');this.g.width=T;this.g.height=C;
+      this.gx=this.g.getContext('2d');
+      this.gx.fillStyle='#000';this.gx.fillRect(0,0,T,C);
+      this.warm=T;
+    }
+    this.nx-=dt;
+    if(this.nx<=0){this.burst=1;this.nx=rnd(.7,2.4);this.cen=rnd(2,C-3);}
+    this.burst*=Math.pow(.26,dt);
 
-				</section>
-					
-			</div>
+    const colPx=Math.max(.5,(vert?bh:bw)/T);
+    this.acc+=dt*(this.SPEED/colPx);
+    let steps=Math.floor(this.acc); this.acc-=steps;
+    if(this.warm){steps+=this.warm;this.warm=0;}
+    steps=Math.min(steps,T*2);
+    for(let s=0;s<steps;s++){
+      this.gx.drawImage(this.g,-1,0);
+      for(let c=0;c<C;c++){
+        const sp=Math.exp(-Math.pow((c-this.cen)/2.8,2));
+        const v=Math.min(1,.05+this.burst*sp*rnd(.5,1)+Math.random()*.07);
+        const col=o.cmap==='jet'?ramp(JET,v):ramp([[0,hx(o.surface)],[.55,hx(o.ink)],[1,hx(o.accent)]],v);
+        this.gx.fillStyle=`rgb(${col[0]},${col[1]},${col[2]})`;this.gx.fillRect(T-1,c,1,1);
+      }
+    }
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+    ctx.globalAlpha=o.int;ctx.imageSmoothingEnabled=false;
+    /* the buffer advances whole columns; the draw is offset by the leftover
+       fraction of a column, so it travels smoothly instead of stepping */
+    const sub=this.acc*colPx;
+    if(vert){                       /* rail: time runs down, channels across */
+      ctx.translate(r.x+pad,r.y+pad+sub);ctx.rotate(Math.PI/2);ctx.scale(1,-1);
+      ctx.drawImage(this.g,0,0,bh+colPx,bw);
+    }else{
+      ctx.drawImage(this.g,r.x+pad-sub,r.y+pad,bw+colPx,bh);
+    }
+    ctx.globalAlpha=1;ctx.restore();
+  }
+};
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.scrollex.min.js"></script>
-			<script src="assets/js/jquery.scrolly.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
-			<script>
-				// Modal handling
-				document.addEventListener('DOMContentLoaded', function() {
-					// Handle modal triggers
-					document.querySelectorAll('.modal-trigger').forEach(trigger => {
-						trigger.addEventListener('click', function(e) {
-							e.preventDefault();
-							const modalId = this.getAttribute('data-modal');
-							const modal = document.getElementById(modalId);
-							modal.style.display = 'block';
-							// Scroll to top of modal
-							modal.scrollTop = 0;
-						});
-					});
+/* real data: 600 extracted, egocentrically aligned depth frames from frame 43000,
+   with the measured centroid velocity that goes with them */
+const DEPTH_META={n:600,cols:25,rows:24,tile:80,fps:30,startFrame:43000,velocity:[0.5,0.1,0.4,0.4,1.1,0.5,0.2,0.7,0.2,0.3,0.9,0.7,1.8,0.7,0.6,0.3,0.9,0.2,0.4,0.8,0.8,0.1,0.4,0.5,0.1,0.5,1.1,0.4,0.6,0.5,0.4,0.6,0.1,0.3,0.2,0.5,0.9,0.2,0.8,0.4,0.5,0.6,0.2,0.4,1.1,0.7,1.1,0.5,0.3,0.7,1.2,1.8,1.0,0.9,0.1,0.3,0.9,0.5,0.8,1.0,1.0,0.5,1.2,0.4,1.0,2.9,2.3,1.5,1.8,0.4,1.1,1.3,1.0,1.0,1.2,0.2,0.5,0.5,0.9,1.9,1.6,0.9,0.6,1.0,0.5,0.2,0.4,0.4,1.6,1.3,0.6,0.4,0.6,0.1,0.6,1.6,1.8,0.5,0.5,0.9,0.8,0.6,0.1,0.2,0.3,0.4,1.1,0.3,0.5,0.3,0.4,1.2,0.1,0.5,0.3,1.3,2.1,0.2,0.8,0.6,0.8,2.0,1.1,0.7,0.7,1.5,1.5,0.2,0.3,1.8,1.0,0.8,1.5,0.8,0.3,0.6,0.8,0.6,0.6,1.8,1.5,1.8,0.5,0.4,0.9,0.1,0.4,0.8,0.8,0.3,1.0,0.8,0.6,0.4,1.1,1.1,1.1,1.6,1.3,1.3,0.7,0.8,1.0,0.9,2.7,2.7,2.2,2.9,1.6,0.9,0.8,0.7,3.3,3.7,2.0,2.1,0.7,1.5,0.9,1.2,0.4,0.3,0.5,0.4,1.4,0.5,0.8,1.1,0.2,1.1,0.9,0.9,0.5,0.5,1.3,0.4,1.8,1.9,1.9,1.7,4.2,4.6,5.0,4.2,2.6,1.1,5.1,4.2,5.7,5.6,5.2,5.0,3.5,2.2,4.4,6.2,4.2,3.2,3.2,3.0,3.0,1.9,3.7,3.8,4.9,3.4,3.0,2.6,6.3,5.0,4.9,2.6,5.4,2.8,3.7,3.6,2.9,2.6,3.3,2.8,2.7,5.2,3.6,5.1,4.8,2.5,1.2,0.4,0.7,0.9,0.6,0.5,1.6,1.0,1.1,0.9,0.9,0.8,0.6,0.4,0.5,0.5,0.8,1.3,1.0,0.9,1.1,0.4,1.3,1.5,1.1,0.7,0.9,0.4,0.4,0.6,1.8,0.7,1.2,0.1,0.3,1.5,0.4,1.4,1.3,1.3,1.7,1.3,1.3,0.2,0.5,0.3,0.1,0.4,0.7,0.7,0.3,0.3,0.3,0.6,2.4,4.2,6.9,9.6,10.3,5.5,2.7,2.9,2.3,2.1,2.8,4.0,6.1,5.4,7.2,7.2,9.7,9.4,7.9,12.3,13.4,10.6,13.1,11.9,8.6,11.8,11.2,10.6,12.2,12.8,11.2,10.1,9.9,11.7,10.2,8.5,7.4,6.9,6.2,4.7,4.4,2.2,2.5,3.1,3.1,2.3,1.7,2.2,1.9,3.6,4.5,3.8,2.9,2.1,3.6,3.8,4.2,5.0,3.6,2.8,2.5,2.3,3.8,3.7,2.1,2.0,2.4,5.2,5.3,4.8,4.6,3.6,3.0,3.8,4.7,7.9,7.3,7.0,5.8,5.8,6.7,5.8,6.2,3.2,7.8,6.3,6.1,5.4,5.0,3.8,2.3,3.1,1.3,0.5,0.8,0.1,0.6,0.5,0.6,0.4,0.1,0.4,0.7,0.6,1.4,1.4,1.3,1.2,1.9,0.6,2.6,3.1,4.1,3.5,2.6,3.2,1.8,1.8,1.1,1.1,1.0,1.1,1.1,0.3,0.8,1.0,1.7,3.7,3.5,0.5,0.5,0.5,0.5,1.4,0.8,0.7,1.2,1.8,2.3,2.7,3.7,2.7,1.8,3.4,2.9,3.1,5.7,5.8,6.2,4.5,4.8,2.6,2.3,2.7,3.2,7.7,7.8,8.4,6.6,6.9,5.0,6.5,4.3,2.1,1.2,2.0,0.4,2.1,2.9,1.6,4.4,5.4,3.4,3.3,3.8,3.7,3.5,3.6,3.8,1.3,2.4,1.9,1.8,2.4,0.9,0.8,0.7,3.2,3.4,4.7,6.0,4.6,4.2,3.9,5.0,5.6,5.9,4.9,4.3,5.6,7.0,6.2,5.9,3.7,5.0,4.2,3.4,3.4,4.4,3.2,2.9,4.2,7.1,7.5,5.8,3.1,2.7,1.7,3.5,0.2,1.0,0.8,2.0,0.3,0.4,1.2,1.2,0.6,0.2,0.4,0.5,0.1,0.2,0.9,0.8,1.9,1.1,1.6,0.8,2.6,1.1,0.6,0.7,0.1,0.8,0.6,2.6,4.5,6.2,3.0,1.5,1.1,2.0,1.9,1.0,0.8,2.0,1.5,0.5,1.0,0.4,0.4,1.0,0.8,0.6,0.2,0.3,0.4,0.6,1.0,0.1,0.6,0.2,2.6,0.9,0.7,1.7,1.3,1.4,0.7,1.0,1.0,0.3,0.9,0.4,0.7,0.4,0.2,0.2,0.2,1.9,3.6,2.6,3.8,5.0,6.4,5.2,2.6,2.8,4.6]};
+/* the real thing: extracted, egocentrically aligned depth video */
+const DepthIn={
+  img:null,meta:null,ok:false,bad:false,off:null,ox:null,t:0,
+  load(){
+    if(this.img)return;
+    this.meta=DEPTH_META;
+    this.off=document.createElement('canvas');this.off.width=80;this.off.height=80;
+    this.ox=this.off.getContext('2d',{willReadFrequently:true});
+    this.img=new Image();
+    this.img.onload=()=>{this.ok=true;};
+    this.img.onerror=()=>{this.bad=true;};
+    this.img.src='assets/depth.png';
+  },
+  frameIndex(){
+    const m=this.meta; if(!m)return 0;
+    return Math.floor(this.t*m.fps)%m.n;
+  },
+  draw(ctx,r,dt,o,vert){
+    this.load(); this.t+=dt;
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+    if(!this.ok||!this.meta){
+      ctx.fillStyle=rgba(o.muted,.8);ctx.font=`400 10px ${o.mono}`;ctx.textBaseline='top';
+      ctx.fillText(this.bad?'depth video unavailable':'loading depth video…',r.x+8,r.y+8);
+      ctx.restore();return;
+    }
+    const m=this.meta,i=this.frameIndex(),col=i%m.cols,row=(i/m.cols)|0;
+    this.ox.clearRect(0,0,80,80);
+    this.ox.drawImage(this.img,col*m.tile,row*m.tile,m.tile,m.tile,0,0,80,80);
+    // the sheet stores height, not color; the ramp is applied here so the depth
+    // map can follow the page or show the colormap the MoSeq viewer uses
+    try{
+      const d=this.ox.getImageData(0,0,80,80),px=d.data;
+      const inkC=hx(o.ink),bgC=hx(o.surface),acC=hx(o.accent);
+      const TH=[[0,bgC],[.25,[lerp(bgC[0],inkC[0],.45)|0,lerp(bgC[1],inkC[1],.45)|0,lerp(bgC[2],inkC[2],.45)|0]],[.72,inkC],[1,acC]];
+      const stops=o.cmap==='jet'?JET:TH;
+      for(let k=0;k<px.length;k+=4){
+        const v=px[k]/255;
+        if(v<=0.02){px[k+3]=0;continue;}
+        const c=ramp(stops,v);px[k]=c[0];px[k+1]=c[1];px[k+2]=c[2];px[k+3]=255*clamp(o.int+.25,0,1);
+      }
+      this.ox.putImageData(d,0,0);
+    }catch(err){ this.raw=true; }  /* tainted canvas: fall back to the height map as-is */
 
-					// Handle modal close buttons
-					document.querySelectorAll('.modal-close').forEach(closeBtn => {
-						closeBtn.addEventListener('click', function(e) {
-							e.preventDefault();
-							const modal = this.closest('.modal');
-							modal.style.display = 'none';
-						});
-					});
+    // the frame, with the measured centroid velocity beside or below it
+    // depending on the shape of the region this placement gives us
+    const pad=Math.min(11,Math.min(r.w,r.h)*.09);
+    const wide=r.w>r.h*1.5;
+    let vx,vy,side,tx,ty,tw,th;
+    if(wide){
+      side=Math.min(r.h-pad*2,r.w*.42);
+      vx=r.x+pad; vy=r.y+(r.h-side)/2;
+      tx=vx+side+pad*1.5; tw=Math.max(30,r.x+r.w-pad-tx);
+      th=Math.min(r.h*.55,84); ty=r.y+(r.h-th)/2;
+    }else{
+      /* in the rail the frame sits at the top and the velocity runs down the
+         rest of it, on the same downward time axis as every other input */
+      side=Math.min(r.w-pad*2,r.h*.42);
+      vx=r.x+(r.w-side)/2; vy=r.y+pad;
+      tx=r.x+pad; tw=r.w-pad*2;
+      ty=vy+side+(o.caption?30:20);
+      th=Math.max(40,r.y+r.h-pad-ty);
+    }
+    ctx.imageSmoothingEnabled=true;
+    ctx.drawImage(this.off,vx,vy,side,side);
 
-					// Close modal when clicking outside
-					document.querySelectorAll('.modal').forEach(modal => {
-						modal.addEventListener('click', function(e) {
-							if (e.target === this) {
-								this.style.display = 'none';
-							}
-						});
-					});
+    ctx.fillStyle=rgba(o.muted,.9);ctx.font=`400 9px ${o.mono}`;ctx.textBaseline='top';
+    const labY=wide?ty+th+4:vy+side+5;
+    ctx.fillText(`frame ${m.startFrame+i} · ${(m.velocity[i]||0).toFixed(1)} mm/s`,tx,labY);
+    if(o.caption){
+      ctx.fillStyle=rgba(o.muted,.75);
+      ctx.fillText(fitText(ctx,[
+        'DYT1 knock-in · female · 20 mg/kg trihexyphenidyl',
+        'DYT1 knock-in · F · 20 mg/kg THP',
+        'DYT1 · F · THP 20 mg/kg',
+        'DYT1 · THP'],r.x+r.w-tx-4),tx,labY+11);
+    }
 
-					// Close any open modals on page load
-					document.querySelectorAll('.modal').forEach(modal => {
-						modal.style.display = 'none';
-					});
-				});
-			</script>
+    /* The window ends at the playhead and wraps round the record, so the trace
+       is in motion on the first painted frame. Anchoring its left edge at frame
+       0 — which is what this did — held the curve still until the first N
+       frames had elapsed, and only then started it scrolling.
+       `frac` is the sub-frame phase: the sprite can only step on whole frames,
+       but the trace is a continuous signal and is drawn as one. */
+    const tf=this.t*m.fps, frac=tf-Math.floor(tf);
+    ctx.save();ctx.beginPath();
+    ctx.rect(wide?tx:tx-1,wide?ty-1:ty,wide?tw:tw+2,wide?th+2:th);ctx.clip();
+    ctx.strokeStyle=rgba(o.accent,.85*clamp(o.int+.2,0,1));ctx.lineWidth=1.2;ctx.beginPath();
+    if(wide){
+      const N=Math.min(m.n-2,200), step=tw/N;
+      for(let k=0;k<=N+1;k++){               /* k=N is the current frame, at the right edge */
+        const f=((i-N+k)%m.n+m.n)%m.n;
+        const v=clamp((m.velocity[f]||0)/10,0,1);
+        const x=tx+k*step-frac*step, y=ty+th-v*th;
+        k?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      }
+    }else{
+      const fpx=104/m.fps, nF=Math.min(m.n-1,Math.ceil(th/fpx)+1);
+      for(let k=0;k<=nF;k++){                /* k=0 is the current frame, at the top */
+        const f=((i-k)%m.n+m.n)%m.n;
+        const v=clamp((m.velocity[f]||0)/10,0,1);
+        const x=tx+v*tw, y=ty+k*fpx+frac*fpx;
+        k?ctx.lineTo(x,y):ctx.moveTo(x,y);
+      }
+    }
+    ctx.stroke();
+    ctx.restore();
+    ctx.restore();
+  }
+};
 
-	</body>
+const INPUTS={hand:NeuralIn,nav:NeuralIn,emg:EmgHeatIn,moseq:DepthIn};
+
+/* ============================================================
+   READOUTS
+   ============================================================ */
+const Hand={
+  text:"you must be the change you want to see in the world.",i:0,p:0,done:"",off:0,hold:0,
+  reset(){this.i=0;this.p=0;this.done="";this.off=0;this.hold=0;},
+  draw(ctx,r,dt,o){
+    /* small enough that a readable run of characters fits, not four giants */
+    const size=Math.max(16,Math.min(r.h*.26,r.w*.075));
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+    ctx.font=`400 ${size}px ${o.head}`;ctx.textBaseline='alphabetic';
+    if(this.hold>0){this.hold-=dt;if(this.hold<=0)this.reset();}
+    else{this.p+=dt*1.7;if(this.p>=1){this.done+=this.text[this.i]??"";this.i++;this.p=0;
+      if(this.i>=this.text.length)this.hold=2.8;}}
+    const x0=r.x+Math.max(10,r.w*.07),y0=r.y+r.h*.6,dw=ctx.measureText(this.done).width;
+    const tgt=Math.max(0,dw-r.w*.80);this.off+=(tgt-this.off)*Math.min(1,dt*3);
+    ctx.translate(x0-this.off,y0);
+    ctx.fillStyle=rgba(o.ink,.92*o.int);ctx.fillText(this.done,0,0);
+    const cur=this.text[this.i];
+    if(cur&&this.hold<=0){
+      const cw=ctx.measureText(cur).width;
+      ctx.save();ctx.beginPath();ctx.rect(dw,-size*1.1,cw*this.p,size*1.5);ctx.clip();
+      ctx.fillStyle=rgba(o.ink,.92*o.int);ctx.fillText(cur,dw,0);ctx.restore();
+      /* a pen rides the write head instead of a bare caret */
+      const hx2=dw+cw*this.p, bob=Math.sin(this.p*Math.PI)*size*.07;
+      ctx.save();ctx.translate(hx2,-bob);
+      ctx.strokeStyle=rgba(o.accent,.95*o.int);ctx.lineWidth=Math.max(1.3,size*.06);
+      ctx.lineCap='round';ctx.lineJoin='round';
+      ctx.beginPath();ctx.moveTo(size*.34,-size*1.0);ctx.lineTo(size*.09,-size*.32);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(size*.09,-size*.32);ctx.lineTo(size*.005,-size*.06);
+      ctx.lineTo(size*.17,-size*.20);ctx.closePath();
+      ctx.fillStyle=rgba(o.accent,.95*o.int);ctx.fill();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+};
+
+/* One-dimensional pursuit. The target path scrolls downward as a line of dots:
+   each trial leaves baseline, swings out as a Gaussian, and returns, with the
+   side alternating. The decoded cursor sits on a fixed line and can only move
+   horizontally, so it has to travel out to the peak and back to clear both
+   halves. Tracking is a damped spring with a little noise — it lags on the way
+   out and overshoots slightly on the way back, the way a real decoder does. */
+const Pac={
+  dots:[],px:.5,pv:0,face:1,spawnAcc:0,phase:0,
+  trial:null,base:.5,prevBase:.5,gapLen:0,u:0,gap:0,primed:false,fromRight:true,
+  reset(){this.dots=[];this.px=.5;this.pv=0;this.u=0;this.trial=null;
+    this.gap=0;this.base=.5;this.prevBase=.5;this.spawnAcc=0;this.primed=false;},
+
+  newTrial(){
+    this.fromRight=!this.fromRight;          /* alternate, so both sides show */
+    const fr=this.fromRight;
+    this.trial={base:fr?.84:.16,dir:fr?-1:1,amp:rnd(.56,.68),sig:rnd(.17,.21)};
+    this.base=this.trial.base; this.u=0;
+  },
+  pathX(u){
+    const t=this.trial; if(!t) return this.base;
+    return t.base + t.dir*t.amp*Math.exp(-((u-.5)*(u-.5))/(2*t.sig*t.sig));
+  },
+  /* one dot per SPACING of downward travel, following the trial path. Between
+     trials the baseline eases across to the next side instead of jumping, so
+     the target is continuous and stays trackable. */
+  emit(SPACING,trialPx,restPx){
+    let x;
+    if(this.gap>0){
+      this.gap-=SPACING;
+      const f=1-clamp(this.gap/(this.gapLen||restPx),0,1);
+      x=lerp(this.prevBase,this.trial.base,f*f*(3-2*f));
+    }else{
+      if(!this.trial) this.newTrial();
+      this.u+=SPACING/trialPx;
+      if(this.u>=1){
+        x=this.trial.base; this.prevBase=x;
+        this.newTrial();                 /* next side is known during the rest */
+        this.gap=restPx; this.gapLen=restPx;
+      }else x=this.pathX(this.u);
+    }
+    this.dots.push({x,y:0,eaten:false});
+  },
+
+  draw(ctx,r,dt,o){
+    const padX=Math.min(18,r.w*.09), padY=Math.min(14,r.h*.1);
+    const x0=r.x+padX, Wd=Math.max(24,r.w-padX*2);
+    const yTop=r.y+padY, H=Math.max(50,r.h-padY*2);
+    const SPACING=Math.max(6,H/24), SPEED=H/4.4, dy=SPEED*dt;
+    const trialPx=Math.max(130,H*1.12), restPx=Math.max(46,H*.46);
+    const pacY=yTop+H*.78;
+    const R=clamp(Math.min(H*.1,Wd*.075),4.5,13);
+
+    if(!this.primed){
+      this.primed=true;
+      for(let k=0;k<Math.ceil(H/SPACING)+2;k++){
+        this.emit(SPACING,trialPx,restPx);
+        this.dots.forEach(d=>d.y+=SPACING);
+      }
+    }
+
+    for(const d of this.dots) d.y+=dy;
+    if(this.dots.length>400) this.dots.splice(0,this.dots.length-400);
+    this.spawnAcc+=dy;
+    let guard=0;
+    while(this.spawnAcc>=SPACING&&guard++<40){
+      this.spawnAcc-=SPACING;
+      this.emit(SPACING,trialPx,restPx);
+      this.dots[this.dots.length-1].y=this.spawnAcc;
+    }
+
+    /* where the path sits on the cursor's line right now */
+    const rel=pacY-yTop;
+    let above=null,below=null;
+    for(const d of this.dots){
+      if(d.y<=rel&&(!above||d.y>above.y)) above=d;
+      if(d.y> rel&&(!below||d.y<below.y)) below=d;
+    }
+    let tgt=this.px;
+    if(above&&below) tgt=lerp(above.x,below.x,(rel-above.y)/((below.y-above.y)||1));
+    else if(above) tgt=above.x; else if(below) tgt=below.x;
+
+    this.pv+=((tgt-this.px)*52 - this.pv*12)*dt + rnd(-.13,.13)*dt;
+    this.px=clamp(this.px+this.pv*dt,0,1);
+    this.phase+=dt*(3.2+Math.abs(this.pv)*7);
+    /* flip rather than rotate, so reversing does not tumble through vertical */
+    if(this.pv>.04) this.face=1; else if(this.pv<-.04) this.face=-1;
+
+    const cx=x0+this.px*Wd;
+    for(const d of this.dots){
+      if(d.eaten) continue;
+      if(Math.abs(d.y-rel)<R*1.15 && Math.abs(x0+d.x*Wd-cx)<R*1.25) d.eaten=true;
+    }
+
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+
+    /* the path, so the bell is readable before it arrives */
+    ctx.strokeStyle=rgba(o.muted,.3*o.int);ctx.lineWidth=1;ctx.beginPath();
+    let on=false;
+    for(const d of this.dots){
+      if(d.y>rel+R) continue;           /* past the cursor line, stop drawing it */
+      const X=x0+d.x*Wd,Y=yTop+d.y;
+      on?ctx.lineTo(X,Y):(ctx.moveTo(X,Y),on=true);
+    }
+    ctx.stroke();
+
+    ctx.strokeStyle=rgba(o.rule,.8*o.int);ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(x0,pacY+R*1.7);ctx.lineTo(x0+Wd,pacY+R*1.7);ctx.stroke();
+
+    const dotR=Math.max(1.6,R*.3);
+    for(const d of this.dots){
+      if(d.eaten) continue;
+      const fade=d.y>rel?clamp(1-(d.y-rel)/(H*.3),0,1):1;
+      ctx.fillStyle=rgba(o.muted,.9*fade*o.int);
+      ctx.beginPath();ctx.arc(x0+d.x*Wd,yTop+d.y,dotR,0,TAU);ctx.fill();
+    }
+
+    const mouth=(.04+.26*Math.abs(Math.sin(this.phase)))*Math.PI;
+    ctx.save();ctx.translate(cx,pacY);ctx.scale(this.face,1);
+    ctx.fillStyle=rgba(o.accent,.95*o.int);
+    ctx.beginPath();ctx.moveTo(0,0);ctx.arc(0,0,R,mouth,TAU-mouth);ctx.closePath();ctx.fill();
+    ctx.restore();
+
+    ctx.restore();
+  }
+};
+
+/* Decoder 03: the argument of the navigation paper, in two acts.
+
+   Act 1 shows the problem. A velocity decoder gets the cursor to the target
+   fast, then cannot settle: the dial-in period is noisy, the dwell keeps
+   resetting, and the reach that was quick becomes slow at the last centimetre.
+
+   Act 2 shows the fix. On a dense grid the user reaches continuously to get
+   close, switches decode mode, which locks the cursor to the cell it is
+   already in, and then steps to the target with discrete gestures. The
+   probability bars are not decoration: the class that wins each step is the
+   move that happens, and the sequence is the real path from the landing cell
+   to the target. */
+const Nav={
+  G:10,
+  CLASSES:['up','down','left','right','click'],
+  GLYPH:['↑','↓','←','→','●'],
+  TR:.085,                       /* target radius, in units where the ring is 1 */
+  /* Velocity-servo constants. Commanded speed is min(VMAX, K*error), so the
+     reach is fast and directed while the error is large and collapses to
+     noise-scale as it closes. Tuned against measured behaviour, not by eye. */
+  VMAX:2.4,K:7,LAG:11,NOISE:1.6,DWELL:.55,HOLD:.035,
+  GK:2.5,GNOISE:1.4,GBIAS:3.2,
+  nAcc:0,jit:{x:0,y:0},bias:{x:0,y:0},
+  phase:'move',t:0,near:false,
+  ang:0,u:0,trail:[],pts:[],dwell:0,resets:0,
+  p:{x:0,y:0},v:{x:0,y:0},gv:{x:0,y:0},
+  target:{r:0,c:0},cell:{r:0,c:0},cur:{r:4.5,c:4.5},from:{r:4.5,c:4.5},land:{r:0,c:0},
+  plan:[],lastK:-1,done:[],prob:[.2,.2,.2,.2,.2],modeT:0,flash:0,
+
+  reset(){
+    this.phase='move';this.t=0;this.u=0;this.trail=[];this.pts=[{x:0,y:0}];
+    this.ang=Math.floor(rnd(0,8))*(TAU/8);this.dwell=0;this.modeT=0;this.flash=0;
+    this.p={x:0,y:0};this.v={x:0,y:0};this.gv={x:0,y:0};
+    this.bias={x:0,y:0};this.jit={x:0,y:0};this.nAcc=0;
+    this.resets=0;this.near=false;this.appear=0;this.shakeT=0;
+    this.prob=[.2,.2,.2,.2,.2];this.lastK=-1;this.plan=[];this.done=[];
+  },
+
+  /* one velocity servo, used for both the radial reach and the grid reach.
+     The commanded speed falls off with the remaining error while the noise
+     does not, so the same law gives a fast directed reach when far and a
+     struggle when close — no phase change, nothing to blend. */
+  servo(p,v,tx,ty,dt,K,VMAX,LAG,nz){
+    const ex=tx-p.x, ey=ty-p.y, d=Math.hypot(ex,ey)||1e-9;
+    const sp=Math.min(VMAX,d*K);
+    const a=Math.min(1,dt*LAG);
+    v.x+=(((ex/d)*sp+nz.x)-v.x)*a;
+    v.y+=(((ey/d)*sp+nz.y)-v.y)*a;
+    p.x+=v.x*dt; p.y+=v.y*dt;
+    return d;
+  },
+
+  /* decoder noise: a slow wandering bias plus fast jitter held at the decoder's
+     update rate. The bias is what makes it drift off and need correcting. */
+  noise(dt,amp,biasMul){
+    const bm=amp*(biasMul===undefined?1.25:biasMul);
+    this.bias.x+=(-this.bias.x/.75)*dt + rnd(-1,1)*bm*Math.sqrt(dt);
+    this.bias.y+=(-this.bias.y/.75)*dt + rnd(-1,1)*bm*Math.sqrt(dt);
+    this.nAcc-=dt;
+    if(this.nAcc<=0){
+      this.nAcc=rnd(this.HOLD*.7,this.HOLD*1.3);
+      this.jit={x:rnd(-1,1)*amp,y:rnd(-1,1)*amp};
+    }
+    return {x:this.bias.x+this.jit.x,y:this.bias.y+this.jit.y};
+  },
+
+  setupGrid(){
+    const G=this.G;
+    this.target={r:(rnd(1,G-1))|0,c:(rnd(1,G-1))|0};
+    /* start on the far side, so the reach is a real distance and not a nudge */
+    const far=(t)=>t>G/2 ? rnd(0,G*.28) : rnd(G*.72,G-1);
+    let s;
+    do{ s={r:far(this.target.r),c:far(this.target.c)}; }
+    while(Math.hypot(s.r-this.target.r,s.c-this.target.c)<G*.55);
+    this.from=s;
+    /* aim a couple of cells off the target — act 1 just showed why */
+    const th=rnd(0,TAU), off=rnd(1.8,3);
+    this.land={r:clamp(this.target.r+Math.sin(th)*off,0,G-1),
+               c:clamp(this.target.c+Math.cos(th)*off,0,G-1)};
+    this.cur={r:s.r,c:s.c};
+    this.gv={x:0,y:0};
+    this.bias={x:0,y:0};
+  },
+
+  buildPlan(){
+    this.cell={r:Math.round(this.cur.r),c:Math.round(this.cur.c)};
+    this.cur={r:this.cell.r,c:this.cell.c};
+    const p=[]; let dr=this.target.r-this.cell.r, dc=this.target.c-this.cell.c;
+    while(dr!==0){ p.push(dr<0?'up':'down'); dr+=dr<0?1:-1; }
+    while(dc!==0){ p.push(dc<0?'left':'right'); dc+=dc<0?1:-1; }
+    p.push('click');
+    this.plan=p; this.done=p.map(()=>false); this.lastK=-1;
+  },
+
+  applyMove(m){
+    if(m==='up')this.cell.r--; else if(m==='down')this.cell.r++;
+    else if(m==='left')this.cell.c--; else if(m==='right')this.cell.c++;
+    else this.flash=1;
+    this.cell.r=clamp(this.cell.r,0,this.G-1);
+    this.cell.c=clamp(this.cell.c,0,this.G-1);
+  },
+
+  advance(dt){
+    this.t+=dt;
+    const P=this.phase;
+    if(P!=='move'){ this.appear=Math.min(1,this.appear+dt*2.8); this.shakeT+=dt; }
+    if(P==='move'){
+      /* one continuous law from launch to the last millimetre */
+      const tx=Math.cos(this.ang), ty=Math.sin(this.ang);
+      const d=this.servo(this.p,this.v,tx,ty,dt,this.K,this.VMAX,this.LAG,
+                         this.noise(dt,this.NOISE));
+      this.pts.push({x:this.p.x,y:this.p.y});
+      if(this.pts.length>110)this.pts.shift();
+      if(d<.3) this.near=true;                      /* close enough to be dialling */
+      if(d<this.TR) this.dwell=Math.min(1,this.dwell+dt/this.DWELL);
+      else { if(this.dwell>.02) this.resets++; this.dwell=0; }
+      if(this.t>4.6){this.phase='grid';this.t=0;this.setupGrid();}
+    }
+    else if(P==='grid'){ if(this.t>.5){this.phase='greach';this.t=0;} }
+    else if(P==='greach'){
+      /* the same servo in cell units, so the grid reach curves and decelerates
+         instead of running down a straight line */
+      const pp={x:this.cur.c,y:this.cur.r};
+      /* a looser correction gain here, so the slow decoder bias actually bends
+         the path instead of being squashed flat on the way */
+      this.servo(pp,this.gv,this.land.c,this.land.r,dt,this.GK,this.VMAX*4.2,this.LAG,
+                 this.noise(dt,this.GNOISE,this.GBIAS));
+      this.cur.c=clamp(pp.x,0,this.G-1); this.cur.r=clamp(pp.y,0,this.G-1);
+      this.trail.push({r:this.cur.r,c:this.cur.c});
+      if(this.trail.length>90)this.trail.shift();
+      if(this.t>1.5){this.phase='lock';this.t=0;this.buildPlan();}
+    }
+    else if(P==='lock'){
+      this.modeT=Math.min(1,this.modeT+dt*3.4);
+      if(this.t>.6){this.phase='disc';this.t=0;}
+    }
+    else if(P==='disc'){
+      const STEP=.74, k=Math.floor(this.t/STEP);
+      if(k>=this.plan.length){this.phase='done';this.t=0;}
+      else{
+        if(k!==this.lastK){this.lastK=k;this.prob=this.CLASSES.map(()=>.2+rnd(-.03,.03));}
+        const want=this.plan[k], idx=this.CLASSES.indexOf(want);
+        let s=0;
+        this.prob=this.prob.map((v,i)=>{
+          const tgt=i===idx?.9:.025;
+          const nv=Math.max(.001,v+(tgt-v)*Math.min(1,dt*5.2)+rnd(-.012,.012));
+          s+=nv; return nv;
+        }).map(v=>v/s);
+        const local=(this.t%STEP)/STEP;
+        if(local>.68&&!this.done[k]){this.done[k]=true;this.applyMove(want);}
+      }
+    }
+    else if(P==='done'){
+      this.flash=Math.max(0,this.flash-dt*.9);
+      if(this.t>1.4)this.reset();
+    }
+    if(this.phase==='disc'||this.phase==='done'||this.phase==='lock'){
+      this.cur.r+=(this.cell.r-this.cur.r)*Math.min(1,dt*15);
+      this.cur.c+=(this.cell.c-this.cur.c)*Math.min(1,dt*15);
+    }
+  },
+
+  draw(ctx,r,dt,o){
+    this.advance(dt);
+    const pad=Math.min(11,Math.min(r.w,r.h)*.07);
+    const stripH=Math.min(22,Math.max(16,r.h*.11));
+    const aw=r.w-pad*2;
+    const plotTop=r.y+pad+13, plotBot=r.y+r.h-pad-stripH-6;
+    const a=this.appear, ease=a*a*(3-2*a);
+    const disc=this.phase==='lock'||this.phase==='disc'||this.phase==='done';
+    /* the plot is square, so its size is set by the height it is left. Where
+       the region is wide the bars go beside it and cost it nothing; where it is
+       narrow (a phone, the rail) they go underneath and the plot gives up the
+       room, easing so it reads as making space rather than jumping. */
+    const full=Math.max(70,Math.min(aw,plotBot-plotTop));
+    const beside=(aw-full-16)>=96;
+    let S,PL,BR;
+    if(beside){
+      S=full;
+      const cx=lerp(r.x+r.w/2,r.x+pad+S/2,ease);
+      PL={x:cx-S/2,y:plotTop,w:S,h:S};
+      const bx=PL.x+S+16;
+      BR={x:bx,y:plotTop,w:(r.x+r.w-pad)-bx,h:S};
+    }else{
+      const want=Math.min(64,(plotBot-plotTop)*.3);
+      const bh=disc?want*ease:0;
+      S=Math.max(70,Math.min(aw,plotBot-plotTop-bh-(bh?8:0)));
+      PL={x:r.x+pad+(aw-S)/2,y:plotTop,w:S,h:S};
+      BR={x:r.x+pad,y:plotTop+S+8,w:aw,h:bh};
+    }
+    const ST={x:r.x+pad,y:r.y+r.h-pad-stripH,w:aw,h:stripH};
+    const A1=this.phase==='move';
+    const discrete=this.phase==='lock'||this.phase==='disc'||this.phase==='done';
+
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+    if(A1) this.drawRadial(ctx,PL,o);
+    else this.drawGrid(ctx,PL,o);
+    if(discrete&&BR.w>60&&BR.h>14) this.drawBars(ctx,BR,o);
+    this.drawStrip(ctx,ST,o,discrete);
+    ctx.restore();
+  },
+
+  /* act 1 — the centre-out reach and its failure to settle */
+  drawRadial(ctx,PL,o){
+    const cx=PL.x+PL.w/2, cy=PL.y+PL.h/2, R=Math.min(PL.w,PL.h)*.44;
+    const tr=Math.max(3.5,R*this.TR);
+    for(let i=0;i<8;i++){
+      const a=i*(TAU/8), tx=cx+Math.cos(a)*R, ty=cy+Math.sin(a)*R;
+      const on=Math.abs(a-this.ang)<1e-6;
+      ctx.fillStyle=dirColor(a,o.dark?56:48);
+      ctx.globalAlpha=(on?.45:.14)*o.int;
+      ctx.beginPath();ctx.arc(tx,ty,tr,0,TAU);ctx.fill();
+      ctx.globalAlpha=(on?1:.55)*o.int;
+      ctx.lineWidth=on?2:1.2;ctx.strokeStyle=dirColor(a,o.dark?64:44);
+      ctx.beginPath();ctx.arc(tx,ty,tr,0,TAU);ctx.stroke();
+    }
+    ctx.globalAlpha=1;
+    ctx.strokeStyle=dirColor(this.ang,o.dark?62:46);
+    ctx.globalAlpha=.95*o.int;ctx.lineWidth=2;ctx.lineJoin='round';
+    ctx.beginPath();
+    this.pts.forEach((p,i)=>{const X=cx+p.x*R,Y=cy+p.y*R;i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);});
+    ctx.stroke();ctx.globalAlpha=1;
+
+    const h=this.pts[this.pts.length-1];
+    const hx2=cx+h.x*R, hy2=cy+h.y*R;
+    ctx.fillStyle=dirColor(this.ang,o.dark?68:42);
+    ctx.beginPath();ctx.arc(hx2,hy2,3.2,0,TAU);ctx.fill();
+
+    if(this.near){
+      const tx=cx+Math.cos(this.ang)*R, ty=cy+Math.sin(this.ang)*R;
+      ctx.strokeStyle=rgba(o.accent,.9*o.int);ctx.lineWidth=1.8;
+      ctx.beginPath();ctx.arc(tx,ty,tr*2.1,-Math.PI/2,-Math.PI/2+TAU*this.dwell);ctx.stroke();
+      ctx.fillStyle=rgba(o.muted,.95);ctx.font=`400 ${Math.max(8.5,Math.min(10,PL.w*.035))}px ${o.mono}`;
+      ctx.textBaseline='bottom';
+      const n=this.resets;
+      ctx.fillText(fitText(ctx,
+        [`dwell reset ×${n}`,`reset ×${n}`,`×${n}`],PL.w),PL.x,PL.y+PL.h-2);
+    }
+  },
+
+  /* act 2 — the grid, the continuous approach, then stepping in */
+  drawGrid(ctx,PL,o){
+    const G=this.G, side=Math.min(PL.w,PL.h), cs=side/G;
+    const gx=PL.x+(PL.w-side)/2, gy=PL.y+(PL.h-side)/2;
+    const fade=this.phase==='grid'?clamp(this.t/.5,0,1):1;
+    ctx.globalAlpha=fade*o.int;
+
+    ctx.strokeStyle=rgba(o.rule,.8);ctx.lineWidth=1;
+    ctx.beginPath();
+    for(let i=0;i<=G;i++){
+      ctx.moveTo(gx+i*cs,gy);ctx.lineTo(gx+i*cs,gy+side);
+      ctx.moveTo(gx,gy+i*cs);ctx.lineTo(gx+side,gy+i*cs);
+    }
+    ctx.stroke();
+
+    const T=this.target;
+    const pulse=this.flash>0?.35+.5*this.flash:.22;
+    ctx.fillStyle=rgba(o.accent,pulse);
+    ctx.fillRect(gx+T.c*cs,gy+T.r*cs,cs,cs);
+    ctx.strokeStyle=rgba(o.accent,.95);ctx.lineWidth=1.6;
+    ctx.strokeRect(gx+T.c*cs+.5,gy+T.r*cs+.5,cs-1,cs-1);
+
+    const cxp=gx+(this.cur.c+.5)*cs, cyp=gy+(this.cur.r+.5)*cs;
+    if(this.phase==='greach'){
+      ctx.strokeStyle=rgba(o.ink,.55);ctx.lineWidth=1.4;ctx.lineJoin='round';
+      ctx.beginPath();
+      this.trail.forEach((q,i)=>{
+        const X=gx+(q.c+.5)*cs, Y=gy+(q.r+.5)*cs;
+        i?ctx.lineTo(X,Y):ctx.moveTo(X,Y);
+      });
+      ctx.stroke();
+      ctx.fillStyle=rgba(o.ink,.95);
+      ctx.beginPath();ctx.arc(cxp,cyp,Math.max(2.6,cs*.17),0,TAU);ctx.fill();
+    }else{
+      /* locked to a cell */
+      ctx.fillStyle=rgba(o.ink,.2);
+      ctx.fillRect(cxp-cs/2,cyp-cs/2,cs,cs);
+      ctx.strokeStyle=rgba(o.ink,.95);ctx.lineWidth=1.8;
+      ctx.strokeRect(cxp-cs/2+.5,cyp-cs/2+.5,cs-1,cs-1);
+    }
+    ctx.globalAlpha=1;
+  },
+
+  /* the mode strip: one row across the foot of the readout */
+  drawStrip(ctx,ST,o,discrete){
+    const small=ST.w<210;
+    const labels=small?['cont','disc']:['continuous','discrete'];
+    const gap=7, total=ST.w, y0=ST.y, h=ST.h, x0=ST.x;
+    const a=this.appear, ease=a*a*(3-2*a);
+    const halfW=(total-gap)/2, contW=lerp(total,halfW,ease);
+
+    /* interface, not data: the active one inverts; accent stays for decoded marks */
+    const pill=(px,pw,label,on)=>{
+      ctx.fillStyle=on?rgba(o.ink,.92):rgba(o.surface,.9);
+      ctx.fillRect(px,y0,pw,h);
+      ctx.strokeStyle=rgba(o.rule,.9);ctx.lineWidth=1;
+      ctx.strokeRect(px+.5,y0+.5,pw-1,h-1);
+      ctx.fillStyle=on?rgba(o.bg,1):rgba(o.muted,.95);
+      ctx.textAlign='center';
+      ctx.fillText(label,px+pw/2,y0+h/2+.5);
+    };
+
+    ctx.font=`400 ${small?8.5:9.5}px ${o.mono}`;ctx.textBaseline='middle';
+    ctx.globalAlpha=o.int;
+    pill(x0,contW,labels[0],!discrete);
+    if(a>.002){
+      /* shivers as it lands, with a halo that fades, so a second control
+         paradigm arriving is something you notice rather than find */
+      const shiver=Math.exp(-this.shakeT*5)*Math.sin(this.shakeT*42)*5;
+      const flash=Math.exp(-this.shakeT*2.2);
+      const px=x0+contW+gap+shiver;
+      ctx.globalAlpha=ease*o.int;
+      pill(px,halfW,labels[1],discrete);
+      if(flash>.02){
+        ctx.globalAlpha=flash*.9*o.int;
+        ctx.strokeStyle=rgba(o.accent,1);ctx.lineWidth=1.5;
+        const g=2+5*flash;
+        ctx.strokeRect(px-g,y0-g,halfW+g*2,h+g*2);
+      }
+    }
+    ctx.globalAlpha=1;ctx.textAlign='left';
+  },
+
+  /* the class probabilities, in whatever room the plot is not using */
+  drawBars(ctx,BR,o){
+    const n=this.CLASSES.length, win=this.prob.indexOf(Math.max(...this.prob));
+    const a=this.appear, ease=a*a*(3-2*a);
+    ctx.save();ctx.globalAlpha=ease;
+
+    if(BR.h>=n*17){                      /* beside the plot: labelled rows */
+      const rowH=Math.min(BR.h/n,26), top=BR.y+(BR.h-rowH*n)/2;
+      const labW=Math.min(40,BR.w*.3);
+      ctx.font=`400 10px ${o.mono}`;ctx.textBaseline='middle';
+      for(let i=0;i<n;i++){
+        const y=top+rowH*(i+.5), on=i===win&&this.prob[i]>.5;
+        ctx.textAlign='left';
+        ctx.fillStyle=rgba(on?o.ink:o.muted,(on?.95:.6)*o.int);
+        ctx.fillText(this.CLASSES[i],BR.x,y);
+        const tx=BR.x+labW, tw=Math.max(10,BR.w-labW), hgt=Math.max(4,rowH*.4);
+        ctx.fillStyle=rgba(o.rule,.75*o.int);
+        ctx.fillRect(tx,y-hgt/2,tw,hgt);
+        ctx.fillStyle=on?rgba(o.accent,.95*o.int):rgba(o.muted,.55*o.int);
+        ctx.fillRect(tx,y-hgt/2,tw*this.prob[i],hgt);
+      }
+    }else{                               /* underneath: columns with glyphs */
+      const cw=BR.w/n, bw=Math.min(cw*.42,15);
+      const lab=BR.h>30?12:0, h=Math.max(8,BR.h-lab);
+      ctx.textAlign='center';
+      for(let i=0;i<n;i++){
+        const cx=BR.x+cw*(i+.5), v=this.prob[i], on=i===win&&v>.5;
+        ctx.fillStyle=rgba(o.rule,.75*o.int);
+        ctx.fillRect(cx-bw/2,BR.y,bw,h);
+        ctx.fillStyle=on?rgba(o.accent,.95*o.int):rgba(o.muted,.55*o.int);
+        ctx.fillRect(cx-bw/2,BR.y+h*(1-v),bw,h*v);
+        if(lab){
+          ctx.font=`400 10px ${o.mono}`;ctx.textBaseline='top';
+          ctx.fillStyle=rgba(on?o.ink:o.muted,(on?.95:.65)*o.int);
+          ctx.fillText(this.GLYPH[i],cx,BR.y+h+1);
+        }
+      }
+      ctx.textAlign='left';
+    }
+    ctx.restore();
+  }
+};
+
+/* One motif per frame for the 600 frames the video plays, so the ethogram and
+   the mouse are the same moment. Segments come from changepoints in the real
+   extraction scalars (velocity, height, length, width, area, turning rate) with
+   a 300 ms floor; segment means are then clustered into 12 identities. Median
+   segment is 366 ms, which is where real syllables sit — but these are not the
+   AR-HMM's labels, and get replaced when the model output turns up. */
+const MOTIFS="9999999999999999999999999999999999999999999999999777777777777777779999999999999999999999999999666666666666666666666777777777111111111111111111111111111111155555555555333333333333333333333333333333332222222222222222222222222222222222222222222222244444444444444444444444444444444444444444444444444444444400000000000000888888888888888888888888000000000000000000000000aaaaaaaaaa88888888888888888aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa77777777777777bbbbbbbbbbbbbb888888888bbbbbbbbbaaaaaaaaaaaaaaaaa2222222222222222222222222222bbbbbbbbbbbbbbbbbbbbbbbbbbbbb000000000bbbbbbbbbbbbbbbbbbbbb3333333333333333000000000";
+const mval=c=>c<='9'?c.charCodeAt(0)-48:c.charCodeAt(0)-87;
+const motifColor=(v,dark)=>`hsl(${(v*137.5)%360} ${46+(v%3)*11}% ${dark?52+(v%2)*9:45+(v%2)*8}%)`;
+
+const Moseq={
+  reset(){},
+  draw(ctx,r,dt,o){
+    const i=DepthIn.frameIndex();          /* locked to the frame on screen */
+    const W=150;
+    const pad=Math.min(13,Math.min(r.w,r.h)*.1);
+    const bw=r.w-pad*2, cw=bw/W;
+    const h=clamp(r.h*.3,14,46), y=r.y+(r.h-h)/2-4;
+    ctx.save();ctx.beginPath();ctx.rect(r.x,r.y,r.w,r.h);ctx.clip();
+    ctx.globalAlpha=o.int;
+    let run=null;
+    const L=MOTIFS.length;
+    for(let k=0;k<W;k++){
+      const f=((i-W+1+k)%L+L)%L;        /* the video loops, so the strip does too */
+      const v=mval(MOTIFS[f]);
+      const x=r.x+pad+k*cw;
+      if(run&&run.v===v){ run.w+=cw; }
+      else{ if(run){ctx.fillStyle=motifColor(run.v,o.dark);ctx.fillRect(run.x,y,run.w,h);} run={v,x,w:cw}; }
+    }
+    if(run){ctx.fillStyle=motifColor(run.v,o.dark);ctx.fillRect(run.x,y,run.w,h);}
+    ctx.globalAlpha=1;
+    /* now */
+    ctx.strokeStyle=rgba(o.ink,.9);ctx.lineWidth=1;
+    ctx.beginPath();ctx.moveTo(r.x+pad+bw,y-3);ctx.lineTo(r.x+pad+bw,y+h+3);ctx.stroke();
+    ctx.fillStyle=rgba(o.muted,.9);ctx.font=`400 9px ${o.mono}`;ctx.textBaseline='top';
+    const sy=mval(MOTIFS[i%L]);
+    ctx.fillText(fitText(ctx,[
+      `syllable ${sy} · labels provisional`,
+      `syllable ${sy} · provisional`,
+      `syl ${sy} · provisional`],bw),r.x+pad,y+h+7);
+    ctx.restore();
+  }
+};
+
+const HEADS={hand:Hand,emg:Pac,nav:Nav,moseq:Moseq};
+const HEAD_LABEL={hand:'writing',emg:'1-d control',nav:'navigation',moseq:'motifs'};
+const ORDER=["hand","nav","emg","moseq"];
+
+/* ============================================================
+   RUNTIME
+   ============================================================ */
+const stage=document.getElementById('stage'),mount=document.getElementById('mount');
+const inst=document.getElementById('inst'),cv=document.getElementById('ic');
+const ctx=cv.getContext('2d');
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+const state={structure:'console',place:'inline',pal:'void',
+  trans:'dissolve',cmap:'theme',caption:false,int:1,measure:67};
+/* console mode: hover previews a decoder, click pins it */
+let pinned='hand', hovered=null, locked=false;
+/* before anyone touches it the readout walks the decoders, so a visitor who
+   never hovers still sees all four and learns that the tiles drive the panel.
+   The first interaction hands over for good. */
+let cycling=true, cycleT=0;
+const DWELL={hand:4,nav:8,emg:3,moseq:6};
+const activeHead=()=>locked?pinned:(hovered||pinned);
+/* blend is derived from scroll position, never from a timer */
+let blend={from:null,to:'hand',t:1};
+let W=0,H=0,last=0,running=true;
+
+function opts(){
+  const cs=getComputedStyle(stage),g=n=>cs.getPropertyValue(n).trim();
+  return {ink:g('--ink'),muted:g('--muted'),rule:g('--rule'),surface:g('--surface'),accent:g('--accent'),bg:g('--bg'),
+    head:g('--ff-head')||'serif',mono:g('--ff-mono')||'monospace',
+    dark:true,int:state.int,cmap:state.cmap,caption:state.caption};
+}
+
+const TAIL=()=>`
+    <section class="s-sec" data-head="moseq">
+      <p class="s-marker"><i>papers</i></p>
+      <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
+    </section>
+    <section class="s-sec" id="contact" data-head="nav">
+      <p class="s-marker"><i>contact</i></p>
+      <div class="s-contact">
+        <form class="s-cmain" id="cform" action="https://api.web3forms.com/submit" method="POST">
+          <input type="hidden" name="access_key" value="c353b0c5-2b7a-4263-a0fb-f32588ce499e">
+          <input type="hidden" name="subject" value="New contact request from qader.dev">
+          <input type="hidden" name="from_name" value="qader.dev">
+          <input type="checkbox" name="botcheck" class="s-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="s-cpair">
+            <label class="s-field" for="cf1"><span>name</span><input id="cf1" name="name" type="text" autocomplete="name" required></label>
+            <label class="s-field" for="cf2"><span>email</span><input id="cf2" name="email" type="email" autocomplete="email" required></label>
+          </div>
+          <label class="s-field" for="cf3"><span>message</span><textarea id="cf3" name="message" rows="5" required></textarea></label>
+          <label class="s-check" for="cf4"><input type="checkbox" id="cf4" required>
+            <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
+          <div class="s-crow">
+            <button class="s-send" type="submit">Send</button>
+            <p class="s-cnote" id="cfn">I read everything and reply to most of it.</p>
+          </div>
+        </form>
+      </div>
+      <div class="s-foot"><p class="s-mono">
+        <a class="s-a" href="pdfs/cv-redacted.pdf">CV</a>
+        <a class="s-a" href="/blog">Blog</a>
+        <a class="s-a" href="https://github.com/X4ndri">GitHub</a>
+        <a class="s-a" href="https://orcid.org/0009-0001-3030-9864">ORCID</a>
+        <a class="s-a" href="https://www.linkedin.com/in/aaqader">LinkedIn</a>
+        <a class="s-a" href="https://stackoverflow.com/users/20828014/ahmad">Stack Overflow</a>
+        <a class="s-a" href="https://twitter.com/forrealahmad">Twitter</a>
+        <a class="s-a" href="privacy.html">Privacy</a></p></div>
+    </section>`;
+
+/* console: identity, then one tile per decoder beside the shared panel, then
+   the selected project's prose. Hover previews, click pins, keyboard works. */
+function consoleHTML(){
+  return `
+  <div class="s-page s-wrap">
+    <div class="t-top"><span class="t-mark" aria-label="qader.dev"><span class="t-br">&lt;</span><svg viewBox="0 0 40 32" width="26" height="21" role="img" aria-label="brain"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.2C17.6 2.6 12.6 2.9 10.6 6.2 6.9 5.9 4.2 8.8 5.1 12.3 2.6 14 2.6 18.2 5.2 19.9c-.3 4.2 3.6 7.3 7.7 6.5 1.6 2.2 5.4 2.4 7.1.4"/><path d="M20 5.2c2.4-2.6 7.4-2.3 9.4 1 3.7-.3 6.4 2.6 5.5 6.1 2.5 1.7 2.5 5.9-.1 7.6.3 4.2-3.6 7.3-7.7 6.5-1.6 2.2-5.4 2.4-7.1.4"/><path d="M20 5.2v21.6M13.4 10.3c2 .5 3.4 1.9 3.6 3.9M26.6 10.3c-2 .5-3.4 1.9-3.6 3.9M12.9 19.6c2.2-.6 3.9.3 4.1 2.4M27.1 19.6c-2.2-.6-3.9.3-4.1 2.4"/></g></svg><span class="t-br">/&gt;</span></span><nav class="t-links"><a href="pdfs/cv-redacted.pdf">cv</a><a href="https://github.com/X4ndri">github</a><a href="https://www.linkedin.com/in/aaqader">linkedin</a><a href="https://orcid.org/0009-0001-3030-9864">orcid</a><a href="/blog">blog</a><a href="#contact">contact</a></nav></div>
+    <hr class="t-rule">
+    <h1 class="s-name">${SITE.name}</h1>
+    <p class="s-sub">${SITE.sub}</p>
+    <p class="s-lede">${SITE.lede}</p>
+    <dl class="t-meta">${SITE.meta.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+
+    <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">hover to open &middot; click to hold</span></p>
+    <div class="c-grid">
+      <ul class="c-tiles" id="tiles">
+        ${SITE.sections.map(s=>`
+          <li><button class="c-tile" type="button" data-head="${s.head}" aria-current="false" data-held="false">
+            <span class="c-head"><span class="c-num">${s.n.replace('decoder ','')}</span><span class="c-flag"></span></span>
+            <span class="c-title">${s.title}</span>
+            <span class="c-sig">${s.label}<br>${s.stat}</span>
+            <span class="c-more">${s.more}</span>
+          </button></li>`).join("")}
+      </ul>
+    </div>
+
+    <p class="t-label t-readout"><span id="rlabel"></span></p>
+    <div class="c-inst" id="consolePanel"></div>
+    ${TAIL()}
+  </div>`;
+}
+
+function renderDetail(){
+  const s=SITE.sections.find(x=>x.head===activeHead());
+  const rl=document.getElementById('rlabel');
+  if(rl&&s) rl.textContent=s.readout;
+  const hint=document.getElementById('chint');
+  if(hint) hint.textContent=locked?'click the open tile to release'
+    :(cycling?'cycling \u00b7 hover to take over':'hover to open \u00b7 click to hold');
+  document.querySelectorAll('#tiles .c-tile').forEach(b=>{
+    const on=b.dataset.head===activeHead();
+    b.setAttribute('aria-current',String(on));
+    const held=locked&&b.dataset.head===pinned;
+    b.dataset.held=String(held);
+    const flag=b.querySelector('.c-flag');
+    if(flag) flag.textContent=held?'\u25CF':'';   /* the accent border already says open */
+  });
+}
+
+function setActive(h){
+  if(!h||h===blend.to)return;
+  blend={from:blend.to,to:h,t:0};
+  renderDetail();syncUI();
+}
+
+function wireTiles(){
+  const list=document.getElementById('tiles');if(!list)return;
+  list.querySelectorAll('.c-tile').forEach(b=>{
+    const h=b.dataset.head;
+    /* hover still previews — unless something is being held, in which case a
+       stray pointer cannot take the panel away from you */
+    const peek=()=>{ cycling=false; if(locked)return; hovered=h; setActive(h); };
+    b.addEventListener('mouseenter',peek);
+    b.addEventListener('focus',peek);
+    b.addEventListener('click',()=>{
+      cycling=false;
+      if(locked&&pinned===h){ locked=false; }        /* click it again to release */
+      else { locked=true; pinned=h; }
+      hovered=null; setActive(pinned); renderDetail();
+    });
+  });
+  list.addEventListener('mouseleave',()=>{ if(locked)return; hovered=null; setActive(pinned); });
+  list.addEventListener('keydown',e=>{
+    if(e.key!=='ArrowDown'&&e.key!=='ArrowUp')return;
+    e.preventDefault();
+    const bs=[...list.querySelectorAll('.c-tile')];
+    const i=bs.indexOf(document.activeElement);
+    bs[(i+(e.key==='ArrowDown'?1:bs.length-1)+bs.length)%bs.length].focus();
+  });
+  renderDetail();
+}
+
+function render(){
+  stage.dataset.structure=state.structure;stage.dataset.pal=state.pal;
+  stage.dataset.place=state.place;
+  stage.style.setProperty('--measure',state.measure+'ch');
+  document.body.style.background=getComputedStyle(stage).getPropertyValue('--bg');
+  if(state.structure==='console'){
+    mount.innerHTML=consoleHTML();
+    if(cycling){pinned=ORDER[0];cycleT=0;}
+    blend={from:null,to:pinned,t:1};
+    wireTiles();
+    wireForm();
+    requestAnimationFrame(()=>{place();syncUI();});
+    return;
+  }
+  mount.innerHTML=`
+  <div class="s-page s-wrap">
+    <header class="s-sec" data-head="hand" id="sec-top">
+      <h1 class="s-name">${SITE.name}</h1><p class="s-sub">${SITE.sub}</p><p class="s-lede">${SITE.lede}</p>
+    </header>
+    ${SITE.sections.map(s=>`
+      <section class="s-sec" data-head="${s.head}" id="sec-${s.head}">
+        <p class="s-marker"><i>${s.n}</i> ${s.label} <s>${s.year}</s></p>
+        <h2 class="s-h2">${s.title}</h2>
+        ${s.body.map(p=>`<p class="s-p">${p}</p>`).join("")}
+        <div class="s-fig" data-fig="${s.head}"></div>
+      </section>`).join("")}
+    ${TAIL()}
+  </div>`;
+  wireForm();
+  requestAnimationFrame(()=>{scrollBlend();place();syncUI();});
+}
+
+function wireForm(){
+  const f=document.getElementById('cform'); if(!f) return;
+  const note=document.getElementById('cfn'), btn=f.querySelector('.s-send');
+  const say=t=>{note.textContent=t;};
+  f.addEventListener('submit',async e=>{
+    e.preventDefault();                 /* only fires once the browser is satisfied */
+    btn.disabled=true; say('Sending…');
+    try{
+      const r=await fetch(f.action,{method:'POST',body:new FormData(f),
+                                    headers:{'Accept':'application/json'}});
+      const j=await r.json().catch(()=>({}));
+      if(r.ok&&j.success!==false){ f.reset(); say('Sent. I read everything and reply to most of it.'); }
+      else { btn.disabled=false; say('That did not send. Try again, or find me on LinkedIn.'); }
+    }catch(err){ btn.disabled=false; say('That did not send — check your connection and try again.'); }
+  });
+}
+
+/* the scrollbar is the transport: find the two sections the anchor line sits
+   between and report a continuous position between their heads */
+function scrollBlend(){
+  const secs=[...document.querySelectorAll('.s-sec[data-head]')];
+  if(!secs.length)return;
+  const anchor=window.innerHeight*0.42, ZONE=Math.min(260,window.innerHeight*0.3);
+  let idx=0;
+  for(let i=0;i<secs.length;i++){ if(secs[i].getBoundingClientRect().top<=anchor) idx=i; }
+  const cur=secs[idx], top=cur.getBoundingClientRect().top;
+  const prev=secs[idx-1];
+  const into=anchor-top;
+  if(prev && into<ZONE){
+    const a=prev.dataset.head,b=cur.dataset.head;
+    if(a===b){blend={from:null,to:b,t:1};}
+    else{blend={from:a,to:b,t:clamp(into/ZONE,0,1)};}
+  } else {
+    blend={from:null,to:cur.dataset.head,t:1};
+  }
+}
+
+function place(){
+  if(state.place==='inline'){
+    /* console keeps one shared panel; the long scroll moves it per section */
+    const box=state.structure==='console'
+      ? document.getElementById('consolePanel')
+      : document.querySelector(`.s-fig[data-fig="${blend.to}"]`);
+    if(box&&inst.parentElement!==box)box.appendChild(inst);
+  }else if(inst.parentElement!==stage){ stage.insertBefore(inst,mount); }
+  size();
+}
+function size(){
+  const r=inst.getBoundingClientRect(),dpr=Math.min(2,window.devicePixelRatio||1);
+  W=Math.max(1,Math.round(r.width));H=Math.max(1,Math.round(r.height));
+  cv.width=Math.round(W*dpr);cv.height=Math.round(H*dpr);
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+}
+function regions(){
+  if(state.place==='bleed'){
+    const ow=Math.min(W*.30,420),oh=Math.min(H*.30,250),m=Math.min(30,W*.035);
+    return {vertical:false,floating:true,inp:{x:0,y:0,w:W,h:H},out:{x:W-ow-m,y:H-oh-m,w:ow,h:oh}};
+  }
+  if(H>W*1.25){const oh=Math.min(H*.42,W*1.35);
+    return {vertical:true,inp:{x:0,y:0,w:W,h:H-oh},out:{x:0,y:H-oh,w:W,h:oh}};}
+  const ow=Math.min(W*.55,H*2.3);
+  return {vertical:false,inp:{x:0,y:0,w:W-ow,h:H},out:{x:W-ow,y:0,w:ow,h:H}};
+}
+
+function drawHead(name,R,dt,o,alpha){
+  const E=HEADS[name]; if(!E)return;
+  E.draw(ctx,R.out,dt,{...o,int:alpha});
+}
+
+function frame(ts){
+  if(!running)return;
+  const dt=Math.min(.05,last?(ts-last)/1000:.016);last=ts;
+  /* in the console the scrollbar is not the transport, so the blend eases on
+     its own clock when a tile hands over to the next decoder */
+  if(state.structure==='console'&&blend.t<1) blend.t=Math.min(1,blend.t+dt*2.4);
+  if(cycling&&state.structure==='console'&&!reduce&&blend.t>=1){
+    cycleT+=dt;
+    if(cycleT>=(DWELL[blend.to]||9)){
+      cycleT=0;
+      pinned=ORDER[(ORDER.indexOf(blend.to)+1)%ORDER.length];
+      setActive(pinned);
+    }
+  }
+  if(!reduce){
+    const o=opts(),R=regions();
+    ctx.clearRect(0,0,W,H);
+
+    // INPUT — the modality this section actually records
+    const t = state.trans==='cut' ? (blend.t<.5?0:1) : blend.t;
+    const inA=INPUTS[blend.from],inB=INPUTS[blend.to];
+    if(inA&&inA!==inB&&t<1) inA.draw(ctx,R.inp,dt,{...o,int:o.int*(1-t)},R.vertical);
+    if(inB) inB.draw(ctx,R.inp,dt,{...o,int:o.int*(inA&&inA!==inB?t:1)},R.vertical);
+
+    // the seam, or a figure panel when the head floats over the page
+    ctx.strokeStyle=rgba(o.rule,.9);ctx.lineWidth=1;
+    if(R.floating){
+      ctx.fillStyle=rgba(o.surface,.94);ctx.fillRect(R.out.x,R.out.y,R.out.w,R.out.h);
+      ctx.strokeRect(R.out.x+.5,R.out.y+.5,R.out.w-1,R.out.h-1);
+    }else{
+      ctx.globalAlpha=Math.max(.35,o.int);ctx.beginPath();
+      if(R.vertical){ctx.moveTo(0,R.out.y+.5);ctx.lineTo(W,R.out.y+.5);}
+      else{ctx.moveTo(R.out.x+.5,0);ctx.lineTo(R.out.x+.5,H);}
+      ctx.stroke();ctx.globalAlpha=1;
+    }
+
+    // READOUT — three ways of getting from one head to the next
+    const hi=R.floating?1:Math.max(.55,o.int);
+    if(!blend.from||t>=1){ drawHead(blend.to,R,dt,o,hi); }
+    else if(state.trans==='wipe'){
+      ctx.save();ctx.beginPath();ctx.rect(R.out.x+R.out.w*t,R.out.y,R.out.w*(1-t),R.out.h);ctx.clip();
+      drawHead(blend.from,R,dt,o,hi);ctx.restore();
+      ctx.save();ctx.beginPath();ctx.rect(R.out.x,R.out.y,R.out.w*t,R.out.h);ctx.clip();
+      drawHead(blend.to,R,dt,o,hi);ctx.restore();
+      ctx.strokeStyle=rgba(o.accent,.9);ctx.lineWidth=1;ctx.beginPath();
+      ctx.moveTo(R.out.x+R.out.w*t,R.out.y);ctx.lineTo(R.out.x+R.out.w*t,R.out.y+R.out.h);ctx.stroke();
+    }
+    else{ drawHead(blend.from,R,dt,o,hi*(1-t)); drawHead(blend.to,R,dt,o,hi*t); }
+
+    ctx.font=`400 ${Math.max(8.5,Math.min(10.5,Math.min(R.out.w,R.out.h)*.075))}px ${o.mono}`;
+    ctx.fillStyle=rgba(o.muted,.9);ctx.textBaseline='top';
+    ctx.fillText(HEAD_LABEL[blend.to]||blend.to,R.out.x+7,R.out.y+6);
+  }
+  requestAnimationFrame(frame);
+}
+
+/* The lab drove these from its panel; the site has nothing to sync. */
+function syncUI(){}
+
+let tick=false;
+function onScroll(){
+  if(state.structure==='console')return;   /* tiles drive the console, not scroll */
+  if(tick)return;tick=true;
+  requestAnimationFrame(()=>{
+    const was=blend.to;scrollBlend();
+    if(state.place==='inline'&&blend.to!==was)place();
+    syncUI();tick=false;
+  });
+}
+window.addEventListener('scroll',onScroll,{passive:true});
+let rt;window.addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(()=>{scrollBlend();place();},140);});
+document.addEventListener('visibilitychange',()=>{running=!document.hidden;
+  if(running){last=0;requestAnimationFrame(frame);}});
+
+DepthIn.load();
+Object.values(HEADS).forEach(h=>h.reset&&h.reset());
+render();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAnimationFrame(place));
+requestAnimationFrame(frame);
+</script>
+
+</body>
 </html>
