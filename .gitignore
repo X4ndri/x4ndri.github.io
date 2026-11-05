@@ -1,2 +1,21 @@
 garbage/
 *.bat
+# macOS and editor noise
+.DS_Store
+._*
+*.swp
+
+# Raw recordings and renders. Large and regenerable from the source data, so
+# they stay out of history. results_00.h5 is 115 MB on its own — above
+# GitHub's 100 MB per-file hard limit, so committing it would produce a
+# commit that can never be pushed and is awkward to undo.
+# (*.gif is deliberately NOT ignored; the blog has 27 tracked ones.)
+*.h5
+*.mp4
+*.avi
+*.mov
+
+# git worktrees checked out inside the repo
+/redesign-preview/
+/.wt-lab/
+/_gitlock_trash/

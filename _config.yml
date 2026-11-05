@@ -1,0 +1,13 @@
+# GitHub Pages runs Jekyll on this repo, and Jekyll copies anything it is not
+# told to skip. Without this file the working notes under docs/ would be served
+# from qader.dev — including a second, draft copy of the privacy policy, which
+# is the one thing that must have exactly one canonical URL.
+#
+# The site itself is Hugo output committed at the root; Jekyll only has to
+# leave it alone.
+exclude:
+  - docs/          # design spec, decisions, the prototype lab
+  - tools/         # asset generators, not web content
+  - contact-worker/
+  - Makefile
+  - add_blog_to_landing_site.sh
