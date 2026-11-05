@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en" data-pal="void">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Privacy</title>
+<meta name="description" content="What qader.dev collects, who receives it, and how to turn analytics off.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* The same token system as the site, so this page follows whichever palette
+   ships — change data-pal on <html> and nothing else moves. */
+html[data-pal="void"]{      --bg:#000000; --surface:#0A0A0A; --ink:#FAFAFA; --muted:#767676;
+  --rule:#2B2B2B; --tile:#070707; --accent:#FF4D00; }
+html[data-pal="phosphor"]{  --bg:#040F0A; --surface:#07160E; --ink:#C3E8CE; --muted:#4E7D61;
+  --rule:#163A26; --tile:#06130C; --accent:#52E08C; }
+html[data-pal="blueprint"]{ --bg:#0A1A2C; --surface:#0D2138; --ink:#DDE7F2; --muted:#6E8AA6;
+  --rule:#1D3A5C; --tile:#0B1E33; --accent:#E8B339; }
+html[data-pal="ember"]{     --bg:#17100E; --surface:#1E1613; --ink:#EADCCD; --muted:#8A776A;
+  --rule:#3A2A24; --tile:#1A1210; --accent:#74CFC2; }
+html[data-pal="graphite"]{  --bg:#1E2124; --surface:#262A2E; --ink:#C7CCD1; --muted:#7E858C;
+  --rule:#3A4046; --tile:#22262A; --accent:#C9D24E; }
+
+*{box-sizing:border-box}
+html{--ff:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --unit:8px; color-scheme:dark; background:var(--bg)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--ff);
+  font-size:13.5px;line-height:1.72;-webkit-font-smoothing:antialiased}
+.wrap{max-width:70ch;margin:0 auto;padding:clamp(28px,6vh,64px) 16px clamp(56px,12vh,120px)}
+
+a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;
+  text-decoration-thickness:1px;text-decoration-color:var(--muted)}
+a:hover{text-decoration-color:var(--ink)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:2ch;
+  padding-bottom:calc(var(--unit)*1.5);border-bottom:1px solid var(--rule);
+  font-size:11.5px;color:var(--muted);flex-wrap:wrap}
+.top a{color:var(--muted)}
+
+h1{margin:calc(var(--unit)*4) 0 0;font-size:28px;font-weight:500;letter-spacing:-.012em;line-height:1.2}
+.stamp{margin:calc(var(--unit)*.75) 0 0;font-size:11.5px;color:var(--muted)}
+.lede{margin:calc(var(--unit)*3) 0 0}
+
+h2{margin:calc(var(--unit)*5) 0 0;font-size:16px;font-weight:500;letter-spacing:-.008em;
+  padding-bottom:calc(var(--unit)*1);border-bottom:1px solid var(--rule)}
+p{margin:calc(var(--unit)*2) 0 0}
+.sub{color:var(--muted)}
+dl{margin:calc(var(--unit)*2) 0 0;display:grid;grid-template-columns:minmax(0,16ch) minmax(0,1fr);
+  gap:calc(var(--unit)*1.25) 2ch;font-size:12.5px}
+dt{color:var(--muted)}
+dd{margin:0}
+
+/* the opt-out: the one interactive thing on the page, so it gets the panel */
+.optbox{margin:calc(var(--unit)*3) 0 0;border:1px solid var(--rule);background:var(--surface);
+  padding:calc(var(--unit)*2.25)}
+.optbox p{margin:calc(var(--unit)*1.5) 0 0;font-size:12.5px;color:var(--muted)}
+.optbox p:first-child{margin:0}
+button{font:inherit;font-size:13.5px;color:var(--bg);background:var(--ink);border:0;
+  padding:calc(var(--unit)*1.2) calc(var(--unit)*3);cursor:pointer;margin-top:calc(var(--unit)*2)}
+button:hover{background:var(--accent)}
+button:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--accent)}
+.state{margin-top:calc(var(--unit)*1.5);font-size:11.5px;color:var(--muted)}
+
+.foot{margin-top:clamp(48px,10vh,96px);padding-top:calc(var(--unit)*2);
+  border-top:1px solid var(--rule);font-size:11.5px;color:var(--muted);
+  display:flex;gap:3ch;flex-wrap:wrap}
+@media (max-width:520px){ dl{grid-template-columns:1fr;gap:calc(var(--unit)*.4) 0} dt{margin-top:calc(var(--unit)*1.25)} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="top">
+    <a href="index.html">&larr; qader.dev</a>
+    <span>privacy</span>
+  </div>
+
+  <h1>Privacy</h1>
+  <p class="stamp">Last updated November 2026</p>
+
+  <p class="lede">This is my personal academic site. There are no accounts and no
+  advertising. Two things here involve your data: the contact form, and analytics.
+  This page says what each one does, who receives it, and how to stop the second.</p>
+
+  <h2>The contact form</h2>
+  <p>It collects your name, your email address and your message. Nothing else, and
+  nothing until you press Send. I use it to read what you sent and reply to it. I
+  don't sell it, rent it or pass it on.</p>
+  <p>The form is delivered by <a href="https://web3forms.com/privacy" rel="noopener">Web3Forms</a>,
+  which passes the submission to my inbox and processes it on my behalf under its own terms.</p>
+  <p>You consent when you tick the box and send the form, and you can withdraw that
+  consent whenever you like. Ask through the form and I'll delete what you sent, and
+  tell you when it's done. Otherwise submissions stay in my email for as long as the
+  correspondence is useful.</p>
+
+  <h2>Analytics</h2>
+  <p>This site uses Google Analytics to count visits and see which pages get read. I
+  use it to know whether anyone is reading and whether a link I shared went anywhere
+  &mdash; nothing more. I don't build profiles, run advertising, or try to work out who
+  an individual visitor is, and the reports I see are aggregate.</p>
+  <p>It works by setting cookies in your browser and sending Google the page you're on,
+  your IP address, and basic details about your browser and device. Google processes
+  that under <a href="https://policies.google.com/privacy" rel="noopener">its own privacy
+  terms</a> and is certified under the EU&ndash;US Data Privacy Framework for transfers
+  out of the UK and EEA.</p>
+
+  <div class="optbox">
+    <p><strong>Turn it off, if you'd rather.</strong> This stops counting you on this
+    browser. The setting lives in your browser only, so repeat it on each device.</p>
+    <button type="button" id="optout">Turn analytics off for this browser</button>
+    <p class="state" id="state"></p>
+    <p>If your browser sends a Global Privacy Control or Do Not Track signal, this site
+    turns analytics off for you automatically &mdash; you don't have to do anything here.
+    You can also block it with your browser's tracking protection, a tracker blocker, or
+    Google's own opt-out add-on. Nothing on this site stops working if you do.</p>
+  </div>
+
+  <h2>Hosting and other services</h2>
+  <p>The site is static and served by GitHub Pages. GitHub records standard server
+  information, including your IP address, to serve pages and protect the service. I
+  don't receive those logs and can't see individual visitors.</p>
+  <p>Fonts load from Google Fonts, which means Google also sees your IP address when a
+  page loads.</p>
+  <p class="sub">So, in full, the services that may receive data:</p>
+  <dl>
+    <dt>Web3Forms</dt><dd>contact form delivery, only when you press Send</dd>
+    <dt>Google</dt><dd>Analytics, and the fonts the page is set in</dd>
+    <dt>GitHub</dt><dd>hosting and server logs</dd>
+  </dl>
+  <p>Some of these process data outside the UK and EEA, under the safeguards their own
+  terms set out.</p>
+
+  <h2>Do Not Track</h2>
+  <p>This site honours it. A browser sending Do Not Track or Global Privacy Control is
+  not counted, and nothing further is asked of you.</p>
+
+  <h2>Your rights</h2>
+  <p>If you're in the UK or EEA you can ask me for a copy of what I hold about you, ask
+  me to correct it or delete it, object to my holding it, or withdraw your consent. Ask
+  through the contact form. There's no charge, and I'll respond within a month.</p>
+  <p>If you think I've handled your data badly and I haven't put it right, you can
+  complain to your national data protection authority &mdash; in the UK, the ICO.</p>
+
+  <h2>Changes</h2>
+  <p>New versions go here, and the date at the top changes with them.</p>
+
+  <div class="foot">
+    <a href="index.html">Back to the site</a>
+    <a href="index.html#contact">Contact</a>
+  </div>
+
+</div>
+
+<script>
+/* Mirrors the snippet that sits above the gtag tag on every page. '1' is an
+   opt-out by hand; '0' is an opt-in by hand and overrides the browser signal;
+   neither means follow the signal. */
+(function () {
+  var ID = 'G-2SE668F99F', K = 'analytics-opt-out';
+  function stored() { try { return localStorage.getItem(K); } catch (e) { return null; } }
+  function signal() {
+    return navigator.globalPrivacyControl === true ||
+           navigator.doNotTrack === '1' || window.doNotTrack === '1';
+  }
+  function off() { var s = stored(); return s === '1' || (s !== '0' && signal()); }
+
+  var b = document.getElementById('optout'), st = document.getElementById('state');
+  function paint() {
+    var o = off();
+    window['ga-disable-' + ID] = o;
+    b.textContent = o ? 'Turn analytics back on' : 'Turn analytics off for this browser';
+    b.setAttribute('data-off', o ? '1' : '0');
+    st.textContent = o
+      ? (stored() === '1' ? 'Off — you turned it off on this browser.'
+                          : 'Off — your browser asked not to be tracked.')
+      : 'On — this browser is counted.';
+  }
+  b.addEventListener('click', function () {
+    try { localStorage.setItem(K, off() ? '0' : '1'); } catch (e) {}
+    paint();
+  });
+  paint();
+})();
+</script>
+</body>
+</html>

@@ -109,17 +109,43 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-pubs{list-style:none;margin:calc(var(--unit)*3) 0 0;padding:0;display:grid;gap:calc(var(--unit)*3.5)}
 .s-pubs li{max-width:var(--measure)}
 .s-pubs em{color:var(--muted)}
-.s-form{display:grid;gap:calc(var(--unit)*2.5);max-width:44ch;margin:calc(var(--unit)*3.5) 0 0}
-.s-field{display:grid;gap:calc(var(--unit)*.75)}
-.s-field label{font-family:var(--ff-mono);font-size:var(--fs--2);color:var(--muted)}
-.s-field input,.s-field textarea{font:inherit;font-size:var(--fs--1);color:var(--ink);background:transparent;
-  border:0;border-bottom:1px solid var(--rule);padding:calc(var(--unit)*.9) 0;border-radius:0;width:100%}
-.s-field textarea{resize:vertical;min-height:5.5em}
-.s-field input:focus,.s-field textarea:focus{outline:0;border-bottom-color:var(--accent)}
+/* Contact uses the same panel grammar as the instrument and the tiles: a ruled
+   box, a ruled divider, and one inset cell per field. Underlined fields
+   floating loose in a console built entirely of bordered panels were what read
+   as unfinished — the form looked like it belonged to a different page. */
+.s-contact{margin:calc(var(--unit)*3.5) 0 0;max-width:var(--measure);
+  border:1px solid var(--rule);background:var(--surface)}
+.s-cmain{padding:calc(var(--unit)*2.25);display:grid;gap:calc(var(--unit)*1.25);align-content:start}
+.s-cpair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--unit)*1.25)}
+.s-field{display:block;background:var(--tile);border:1px solid var(--rule);
+  padding:calc(var(--unit)*.85) calc(var(--unit)*1.5) calc(var(--unit)*.95);cursor:text}
+.s-field:focus-within{border-color:var(--accent)}
+.s-field>span{display:block;font-family:var(--ff-mono);font-size:10.5px;letter-spacing:.07em;
+  color:var(--muted);line-height:1}
+.s-field input,.s-field textarea{font:inherit;font-size:var(--fs--1);color:var(--ink);
+  background:transparent;border:0;border-radius:0;width:100%;display:block;
+  padding:calc(var(--unit)*.65) 0 0;margin:0}
+.s-field input:focus,.s-field textarea:focus{outline:0}
+.s-field textarea{resize:vertical;min-height:4.5em}
+.s-crow{display:flex;align-items:center;gap:calc(var(--unit)*2);flex-wrap:wrap;
+  margin-top:calc(var(--unit)*.5)}
 .s-send{font:inherit;font-size:var(--fs--1);color:var(--bg);background:var(--ink);border:0;
-  padding:calc(var(--unit)*1.2) calc(var(--unit)*3);cursor:pointer;justify-self:start}
+  padding:calc(var(--unit)*1.2) calc(var(--unit)*3);cursor:pointer}
 .s-send:hover{background:var(--accent)}
 .s-send:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.s-cnote{margin:0;font-size:var(--fs--2);color:var(--muted);flex:1 1 18ch;min-width:0}
+/* the consent box is drawn rather than left to the OS, so it reads as part of
+   the same instrument and not as a system widget dropped into it */
+.s-check{display:flex;align-items:flex-start;gap:calc(var(--unit)*1.25);cursor:pointer;
+  font-size:var(--fs--2);line-height:1.65;color:var(--muted);margin-top:calc(var(--unit)*.25)}
+.s-check input{appearance:none;-webkit-appearance:none;margin:0;flex:0 0 auto;position:relative;top:1px;
+  width:15px;height:15px;border:1px solid var(--rule);background:var(--tile);border-radius:0;cursor:pointer}
+.s-check input:checked{border-color:var(--accent);background:var(--accent)}
+.s-check input:checked::after{content:"";position:absolute;left:4px;top:1px;width:4px;height:8px;
+  border:solid var(--bg);border-width:0 2px 2px 0;transform:rotate(42deg)}
+.s-check input:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.s-check a{color:var(--ink)}
+@media (max-width:620px){ .s-cpair{grid-template-columns:1fr} }
 .s-foot{margin-top:clamp(56px,11vh,120px);padding-block:calc(var(--unit)*4) calc(var(--unit)*12);border-top:1px solid var(--rule)}
 .s-foot a{margin-right:calc(var(--unit)*3)}
 
@@ -598,22 +624,35 @@ const DepthIn={
         'DYT1 · THP'],r.x+r.w-tx-4),tx,labY+11);
     }
 
+    /* The window ends at the playhead and wraps round the record, so the trace
+       is in motion on the first painted frame. Anchoring its left edge at frame
+       0 — which is what this did — held the curve still until the first N
+       frames had elapsed, and only then started it scrolling.
+       `frac` is the sub-frame phase: the sprite can only step on whole frames,
+       but the trace is a continuous signal and is drawn as one. */
+    const tf=this.t*m.fps, frac=tf-Math.floor(tf);
+    ctx.save();ctx.beginPath();
+    ctx.rect(wide?tx:tx-1,wide?ty-1:ty,wide?tw:tw+2,wide?th+2:th);ctx.clip();
     ctx.strokeStyle=rgba(o.accent,.85*clamp(o.int+.2,0,1));ctx.lineWidth=1.2;ctx.beginPath();
     if(wide){
-      const N=Math.min(m.n,200), st=Math.max(0,i-N);
-      for(let k=0;k<N;k++){
-        const v=clamp((m.velocity[st+k]||0)/10,0,1);
-        k?ctx.lineTo(tx+(k/N)*tw,ty+th-v*th):ctx.moveTo(tx,ty+th-v*th);
+      const N=Math.min(m.n-2,200), step=tw/N;
+      for(let k=0;k<=N+1;k++){               /* k=N is the current frame, at the right edge */
+        const f=((i-N+k)%m.n+m.n)%m.n;
+        const v=clamp((m.velocity[f]||0)/10,0,1);
+        const x=tx+k*step-frac*step, y=ty+th-v*th;
+        k?ctx.lineTo(x,y):ctx.moveTo(x,y);
       }
     }else{
-      const fpx=104/m.fps, nF=Math.min(m.n,Math.ceil(th/fpx));
-      for(let k=0;k<nF;k++){
+      const fpx=104/m.fps, nF=Math.min(m.n-1,Math.ceil(th/fpx)+1);
+      for(let k=0;k<=nF;k++){                /* k=0 is the current frame, at the top */
         const f=((i-k)%m.n+m.n)%m.n;
         const v=clamp((m.velocity[f]||0)/10,0,1);
-        k?ctx.lineTo(tx+v*tw,ty+k*fpx):ctx.moveTo(tx+v*tw,ty);
+        const x=tx+v*tw, y=ty+k*fpx+frac*fpx;
+        k?ctx.lineTo(x,y):ctx.moveTo(x,y);
       }
     }
     ctx.stroke();
+    ctx.restore();
     ctx.restore();
   }
 };
@@ -1232,15 +1271,23 @@ const TAIL=()=>`
       <p class="s-marker"><i>papers</i></p>
       <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
     </section>
-    <section class="s-sec" data-head="nav">
+    <section class="s-sec" id="contact" data-head="nav">
       <p class="s-marker"><i>contact</i></p>
-      <form class="s-form" id="cform" novalidate>
-        <div class="s-field"><label for="cf1">Name</label><input id="cf1" type="text" autocomplete="name"></div>
-        <div class="s-field"><label for="cf2">Email</label><input id="cf2" type="email" autocomplete="email"></div>
-        <div class="s-field"><label for="cf3">Message</label><textarea id="cf3" rows="4"></textarea></div>
-        <button class="s-send" type="submit">Send</button>
-        <p class="s-mono" id="cfn">On the live site this posts to Web3Forms, as it does today.</p>
-      </form>
+      <div class="s-contact">
+        <form class="s-cmain" id="cform" novalidate>
+          <div class="s-cpair">
+            <label class="s-field" for="cf1"><span>name</span><input id="cf1" type="text" autocomplete="name"></label>
+            <label class="s-field" for="cf2"><span>email</span><input id="cf2" type="email" autocomplete="email"></label>
+          </div>
+          <label class="s-field" for="cf3"><span>message</span><textarea id="cf3" rows="5"></textarea></label>
+          <label class="s-check" for="cf4"><input type="checkbox" id="cf4" required>
+            <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
+          <div class="s-crow">
+            <button class="s-send" type="submit">Send</button>
+            <p class="s-cnote" id="cfn">Posts to Web3Forms, as the current site does.</p>
+          </div>
+        </form>
+      </div>
       <div class="s-foot"><p class="s-mono">
         <a class="s-a" href="pdfs/cv-redacted.pdf">CV</a>
         <a class="s-a" href="/blog">Blog</a>
@@ -1248,7 +1295,8 @@ const TAIL=()=>`
         <a class="s-a" href="https://orcid.org/0009-0001-3030-9864">ORCID</a>
         <a class="s-a" href="https://www.linkedin.com/in/aaqader">LinkedIn</a>
         <a class="s-a" href="https://stackoverflow.com/users/20828014/ahmad">Stack Overflow</a>
-        <a class="s-a" href="https://twitter.com/forrealahmad">Twitter</a></p></div>
+        <a class="s-a" href="https://twitter.com/forrealahmad">Twitter</a>
+        <a class="s-a" href="privacy.html">Privacy</a></p></div>
     </section>`;
 
 /* console: identity, then one tile per decoder beside the shared panel, then
@@ -1256,7 +1304,7 @@ const TAIL=()=>`
 function consoleHTML(){
   return `
   <div class="s-page s-wrap">
-    <div class="t-top"><span class="t-mark" aria-label="qader.dev"><span class="t-br">&lt;</span><svg viewBox="0 0 40 32" width="26" height="21" role="img" aria-label="brain"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.2C17.6 2.6 12.6 2.9 10.6 6.2 6.9 5.9 4.2 8.8 5.1 12.3 2.6 14 2.6 18.2 5.2 19.9c-.3 4.2 3.6 7.3 7.7 6.5 1.6 2.2 5.4 2.4 7.1.4"/><path d="M20 5.2c2.4-2.6 7.4-2.3 9.4 1 3.7-.3 6.4 2.6 5.5 6.1 2.5 1.7 2.5 5.9-.1 7.6.3 4.2-3.6 7.3-7.7 6.5-1.6 2.2-5.4 2.4-7.1.4"/><path d="M20 5.2v21.6M13.4 10.3c2 .5 3.4 1.9 3.6 3.9M26.6 10.3c-2 .5-3.4 1.9-3.6 3.9M12.9 19.6c2.2-.6 3.9.3 4.1 2.4M27.1 19.6c-2.2-.6-3.9.3-4.1 2.4"/></g></svg><span class="t-br">/&gt;</span></span><nav class="t-links"><a href="pdfs/cv-redacted.pdf">cv</a><a href="https://github.com/X4ndri">github</a><a href="https://www.linkedin.com/in/aaqader">linkedin</a><a href="https://orcid.org/0009-0001-3030-9864">orcid</a><a href="/blog">blog</a><a href="mailto:aabdalq@emory.edu">email</a></nav></div>
+    <div class="t-top"><span class="t-mark" aria-label="qader.dev"><span class="t-br">&lt;</span><svg viewBox="0 0 40 32" width="26" height="21" role="img" aria-label="brain"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.2C17.6 2.6 12.6 2.9 10.6 6.2 6.9 5.9 4.2 8.8 5.1 12.3 2.6 14 2.6 18.2 5.2 19.9c-.3 4.2 3.6 7.3 7.7 6.5 1.6 2.2 5.4 2.4 7.1.4"/><path d="M20 5.2c2.4-2.6 7.4-2.3 9.4 1 3.7-.3 6.4 2.6 5.5 6.1 2.5 1.7 2.5 5.9-.1 7.6.3 4.2-3.6 7.3-7.7 6.5-1.6 2.2-5.4 2.4-7.1.4"/><path d="M20 5.2v21.6M13.4 10.3c2 .5 3.4 1.9 3.6 3.9M26.6 10.3c-2 .5-3.4 1.9-3.6 3.9M12.9 19.6c2.2-.6 3.9.3 4.1 2.4M27.1 19.6c-2.2-.6-3.9.3-4.1 2.4"/></g></svg><span class="t-br">/&gt;</span></span><nav class="t-links"><a href="pdfs/cv-redacted.pdf">cv</a><a href="https://github.com/X4ndri">github</a><a href="https://www.linkedin.com/in/aaqader">linkedin</a><a href="https://orcid.org/0009-0001-3030-9864">orcid</a><a href="/blog">blog</a><a href="#contact">contact</a></nav></div>
     <hr class="t-rule">
     <h1 class="s-name">${SITE.name}</h1>
     <p class="s-sub">${SITE.sub}</p>
@@ -1367,7 +1415,9 @@ function render(){
 function wireForm(){
   const f=document.getElementById('cform');
   if(f)f.addEventListener('submit',e=>{e.preventDefault();
-    document.getElementById('cfn').textContent='Preview only — the live site posts this to Web3Forms.';});
+    const ok=document.getElementById('cf4'),n=document.getElementById('cfn');
+    if(ok&&!ok.checked){n.textContent='Tick the consent box before sending.';ok.focus();return;}
+    n.textContent='Preview only — the live site posts this to Web3Forms.';});
 }
 
 /* the scrollbar is the transport: find the two sections the anchor line sits

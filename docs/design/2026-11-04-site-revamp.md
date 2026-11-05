@@ -295,6 +295,35 @@ a one-line change of source.
 - Session caption is a toggle in the lab so the wording can be judged before
   committing to it.
 
+## Contact and privacy
+
+The contact form is a ruled panel in the same grammar as the tiles and the
+instrument: one inset cell per field, name and email paired on a row, and the
+cell border turning accent on focus the way an open tile does. Underlined
+fields floating loose in a console of bordered panels is what read as
+unfinished.
+
+No email address appears anywhere on the page -- that is what the form is for.
+The header's `email` link became `contact` and points at the form.
+
+A consent checkbox gates Send and links to `/privacy`.
+
+Analytics, decided 2026-11-05: **Google Analytics stays, the policy says so,
+browser privacy signals are honoured automatically, and there is no consent
+banner.** `docs/design/analytics-and-privacy.md` has the reasoning, the snippet
+that goes above the gtag tags, and the tracking-link scheme that answers "did
+this application produce a visit" -- which analytics cannot, since GA4 has no
+individual-visitor identification.
+
+`docs/design/lab/privacy.html` is the page, built on the same palette tokens so
+it follows whichever palette ships. Its opt-out is real: a three-state flag
+where an explicit opt-in overrides the browser signal, so someone who chooses to
+be counted is not silently overridden by their own DNT header.
+
+Still to confirm before it goes live: the publish date, the Web3Forms tier
+(retention wording differs), and whether fonts get self-hosted -- which would
+delete a paragraph and two names from the recipients list.
+
 ## Open questions
 
 1. **Palette** -- which of void / phosphor / blueprint / ember / graphite ships.
