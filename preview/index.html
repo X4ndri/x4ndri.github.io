@@ -140,10 +140,23 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
   font-family:var(--ff-mono);font-size:var(--fs--2);color:var(--muted);
   padding-top:2px;margin:0;letter-spacing:.02em}
 .s-sec>.s-foot{grid-column:1/-1}
+/* Papers and meetings are both reference lists and neither fills a page width
+   on its own, so they share a row and each keeps its own name. No gutter here:
+   the two names are the gutter. */
+.s-sec.s-pair{grid-template-columns:minmax(0,1.08fr) minmax(0,1fr);
+  column-gap:calc(var(--unit)*6)}
+.s-pair>.s-col:first-of-type{grid-column:1}
+.s-pair>.s-col:last-of-type{grid-column:2}
+.s-pair .s-marker{margin-bottom:calc(var(--unit)*2.5)}
+.s-pair .s-meet{max-width:none}
+.s-pair .s-pubs li{max-width:none}
 @media (max-width:860px){
-  .s-sec{grid-template-columns:1fr;column-gap:0}
-  .s-sec>*{grid-column:1}
+  .s-sec,.s-sec.s-pair{grid-template-columns:1fr;column-gap:0}
+  /* these must match the specificity of the two-column rules above, or
+     :last-of-type wins and strands the second column off the grid */
+  .s-sec>*,.s-pair>.s-col:first-of-type,.s-pair>.s-col:last-of-type{grid-column:1}
   .s-marker{grid-row:auto;margin-bottom:calc(var(--unit)*2.5)}
+  .s-pair>.s-col+.s-col{margin-top:clamp(44px,8vh,96px)}
 }
 .s-marker i{font-style:normal;color:var(--ink)}
 .s-marker s{text-decoration:none;margin-left:auto;font-variant-numeric:tabular-nums}
@@ -1342,16 +1355,18 @@ function opts(){
 }
 
 const TAIL=()=>`
-    <section class="s-sec" data-head="moseq">
-      <p class="s-marker"><i>papers</i></p>
-      <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
-      <p class="s-subhead">conference abstracts</p>
-      <ol class="s-pubs tight">${SITE.posters.map(p=>`<li>${p}</li>`).join("")}</ol>
-    </section>
-    <section class="s-sec" data-head="emg">
-      <p class="s-marker"><i>meetings</i></p>
-      <dl class="s-meet">${SITE.meetings.map(([n,w,soon])=>
-        `<dt>${n}${soon?' <span class="s-soon">upcoming</span>':''}</dt><dd>${w}</dd>`).join("")}</dl>
+    <section class="s-sec s-pair" data-head="moseq">
+      <div class="s-col">
+        <p class="s-marker"><i>papers</i></p>
+        <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
+        <p class="s-subhead">conference abstracts</p>
+        <ol class="s-pubs tight">${SITE.posters.map(p=>`<li>${p}</li>`).join("")}</ol>
+      </div>
+      <div class="s-col">
+        <p class="s-marker"><i>meetings</i></p>
+        <dl class="s-meet">${SITE.meetings.map(([n,w,soon])=>
+          `<dt>${n}${soon?' <span class="s-soon">upcoming</span>':''}</dt><dd>${w}</dd>`).join("")}</dl>
+      </div>
     </section>
     <section class="s-sec" id="contact" data-head="nav">
       <p class="s-marker"><i>contact</i></p>
