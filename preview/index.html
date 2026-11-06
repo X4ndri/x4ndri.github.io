@@ -1522,6 +1522,13 @@ function wireForm(){
 /* the scrollbar is the transport: find the two sections the anchor line sits
    between and report a continuous position between their heads */
 function scrollBlend(){
+  /* In the console the tiles are the transport, never the scrollbar. This has
+     to be guarded here rather than at the scroll handler, because resize calls
+     it too — and a mobile browser fires resize when the URL bar collapses
+     during a scroll. That silently handed the readout to whichever tail
+     section sat under the anchor line (papers is tagged moseq), undoing a
+     tile the reader had just held. */
+  if(state.structure==='console')return;
   const secs=[...document.querySelectorAll('.s-sec[data-head]')];
   if(!secs.length)return;
   const anchor=window.innerHeight*0.42, ZONE=Math.min(260,window.innerHeight*0.3);
