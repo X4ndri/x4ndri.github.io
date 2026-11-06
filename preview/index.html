@@ -138,6 +138,9 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
   grid-template-columns:minmax(0,1fr) max-content;gap:calc(var(--unit)*1.75) 3ch}
 .s-meet dt{min-width:0;font-size:var(--fs--1)}
 .s-meet dd{margin:0;color:var(--muted);font-size:var(--fs--2);white-space:nowrap}
+/* a status, not data, so it is ruled rather than coloured */
+.s-soon{font-size:10.5px;letter-spacing:.06em;color:var(--muted);
+  border:1px solid var(--rule);padding:1px 5px;margin-left:.75ch;white-space:nowrap}
 @media (max-width:620px){
   .s-meet{grid-template-columns:1fr;gap:0}
   .s-meet dd{margin:calc(var(--unit)*.4) 0 calc(var(--unit)*1.75)}
@@ -377,6 +380,9 @@ const SITE={
   /* Venue on the left, where and when on the right — a column of dates reads
      faster than five bullets that each end in a place and a month. */
   meetings:[
+    ["<a class=\"s-a\" href=\"https://www.sfn.org/\">Society for Neuroscience</a> (SfN)","Washington, DC · Nov 2026",1],
+    ["<a class=\"s-a\" href=\"https://www.braingate.org/\">BrainGate</a> annual summit","Santa Cruz, CA · Aug 2026"],
+    ["<a class=\"s-a\" href=\"https://www.braingate.org/\">BrainGate</a> annual summit","Olympic Valley, CA · Aug 2025"],
     ["<a class=\"s-a\" href=\"https://interfaceneuro.org/\">Interface Neuro</a>, annual meeting","Atlanta · May 2025"],
     ["<a class=\"s-a\" href=\"https://www.braingate.org/\">BrainGate</a> annual summit","Atlanta · Aug 2023"],
     ["<a class=\"s-a\" href=\"https://www.simonsfoundation.org/\">Simons Foundation</a> workshop on calcium and voltage imaging analysis with CaImAn","New York · Feb 2023"],
@@ -1317,7 +1323,8 @@ const TAIL=()=>`
     </section>
     <section class="s-sec" data-head="emg">
       <p class="s-marker"><i>meetings</i></p>
-      <dl class="s-meet">${SITE.meetings.map(([n,w])=>`<dt>${n}</dt><dd>${w}</dd>`).join("")}</dl>
+      <dl class="s-meet">${SITE.meetings.map(([n,w,soon])=>
+        `<dt>${n}${soon?' <span class="s-soon">upcoming</span>':''}</dt><dd>${w}</dd>`).join("")}</dl>
     </section>
     <section class="s-sec" id="contact" data-head="nav">
       <p class="s-marker"><i>contact</i></p>
