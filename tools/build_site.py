@@ -6,8 +6,13 @@ the direction. Both come out of this, so a change made once reaches both by
 rebuilding rather than by being typed twice.
 
     python3 build_site.py lab.html OUTDIR
+    node prerender.js OUTDIR/index.html        <- do not skip this
       OUTDIR/index.html          the site
       OUTDIR/preview/index.html  the lab, wrapped as a real document, noindex
+
+The prerender step is not optional for the site. The page builds itself from a
+content object at run time, so without it the served file contains no readable
+text at all — see tools/prerender.js.
 
 Fonts are served from this domain in both. Nothing about a visitor reaches a
 font CDN, which is one fewer party in the privacy policy and one round trip
