@@ -110,7 +110,18 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-name{font-family:var(--ff-head);font-weight:var(--head-weight);letter-spacing:var(--head-track);
   font-size:var(--fs-name);line-height:1.02;margin:0;text-wrap:balance}
 .s-sub{color:var(--muted);font-size:var(--fs--1);margin:calc(var(--unit)*1) 0 0;max-width:72ch}
-.s-lede{font-size:var(--fs-0);line-height:1.6;margin:calc(var(--unit)*2) 0 0;max-width:var(--measure);text-wrap:pretty}
+/* The lede and the methods block sit side by side rather than stacked, so the
+   masthead occupies the width the tiles below it do. Each column is then about
+   60ch on its own, which is the measure anyway — nothing is harder to read,
+   and the page stops looking like a narrow strip pinned to the left edge. */
+.t-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
+  column-gap:calc(var(--unit)*5);row-gap:calc(var(--unit)*3);align-items:start;
+  margin-top:calc(var(--unit)*2)}
+.s-lede{font-size:var(--fs-0);line-height:1.6;margin:0;text-wrap:pretty}
+@media (max-width:860px){
+  .t-lead{grid-template-columns:1fr;row-gap:calc(var(--unit)*2.5)}
+  .s-lede{max-width:var(--measure)}
+}
 .s-h2{font-family:var(--ff-head);font-weight:var(--head-weight);letter-spacing:var(--head-track);
   font-size:var(--fs-2);line-height:1.18;margin:0;text-wrap:balance;max-width:28ch}
 .s-p{margin:calc(var(--unit)*2) 0 0;max-width:var(--measure);text-wrap:pretty}
@@ -119,11 +130,26 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-a:hover{color:var(--accent);box-shadow:inset 0 -2px 0 var(--accent)}
 .s-a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
-.s-sec{padding-block:clamp(60px,13vh,140px) 0;scroll-margin-top:120px}
+/* The section name moves into a left gutter and the content sits beside it,
+   the way the methods block already works. Prose keeps its measure — a longer
+   line is not more readable — but it now begins at a column edge instead of
+   trailing off into empty page. The rule still spans the full width. */
+.s-sec{padding-block:clamp(60px,13vh,140px) 0;scroll-margin-top:120px;
+  display:grid;grid-template-columns:minmax(0,15ch) minmax(0,1fr);
+  column-gap:calc(var(--unit)*4);align-items:start}
+.s-sec::before{content:"";grid-column:1/-1;border-top:1px solid var(--rule);
+  margin-bottom:calc(var(--unit)*2.5)}
+.s-sec>*{grid-column:2}
 .s-sec:first-of-type{padding-top:clamp(40px,7vh,72px)}
-.s-marker{display:flex;align-items:baseline;gap:calc(var(--unit)*2);font-family:var(--ff-mono);
-  font-size:var(--fs--2);color:var(--muted);border-top:1px solid var(--rule);
-  padding-top:calc(var(--unit)*1.25);margin-bottom:calc(var(--unit)*3.5);letter-spacing:.02em}
+.s-marker{grid-column:1;grid-row:2;display:flex;align-items:baseline;gap:calc(var(--unit)*2);
+  font-family:var(--ff-mono);font-size:var(--fs--2);color:var(--muted);
+  padding-top:2px;margin:0;letter-spacing:.02em}
+.s-sec>.s-foot{grid-column:1/-1}
+@media (max-width:860px){
+  .s-sec{grid-template-columns:1fr;column-gap:0}
+  .s-sec>*{grid-column:1}
+  .s-marker{grid-row:auto;margin-bottom:calc(var(--unit)*2.5)}
+}
 .s-marker i{font-style:normal;color:var(--ink)}
 .s-marker s{text-decoration:none;margin-left:auto;font-variant-numeric:tabular-nums}
 
@@ -131,15 +157,15 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
   margin:calc(var(--unit)*4) 0 0;aspect-ratio:16/7;max-width:100%;overflow:hidden}
 #stage:not([data-place="inline"]) .s-fig{display:none}
 
-.s-pubs{list-style:none;margin:calc(var(--unit)*3) 0 0;padding:0;display:grid;gap:calc(var(--unit)*3.5)}
+.s-pubs{list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--unit)*3.5)}
 .s-pubs li{max-width:var(--measure)}
 .s-pubs em{color:var(--muted)}
 .s-pubs.tight{margin-top:calc(var(--unit)*1.5)}
-.s-sub{margin:calc(var(--unit)*4.5) 0 0;font-size:var(--fs--2);color:var(--muted)}
+.s-subhead{margin:calc(var(--unit)*4.5) 0 0;font-size:var(--fs--2);color:var(--muted)}
 /* Meetings: venue left, place and date right. Five bullets that each end in a
    city and a month are five lines you have to read to the end of; a column of
    dates you can scan. */
-.s-meet{margin:calc(var(--unit)*3) 0 0;max-width:var(--measure);display:grid;
+.s-meet{margin:0;max-width:78ch;display:grid;
   grid-template-columns:minmax(0,1fr) max-content;gap:calc(var(--unit)*1.75) 3ch}
 .s-meet dt{min-width:0;font-size:var(--fs--1)}
 .s-meet dd{margin:0;color:var(--muted);font-size:var(--fs--2);white-space:nowrap}
@@ -154,7 +180,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
    box, a ruled divider, and one inset cell per field. Underlined fields
    floating loose in a console built entirely of bordered panels were what read
    as unfinished — the form looked like it belonged to a different page. */
-.s-contact{margin:calc(var(--unit)*3.5) 0 0;max-width:var(--measure);
+.s-contact{margin:0;max-width:var(--measure);
   border:1px solid var(--rule);background:var(--surface)}
 .s-cmain{padding:calc(var(--unit)*2.25);display:grid;gap:calc(var(--unit)*1.25);align-content:start}
 .s-cpair{display:grid;grid-template-columns:1fr 1fr;gap:calc(var(--unit)*1.25)}
@@ -264,8 +290,10 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
     <hr class="t-rule">
     <h1 class="s-name">Ahmad Abdal Qader</h1>
     <p class="s-sub">PhD candidate · biomedical engineering · Georgia Tech and Emory · Systems Neural Engineering Lab</p>
-    <p class="s-lede">I work on neural decoding for brain–computer interfaces. Mostly sequence models on intracortical and surface EMG recordings, run online with people with paralysis.</p>
-    <dl class="t-meta"><dt>models &amp; systems</dt><dd>sequence-to-sequence and multivariate time-series modeling, domain transfer, closed-loop model deployment, real-time pipelines</dd><dt>modalities</dt><dd>intracortical neural signals, surface electromyography, 3D video, in-vivo one-photon imaging</dd></dl>
+    <div class="t-lead">
+      <p class="s-lede">I work on machine learning for noisy biological time series: sequence models, transfer across modalities and sessions, unsupervised structure discovery, and the systems that run them in a closed loop. Most of it is neural decoding for brain–computer interfaces — intracortical activity and surface EMG, decoded online with people with paralysis.</p>
+      <dl class="t-meta"><dt>models &amp; systems</dt><dd>sequence-to-sequence and multivariate time series, domain transfer, closed-loop deployment, real-time pipelines</dd><dt>modalities</dt><dd>intracortical signals, surface EMG, 3D video, one-photon imaging</dd><dt>constraints</dt><dd>little labelled data, distribution shift between sessions, a fixed latency budget</dd></dl>
+    </div>
 
     <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">cycling · hover to take over</span></p>
     <div class="c-grid">
@@ -304,7 +332,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
     <section class="s-sec" data-head="moseq">
       <p class="s-marker"><i>papers</i></p>
       <ol class="s-pubs"><li>Ali YH*, <b>Abdal Qader A</b>*, Bechefsky PH, Richards BA, Acosta A, Lacayo B, Williams ZM, Hochberg LR, AuYong N, Pandarinath C. Discrete spatial navigation as a complement to point-and-click in brain–computer interfaces. <em>Journal of Neural Engineering, in revision.</em></li><li><b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Dystonia, 2025.</em> <a class="s-a" href="https://doi.org/10.1101/2025.06.17.659360">preprint</a></li></ol>
-      <p class="s-sub">conference abstracts</p>
+      <p class="s-subhead">conference abstracts</p>
       <ol class="s-pubs tight"><li><b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Interface Neuro, Atlanta, May 2025.</em> <a class="s-a" href="pdfs/behavioral_segmentation_poster.pdf">poster</a></li></ol>
     </section>
     <section class="s-sec" data-head="emg">
@@ -353,9 +381,10 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 const SITE={
   name:"Ahmad Abdal Qader",
   sub:"PhD candidate \u00b7 biomedical engineering \u00b7 Georgia Tech and Emory \u00b7 Systems Neural Engineering Lab",
-  lede:"I work on neural decoding for brain\u2013computer interfaces. Mostly sequence models on intracortical and surface EMG recordings, run online with people with paralysis.",
-  meta:[["models & systems","sequence-to-sequence and multivariate time-series modeling, domain transfer, closed-loop model deployment, real-time pipelines"],
-        ["modalities","intracortical neural signals, surface electromyography, 3D video, in-vivo one-photon imaging"]],
+  lede:"I work on machine learning for noisy biological time series: sequence models, transfer across modalities and sessions, unsupervised structure discovery, and the systems that run them in a closed loop. Most of it is neural decoding for brain–computer interfaces — intracortical activity and surface EMG, decoded online with people with paralysis.",
+  meta:[["models & systems","sequence-to-sequence and multivariate time series, domain transfer, closed-loop deployment, real-time pipelines"],
+        ["modalities","intracortical signals, surface EMG, 3D video, one-photon imaging"],
+        ["constraints","little labelled data, distribution shift between sessions, a fixed latency budget"]],
   sections:[
     {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2014",
      title:"Intracortical handwriting decoding",
@@ -1330,7 +1359,7 @@ const TAIL=()=>`
     <section class="s-sec" data-head="moseq">
       <p class="s-marker"><i>papers</i></p>
       <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
-      <p class="s-sub">conference abstracts</p>
+      <p class="s-subhead">conference abstracts</p>
       <ol class="s-pubs tight">${SITE.posters.map(p=>`<li>${p}</li>`).join("")}</ol>
     </section>
     <section class="s-sec" data-head="emg">
@@ -1379,8 +1408,10 @@ function consoleHTML(){
     <hr class="t-rule">
     <h1 class="s-name">${SITE.name}</h1>
     <p class="s-sub">${SITE.sub}</p>
-    <p class="s-lede">${SITE.lede}</p>
-    <dl class="t-meta">${SITE.meta.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    <div class="t-lead">
+      <p class="s-lede">${SITE.lede}</p>
+      <dl class="t-meta">${SITE.meta.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
+    </div>
 
     <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">hover to open &middot; click to hold</span></p>
     <div class="c-grid">
