@@ -240,8 +240,14 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .t-meta dd{margin:0;color:var(--muted)}
 .t-label{margin:calc(var(--unit)*1.75) 0 calc(var(--unit)*.875);color:var(--muted)}
 .t-label span{color:#5E5B51}
-.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.c-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;
+  grid-auto-rows:1fr}   /* all four the same height, not two rows of two */
 .c-tiles{list-style:none;margin:0;padding:0;display:contents}
+/* display:contents makes the <li> the grid item, not the button inside it, so
+   the button has to be told to fill the row or the four tiles end up at four
+   different heights. */
+.c-tiles>li{display:grid}
+.c-tiles>li>.c-tile{height:100%}
 .c-tile{display:grid;gap:0;align-content:start;width:100%;text-align:left;
   /* equal and fixed, so opening one never resizes the grid */
   box-sizing:border-box;min-height:clamp(112px,14.6vh,132px);padding:12px 15px 13px;cursor:pointer;
@@ -252,6 +258,11 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .c-title{margin-top:7px;font-size:17px;line-height:1.18;font-weight:var(--head-weight);
   letter-spacing:var(--head-track)}
 .c-sig{margin-top:7px;font-size:11px;line-height:1.6;color:var(--muted)}
+/* A closed tile says the problem, then the evidence. They are different kinds
+   of statement — one a sentence, one a fact — so they are set apart rather
+   than stacked in the same voice, which read as one muddled block. */
+.c-prob{display:block;font-style:normal}
+.c-fact{display:block;font-style:normal;margin-top:5px;opacity:.68;letter-spacing:.01em}
 .c-more{margin-top:7px;font-size:12px;line-height:1.5;max-width:54ch;display:none}
 .c-tile[aria-current="true"]{background:var(--tileOn);border-color:var(--accent)}
 .c-tile[aria-current="true"] .c-num,
@@ -390,30 +401,30 @@ const SITE={
   sections:[
     {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2014",
      title:"Intracortical handwriting decoding",
-     label:"256-ch intracortical \u00b7 seq2seq + CTC \u00b7 cross-modal transfer",
+     label:"Sequence decoders need more data than one participant can give.",
      stat:"6% / 14% CER offline / online \u00b7 4\u00d7 data efficiency",
-     more:"Attempted handwriting from a BrainGate2 participant. Adapting a pretrained sEMG decoder to cortex cut the data requirement ~4\u00d7.",
+     more:"Trained an adapter into an open-source decoder pretrained on thousands of hours of surface EMG, so cortex had to supply far less.",
      body:["Attempted handwriting from a BrainGate2 participant with tetraplegia, decoded with seq2seq models trained with CTC: 6% character error rate offline, 14% online. I collected the corpus and trained and deployed the models.",
            "These models want more data than a participant can give. Instead of collecting more, I trained a cross-modal adapter into an open-source sEMG handwriting decoder pretrained on thousands of hours of muscle activity. About 4\u00d7 more data-efficient than a tuned GRU trained from scratch, and it produced characters held out of the neural training set."]},
     {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",year:"2023\u2014",
      title:"Hybrid continuous\u2013discrete cursor control",
-     label:"velocity decoding + gesture classification \u00b7 closed loop",
+     label:"A velocity decoder crosses the screen fast, then cannot settle on a small target.",
      stat:"zero-shot across sessions \u00b7 JNE, in revision",
-     more:"Velocity decoding is fast but will not settle; gestures are precise but slow. Switching on demand gets both.",
+     more:"Added discrete gesture control on demand: reach continuously, lock to the cell under the cursor, step in from there.",
      body:["Velocity decoding moves the cursor quickly and then cannot settle: the dial-in period is dominated by decoder noise and dwell keeps resetting. Gesture classification is precise but slow.",
            "We let the user switch between them on demand, locking the cursor to the cell it occupies. Gesture decoders trained on accumulated closed-loop data held up zero-shot in sessions weeks later, through distribution shift in the inputs."]},
     {head:"emg",readout:"closed-loop 1-D control from residual surface EMG",n:"decoder 03",year:"2024\u2014",
      title:"Online decoding from high-density sEMG",
-     label:"95-ch sEMG \u00b7 real-time inference \u00b7 Redis / BRAND",
+     label:"Little to no functional hand movement \u2014 but the residual muscle signal is not nothing.",
      stat:"closed-loop 1-D control \u00b7 4 synchronized modalities",
-     more:"Residual sEMG decoded online for 1-D cursor control, plus a wristband logging EMG, PPG, IMU and EDA on one clock.",
+     more:"Built the online pipeline for a 95-channel band; the participant drove a cursor in closed loop, four modalities on one clock.",
      body:["A participant with tetraplegia and little to no functional hand movement retains residual surface EMG. I built the online pipeline for a 95-channel high-density band and they drove a 1-D cursor in closed loop.",
            "I then integrated a wireless wristband logging EMG, PPG, IMU and EDA on the same clock as the intracortical stream, giving a multimodal dataset that relates neural activity to physiological state rather than only to intent."]},
     {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",year:"2022\u20142025",
      title:"Unsupervised behavioral segmentation",
-     label:"3D depth video \u00b7 AR-HMM (MoSeq) \u00b7 CNMF-E",
+     label:"Hand-scored behavior tells you a number moved, not what changed.",
      stat:"first author, Dystonia 2025",
-     more:"Depth video segmented into sub-second motifs with a hierarchical AR-HMM to quantify how an anti-dystonia drug reorganizes behavior.",
+     more:"Segmented depth video into sub-second motifs with an AR-HMM, so a drug\u2019s effect reads as a change in which motifs occur.",
      body:["Spontaneous mouse behavior from 3D depth video, segmented into sub-second motifs with a hierarchical autoregressive HMM. Trihexyphenidyl produced a consistent signature across genotypes, with sex differences.",
            "Also extracted single-neuron traces from low-SNR one-photon striatal calcium imaging with CNMF-E, including motion correction and batch processing. The depth video beside this section is real: 600 extracted frames, with measured centroid velocity."]}
   ],
@@ -1420,7 +1431,7 @@ function consoleHTML(){
           <li><button class="c-tile" type="button" data-head="${s.head}" aria-current="false" data-held="false">
             <span class="c-head"><span class="c-num">${s.n.replace('decoder ','')}</span><span class="c-flag"></span></span>
             <span class="c-title">${s.title}</span>
-            <span class="c-sig">${s.label}<br>${s.stat}</span>
+            <span class="c-sig"><i class="c-prob">${s.label}</i><i class="c-fact">${s.stat}</i></span>
             <span class="c-more">${s.more}</span>
           </button></li>`).join("")}
       </ul>
