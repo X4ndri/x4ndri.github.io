@@ -129,6 +129,19 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-pubs{list-style:none;margin:calc(var(--unit)*3) 0 0;padding:0;display:grid;gap:calc(var(--unit)*3.5)}
 .s-pubs li{max-width:var(--measure)}
 .s-pubs em{color:var(--muted)}
+.s-pubs.tight{margin-top:calc(var(--unit)*1.5)}
+.s-sub{margin:calc(var(--unit)*4.5) 0 0;font-size:var(--fs--2);color:var(--muted)}
+/* Meetings: venue left, place and date right. Five bullets that each end in a
+   city and a month are five lines you have to read to the end of; a column of
+   dates you can scan. */
+.s-meet{margin:calc(var(--unit)*3) 0 0;max-width:var(--measure);display:grid;
+  grid-template-columns:minmax(0,1fr) max-content;gap:calc(var(--unit)*1.75) 3ch}
+.s-meet dt{min-width:0;font-size:var(--fs--1)}
+.s-meet dd{margin:0;color:var(--muted);font-size:var(--fs--2);white-space:nowrap}
+@media (max-width:620px){
+  .s-meet{grid-template-columns:1fr;gap:0}
+  .s-meet dd{margin:calc(var(--unit)*.4) 0 calc(var(--unit)*1.75)}
+}
 /* Contact uses the same panel grammar as the instrument and the tiles: a ruled
    box, a ruled divider, and one inset cell per field. Underlined fields
    floating loose in a console built entirely of bordered panels were what read
@@ -359,7 +372,16 @@ const SITE={
            "Also extracted single-neuron traces from low-SNR one-photon striatal calcium imaging with CNMF-E, including motion correction and batch processing. The depth video beside this section is real: 600 extracted frames, with measured centroid velocity."]}
   ],
   pubs:["Ali YH*, <b>Abdal Qader A</b>*, Bechefsky PH, Richards BA, Acosta A, Lacayo B, Williams ZM, Hochberg LR, AuYong N, Pandarinath C. Discrete spatial navigation as a complement to point-and-click in brain–computer interfaces. <em>Journal of Neural Engineering, in revision.</em>",
-        "<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Dystonia, 2025.</em>"]
+        "<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Dystonia, 2025.</em> <a class=\"s-a\" href=\"https://doi.org/10.1101/2025.06.17.659360\">preprint</a>"],
+  posters:["<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Interface Neuro, Atlanta, May 2025.</em> <a class=\"s-a\" href=\"pdfs/behavioral_segmentation_poster.pdf\">poster</a>"],
+  /* Venue on the left, where and when on the right — a column of dates reads
+     faster than five bullets that each end in a place and a month. */
+  meetings:[
+    ["<a class=\"s-a\" href=\"https://interfaceneuro.org/\">Interface Neuro</a>, annual meeting","Atlanta · May 2025"],
+    ["<a class=\"s-a\" href=\"https://www.braingate.org/\">BrainGate</a> annual summit","Atlanta · Aug 2023"],
+    ["<a class=\"s-a\" href=\"https://www.simonsfoundation.org/\">Simons Foundation</a> workshop on calcium and voltage imaging analysis with CaImAn","New York · Feb 2023"],
+    ["<a class=\"s-a\" href=\"https://www.nsf.gov/\">NSF</a> Collaborative Research in Computational Neuroscience (CRCNS)","Atlanta · Oct 2022"],
+    ["<a class=\"s-a\" href=\"http://www.internationalmotorcontrol.org/\">Simons–Emory</a> International Consortium on Motor Control","Atlanta · Oct 2022"]]
 };
 
 /* ============================================================
@@ -1290,6 +1312,12 @@ const TAIL=()=>`
     <section class="s-sec" data-head="moseq">
       <p class="s-marker"><i>papers</i></p>
       <ol class="s-pubs">${SITE.pubs.map(p=>`<li>${p}</li>`).join("")}</ol>
+      <p class="s-sub">conference abstracts</p>
+      <ol class="s-pubs tight">${SITE.posters.map(p=>`<li>${p}</li>`).join("")}</ol>
+    </section>
+    <section class="s-sec" data-head="emg">
+      <p class="s-marker"><i>meetings</i></p>
+      <dl class="s-meet">${SITE.meetings.map(([n,w])=>`<dt>${n}</dt><dd>${w}</dd>`).join("")}</dl>
     </section>
     <section class="s-sec" id="contact" data-head="nav">
       <p class="s-marker"><i>contact</i></p>
