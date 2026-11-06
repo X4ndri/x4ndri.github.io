@@ -1,15 +1,29 @@
 <!doctype html>
 <html lang="en">
+<head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design lab — qader.dev</title>
 <meta name="robots" content="noindex,nofollow">
-<!-- Prototype. Published so it can be looked at and shared; kept out of
-     search results on purpose. The live site is at the root. -->
-<title>qader.dev Design Lab</title>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap">
-
+<link rel="icon" href="/images/brain1.png">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="/assets/fonts/ibm-plex-mono-latin-400-normal.woff2">
+<!-- The prototype, with the switches still attached. Kept out of search on
+     purpose; the site itself is at the root. -->
+</head>
+<body>
 <style>
+/* IBM Plex Mono, served from this domain rather than a CDN.
+   SIL Open Font License 1.1 — see assets/fonts/LICENSE. */
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;
+  src:url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;
+  src:url("/assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:600;font-display:swap;
+  src:url("/assets/fonts/ibm-plex-mono-latin-600-normal.woff2") format("woff2")}
+@font-face{font-family:"IBM Plex Mono";font-style:italic;font-weight:400;font-display:swap;
+  src:url("/assets/fonts/ibm-plex-mono-latin-400-italic.woff2") format("woff2")}
+
 /* ============================================================
    CONCEPT
    Each section of the page is a decoder: a real input modality
@@ -564,7 +578,7 @@ const DepthIn={
     this.img=new Image();
     this.img.onload=()=>{this.ok=true;};
     this.img.onerror=()=>{this.bad=true;};
-    this.img.src='assets/depth.png';
+    this.img.src='/assets/depth.png';
   },
   frameIndex(){
     const m=this.meta; if(!m)return 0;
@@ -1630,4 +1644,5 @@ if(document.fonts&&document.fonts.ready)document.fonts.ready.then(()=>requestAni
 requestAnimationFrame(frame);
 </script>
 
+</body>
 </html>
