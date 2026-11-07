@@ -165,8 +165,11 @@ def build_site(s):
                   '<input id="cf2" name="email" type="email" autocomplete="email" required>')
     s = s.replace('<textarea id="cf3" rows="5"></textarea>',
                   '<textarea id="cf3" name="message" rows="5" required></textarea>')
+    # A note under Send should say what pressing it does. It also sits right
+    # under the consent checkbox, so saying where the message goes is the
+    # useful thing to put there.
     s = s.replace('<p class="s-cnote" id="cfn">Posts to Web3Forms, as the current site does.</p>',
-                  '<p class="s-cnote" id="cfn">I read everything and reply to most of it.</p>')
+                  '<p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>')
     for needed in ('name="name"', 'name="email"', 'name="message"', 'name="access_key"'):
         if needed not in s:
             sys.exit('form rewrite failed: %s missing' % needed)
@@ -184,7 +187,7 @@ def build_site(s):
       const r=await fetch(f.action,{method:'POST',body:new FormData(f),
                                     headers:{'Accept':'application/json'}});
       const j=await r.json().catch(()=>({}));
-      if(r.ok&&j.success!==false){ f.reset(); say('Sent. I read everything and reply to most of it.'); }
+      if(r.ok&&j.success!==false){ f.reset(); say('Sent \u2014 thanks.'); }
       else { btn.disabled=false; say('That did not send. Try again, or find me on LinkedIn.'); }
     }catch(err){ btn.disabled=false; say('That did not send — check your connection and try again.'); }
   });

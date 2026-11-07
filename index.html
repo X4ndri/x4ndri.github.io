@@ -319,14 +319,14 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
       <dl class="t-meta"><dt>models</dt><dd>sequence-to-sequence, state-space models, domain transfer, unsupervised segmentation</dd><dt>systems</dt><dd>real-time inference, closed-loop deployment, multi-stream synchronization</dd><dt>modalities</dt><dd>intracortical signals, surface EMG, 3D depth video, one-photon imaging</dd></dl>
     </div>
 
-    <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">cycling · hover to take over</span></p>
+    <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">cycling · hover to choose</span></p>
     <div class="c-grid">
       <ul class="c-tiles" id="tiles">
         
           <li><button class="c-tile" type="button" data-head="hand" data-held="false">
             <span class="c-head"><span class="c-num">01</span><span class="c-flag"></span></span>
             <span class="c-title">Intracortical handwriting decoding</span>
-            <span class="c-sig"><i class="c-prob">Each participant needs their own decoder, trained on data only they can provide.</i><i class="c-fact">6% / 14% CER offline / online · 4× data efficiency</i></span>
+            <span class="c-sig"><i class="c-prob">Each participant needs their own decoder, trained on data only they can provide.</i><i class="c-fact">6% CER offline, 14% online · 4× data efficiency</i></span>
             <span class="c-more">A neural adapter onto a decoder pretrained on surface EMG from many people — same accuracy from ~4× less data, and characters absent from the neural set.</span>
           </button></li>
           <li><button class="c-tile" type="button" data-head="nav" data-held="false">
@@ -382,7 +382,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
             <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
           <div class="s-crow">
             <button class="s-send" type="submit">Send</button>
-            <p class="s-cnote" id="cfn">I read everything and reply to most of it.</p>
+            <p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>
           </div>
         </form>
       </div>
@@ -418,7 +418,7 @@ const SITE={
     {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2014",
      title:"Intracortical handwriting decoding",
      label:"Each participant needs their own decoder, trained on data only they can provide.",
-     stat:"6% / 14% CER offline / online \u00b7 4\u00d7 data efficiency",
+     stat:"6% CER offline, 14% online \u00b7 4\u00d7 data efficiency",
      more:"A neural adapter onto a decoder pretrained on surface EMG from many people \u2014 same accuracy from ~4\u00d7 less data, and characters absent from the neural set.",
      body:["Attempted handwriting from a BrainGate2 participant with tetraplegia, decoded with seq2seq models trained with CTC: 6% character error rate offline, 14% online. I collected the corpus and trained and deployed the models.",
            "These models want more data than a participant can give. Instead of collecting more, I trained a cross-modal adapter into an open-source sEMG handwriting decoder pretrained on thousands of hours of muscle activity. About 4\u00d7 more data-efficient than a tuned GRU trained from scratch, and it produced characters held out of the neural training set."]},
@@ -1415,7 +1415,7 @@ const TAIL=()=>`
             <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
           <div class="s-crow">
             <button class="s-send" type="submit">Send</button>
-            <p class="s-cnote" id="cfn">I read everything and reply to most of it.</p>
+            <p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>
           </div>
         </form>
       </div>
@@ -1469,7 +1469,7 @@ function renderDetail(){
   if(rl&&s) rl.textContent=s.readout;
   const hint=document.getElementById('chint');
   if(hint) hint.textContent=locked?'click the open tile to release'
-    :(cycling?'cycling \u00b7 hover to take over':'hover to open \u00b7 click to hold');
+    :(cycling?'cycling \u00b7 hover to choose':'hover to open \u00b7 click to hold');
   document.querySelectorAll('#tiles .c-tile').forEach(b=>{
     const on=b.dataset.head===activeHead();
     b.setAttribute('aria-current',String(on));
@@ -1556,7 +1556,7 @@ function wireForm(){
       const r=await fetch(f.action,{method:'POST',body:new FormData(f),
                                     headers:{'Accept':'application/json'}});
       const j=await r.json().catch(()=>({}));
-      if(r.ok&&j.success!==false){ f.reset(); say('Sent. I read everything and reply to most of it.'); }
+      if(r.ok&&j.success!==false){ f.reset(); say('Sent — thanks.'); }
       else { btn.disabled=false; say('That did not send. Try again, or find me on LinkedIn.'); }
     }catch(err){ btn.disabled=false; say('That did not send — check your connection and try again.'); }
   });
