@@ -10,13 +10,13 @@
       href="/assets/fonts/ibm-plex-mono-latin-400-normal.woff2">
 <style>
 /* IBM Plex Mono, served from this domain rather than a CDN.
-   SIL Open Font License 1.1 — see assets/fonts/LICENSE. */
+   SIL Open Font License 1.1 , see assets/fonts/LICENSE. */
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;
   src:url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;
   src:url("/assets/fonts/ibm-plex-mono-latin-500-normal.woff2") format("woff2")}
 /* The same token system as the site, so this page follows whichever palette
-   ships — change data-pal on <html> and nothing else moves. */
+   ships , change data-pal on <html> and nothing else moves. */
 html[data-pal="void"]{      --bg:#000000; --surface:#0A0A0A; --ink:#FAFAFA; --muted:#767676;
   --rule:#2B2B2B; --tile:#070707; --accent:#FF4D00; }
 html[data-pal="phosphor"]{  --bg:#040F0A; --surface:#07160E; --ink:#C3E8CE; --muted:#4E7D61;
@@ -104,8 +104,7 @@ button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 
 
   <h2>Analytics</h2>
   <p>This site uses Google Analytics to count visits and see which pages get read. I
-  use it to know whether anyone is reading and whether a link I shared went anywhere
-  &mdash; nothing more. I don't build profiles, run advertising, or try to work out who
+  use it to know whether anyone is reading and whether a link I shared went anywhere. Nothing more. I don't build profiles, run advertising, or try to work out who
   an individual visitor is, and the reports I see are aggregate.</p>
   <p>It works by setting cookies in your browser and sending Google the page you're on,
   your IP address, and basic details about your browser and device. Google processes
@@ -119,7 +118,7 @@ button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 
     <button type="button" id="optout">Turn analytics off for this browser</button>
     <p class="state" id="state"></p>
     <p>If your browser sends a Global Privacy Control or Do Not Track signal, this site
-    turns analytics off for you automatically &mdash; you don't have to do anything here.
+    turns analytics off for you automatically, so you don't have to do anything here.
     You can also block it with your browser's tracking protection, a tracker blocker, or
     Google's own opt-out add-on. Nothing on this site stops working if you do.</p>
   </div>
@@ -128,8 +127,8 @@ button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 
   <p>The site is static and served by GitHub Pages. GitHub records standard server
   information, including your IP address, to serve pages and protect the service. I
   don't receive those logs and can't see individual visitors.</p>
-  <p>Everything else the page needs &mdash; the typeface, the stylesheet, the code that
-  draws the readouts &mdash; is served from this domain. There is no font CDN, no
+  <p>Everything else the page needs (the typeface, the stylesheet, the code that
+  draws the readouts) is served from this domain. There is no font CDN, no
   analytics beyond the one named above, no advertising network, and no embedded
   third-party widgets.</p>
   <p class="sub">So, in full, the services that may receive data:</p>
@@ -150,7 +149,7 @@ button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 
   me to correct it or delete it, object to my holding it, or withdraw your consent. Ask
   through the contact form. There's no charge, and I'll respond within a month.</p>
   <p>If you think I've handled your data badly and I haven't put it right, you can
-  complain to your national data protection authority &mdash; in the UK, the ICO.</p>
+  complain to your national data protection authority; in the UK, that is the ICO.</p>
 
   <h2>Changes</h2>
   <p>New versions go here, and the date at the top changes with them.</p>
@@ -182,9 +181,9 @@ button[data-off="1"]{background:transparent;color:var(--ink);box-shadow:inset 0 
     b.textContent = o ? 'Turn analytics back on' : 'Turn analytics off for this browser';
     b.setAttribute('data-off', o ? '1' : '0');
     st.textContent = o
-      ? (stored() === '1' ? 'Off — you turned it off on this browser.'
-                          : 'Off — your browser asked not to be tracked.')
-      : 'On — this browser is counted.';
+      ? (stored() === '1' ? 'Off. You turned it off on this browser.'
+                          : 'Off. Your browser asked not to be tracked.')
+      : 'On. This browser is counted.';
   }
   b.addEventListener('click', function () {
     try { localStorage.setItem(K, off() ? '0' : '1'); } catch (e) {}

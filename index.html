@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ahmad Abdal Qader</title>
-<meta name="description" content="Ahmad Abdal Qader — neural decoding for brain-computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
+<meta name="description" content="Neural decoding for brain-computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
 <link rel="canonical" href="https://qader.dev/">
 <link rel="icon" href="/images/brain1.png">
 <link rel="preload" as="font" type="font/woff2" crossorigin
@@ -44,7 +44,7 @@
 <body>
 <style>
 /* IBM Plex Mono, served from this domain rather than a CDN.
-   SIL Open Font License 1.1 — see assets/fonts/LICENSE. */
+   SIL Open Font License 1.1 , see assets/fonts/LICENSE. */
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;
   src:url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;
@@ -58,7 +58,7 @@
    CONCEPT
    Each section of the page is a decoder: a real input modality
    on the left, the readout it produces on the right. Scrolling
-   doesn't cut between them — it interpolates, so the instrument
+   doesn't cut between them , it interpolates, so the instrument
    is driven by the scrollbar rather than by a timer.
 
    Page palette is near-monochrome. Color appears only inside a
@@ -112,7 +112,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-sub{color:var(--muted);font-size:var(--fs--1);margin:calc(var(--unit)*1) 0 0;max-width:72ch}
 /* The lede and the methods block sit side by side rather than stacked, so the
    masthead occupies the width the tiles below it do. Each column is then about
-   60ch on its own, which is the measure anyway — nothing is harder to read,
+   60ch on its own, which is the measure anyway , nothing is harder to read,
    and the page stops looking like a narrow strip pinned to the left edge. */
 .t-lead{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);
   column-gap:calc(var(--unit)*5);row-gap:calc(var(--unit)*3);align-items:start;
@@ -131,8 +131,8 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 .s-a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* The section name moves into a left gutter and the content sits beside it,
-   the way the methods block already works. Prose keeps its measure — a longer
-   line is not more readable — but it now begins at a column edge instead of
+   the way the methods block already works. Prose keeps its measure , a longer
+   line is not more readable , but it now begins at a column edge instead of
    trailing off into empty page. The rule still spans the full width. */
 .s-sec{padding-block:clamp(60px,13vh,140px) 0;scroll-margin-top:120px;
   display:grid;grid-template-columns:minmax(0,15ch) minmax(0,1fr);
@@ -192,7 +192,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 /* Contact uses the same panel grammar as the instrument and the tiles: a ruled
    box, a ruled divider, and one inset cell per field. Underlined fields
    floating loose in a console built entirely of bordered panels were what read
-   as unfinished — the form looked like it belonged to a different page. */
+   as unfinished , the form looked like it belonged to a different page. */
 .s-contact{margin:0;max-width:var(--measure);
   border:1px solid var(--rule);background:var(--surface)}
 .s-cmain{padding:calc(var(--unit)*2.25);display:grid;gap:calc(var(--unit)*1.25);align-content:start}
@@ -264,7 +264,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
   letter-spacing:var(--head-track)}
 .c-sig{margin-top:7px;font-size:11px;line-height:1.6;color:var(--muted)}
 /* A closed tile says the problem, then the evidence. They are different kinds
-   of statement — one a sentence, one a fact — so they are set apart rather
+   of statement , one a sentence, one a fact , so they are set apart rather
    than stacked in the same voice, which read as one muddled block. */
 .c-prob{display:block;font-style:normal}
 .c-fact{display:block;font-style:normal;margin-top:5px;opacity:.68;letter-spacing:.01em}
@@ -327,7 +327,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
             <span class="c-head"><span class="c-num">01</span><span class="c-flag"></span></span>
             <span class="c-title">Intracortical handwriting decoding</span>
             <span class="c-sig"><i class="c-prob">Each participant needs their own decoder, trained on data only they can provide.</i><i class="c-fact">6% CER offline, 14% online · 4× data efficiency</i></span>
-            <span class="c-more">A neural adapter onto a decoder pretrained on surface EMG from many people — same accuracy from ~4× less data, and characters absent from the neural set.</span>
+            <span class="c-more">A neural adapter onto a decoder pretrained on surface EMG from many people. Same accuracy from ~4× less data, and characters absent from the neural set.</span>
           </button></li>
           <li><button class="c-tile" type="button" data-head="nav" data-held="false">
             <span class="c-head"><span class="c-num">02</span><span class="c-flag"></span></span>
@@ -338,8 +338,8 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
           <li><button class="c-tile" type="button" data-head="emg" data-held="false">
             <span class="c-head"><span class="c-num">03</span><span class="c-flag"></span></span>
             <span class="c-title">Online decoding from high-density sEMG</span>
-            <span class="c-sig"><i class="c-prob">A participant with tetraplegia has no hand movement for a sensor to measure.</i><i class="c-fact">closed-loop 1-D control · 4 synchronized modalities</i></span>
-            <span class="c-more">The muscles still fire. A 95-channel surface band and an online decoder gave closed-loop cursor control, no implant needed.</span>
+            <span class="c-sig"><i class="c-prob">Residual surface EMG in tetraplegia is low-amplitude and sparse, and closed-loop control leaves no time to clean it up.</i><i class="c-fact">closed-loop 1-D control · 4 synchronized modalities</i></span>
+            <span class="c-more">95-channel high-density recording with an online decoding pipeline gave the participant closed-loop 1-D cursor control.</span>
           </button></li>
           <li><button class="c-tile" type="button" data-head="moseq" data-held="false">
             <span class="c-head"><span class="c-num">04</span><span class="c-flag"></span></span>
@@ -382,7 +382,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
             <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
           <div class="s-crow">
             <button class="s-send" type="submit">Send</button>
-            <p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>
+            <p class="s-cnote" id="cfn"></p>
           </div>
         </form>
       </div>
@@ -402,7 +402,7 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
 
 <script>
 /* ============================================================
-   CONTENT — provisional copy, real work
+   CONTENT , provisional copy, real work
    ============================================================ */
 const SITE={
   name:"Ahmad Abdal Qader",
@@ -415,14 +415,14 @@ const SITE={
         ["systems","real-time inference, closed-loop deployment, multi-stream synchronization"],
         ["modalities","intracortical signals, surface EMG, 3D depth video, one-photon imaging"]],
   sections:[
-    {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2014",
+    {head:"hand",readout:"real-time handwriting decoding from intracortical signals",n:"decoder 01",year:"2024\u2013",
      title:"Intracortical handwriting decoding",
      label:"Each participant needs their own decoder, trained on data only they can provide.",
      stat:"6% CER offline, 14% online \u00b7 4\u00d7 data efficiency",
-     more:"A neural adapter onto a decoder pretrained on surface EMG from many people \u2014 same accuracy from ~4\u00d7 less data, and characters absent from the neural set.",
+     more:"A neural adapter onto a decoder pretrained on surface EMG from many people. Same accuracy from ~4\u00d7 less data, and characters absent from the neural set.",
      body:["Attempted handwriting from a BrainGate2 participant with tetraplegia, decoded with seq2seq models trained with CTC: 6% character error rate offline, 14% online. I collected the corpus and trained and deployed the models.",
            "These models want more data than a participant can give. Instead of collecting more, I trained a cross-modal adapter into an open-source sEMG handwriting decoder pretrained on thousands of hours of muscle activity. About 4\u00d7 more data-efficient than a tuned GRU trained from scratch, and it produced characters held out of the neural training set."]},
-    {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",year:"2023\u2014",
+    {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",year:"2023\u2013",
      title:"Hybrid continuous\u2013discrete cursor control",
      label:"A velocity decoder crosses the screen fast, then cannot settle on a small target.",
      stat:"zero-shot across sessions \u00b7 JNE, in revision",
@@ -431,12 +431,12 @@ const SITE={
            "We let the user switch between them on demand, locking the cursor to the cell it occupies. Gesture decoders trained on accumulated closed-loop data held up zero-shot in sessions weeks later, through distribution shift in the inputs."]},
     {head:"emg",readout:"closed-loop 1-D control from residual surface EMG",n:"decoder 03",year:"2024\u2014",
      title:"Online decoding from high-density sEMG",
-     label:"A participant with tetraplegia has no hand movement for a sensor to measure.",
+     label:"Residual surface EMG in tetraplegia is low-amplitude and sparse, and closed-loop control leaves no time to clean it up.",
      stat:"closed-loop 1-D control \u00b7 4 synchronized modalities",
-     more:"The muscles still fire. A 95-channel surface band and an online decoder gave closed-loop cursor control, no implant needed.",
+     more:"95-channel high-density recording with an online decoding pipeline gave the participant closed-loop 1-D cursor control.",
      body:["A participant with tetraplegia and little to no functional hand movement retains residual surface EMG. I built the online pipeline for a 95-channel high-density band and they drove a 1-D cursor in closed loop.",
            "I then integrated a wireless wristband logging EMG, PPG, IMU and EDA on the same clock as the intracortical stream, giving a multimodal dataset that relates neural activity to physiological state rather than only to intent."]},
-    {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",year:"2022\u20142025",
+    {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",year:"2022\u20132025",
      title:"Unsupervised behavioral segmentation",
      label:"Drug effects on behavior are usually read from hand scoring or a summary like distance travelled.",
      stat:"first author, Dystonia 2025",
@@ -447,7 +447,7 @@ const SITE={
   pubs:["Ali YH*, <b>Abdal Qader A</b>*, Bechefsky PH, Richards BA, Acosta A, Lacayo B, Williams ZM, Hochberg LR, AuYong N, Pandarinath C. Discrete spatial navigation as a complement to point-and-click in brain–computer interfaces. <em>Journal of Neural Engineering, in revision.</em>",
         "<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Dystonia, 2025.</em> <a class=\"s-a\" href=\"https://doi.org/10.1101/2025.06.17.659360\">preprint</a>"],
   posters:["<b>Abdal Qader A</b>, Donsante Y, Markowitz JE, Jinnah HA, Pandarinath C, Hess EJ. Behavioral signature of trihexyphenidyl in the TOR1A (DYT1) knockin mouse model of dystonia. <em>Interface Neuro, Atlanta, May 2025.</em> <a class=\"s-a\" href=\"pdfs/behavioral_segmentation_poster.pdf\">poster</a>"],
-  /* Venue on the left, where and when on the right — a column of dates reads
+  /* Venue on the left, where and when on the right , a column of dates reads
      faster than five bullets that each end in a place and a month. */
   meetings:[
     ["<a class=\"s-a\" href=\"https://www.sfn.org/\">Society for Neuroscience</a> (SfN)","Washington, DC · Nov 2026",1],
@@ -490,14 +490,14 @@ function fitText(ctx,cands,maxW){
 }
 
 /* ============================================================
-   INPUTS — one per modality, because the modalities differ
+   INPUTS , one per modality, because the modalities differ
    ============================================================ */
 
 /* threshold crossings + spike band power, sharing one time axis.
    Every mark is positioned from its own age, so the raster and the
    continuous traces scroll at exactly the same rate by construction.
    The traces are a mixture of three slow latents plus shared transients,
-   and those same latents modulate the firing rates — so the two halves
+   and those same latents modulate the firing rates , so the two halves
    co-vary the way a population recording actually does. */
 const NeuralIn={
   SPEED:104,            /* px per second, used by both halves */
@@ -744,7 +744,7 @@ const DepthIn={
 
     /* The window ends at the playhead and wraps round the record, so the trace
        is in motion on the first painted frame. Anchoring its left edge at frame
-       0 — which is what this did — held the curve still until the first N
+       0 , which is what this did , held the curve still until the first N
        frames had elapsed, and only then started it scrolling.
        `frac` is the sub-frame phase: the sprite can only step on whole frames,
        but the trace is a continuous signal and is drawn as one. */
@@ -819,7 +819,7 @@ const Hand={
    each trial leaves baseline, swings out as a Gaussian, and returns, with the
    side alternating. The decoded cursor sits on a fixed line and can only move
    horizontally, so it has to travel out to the peak and back to clear both
-   halves. Tracking is a damped spring with a little noise — it lags on the way
+   halves. Tracking is a damped spring with a little noise , it lags on the way
    out and overshoots slightly on the way back, the way a real decoder does. */
 const Pac={
   dots:[],px:.5,pv:0,face:1,spawnAcc:0,phase:0,
@@ -982,7 +982,7 @@ const Nav={
   /* one velocity servo, used for both the radial reach and the grid reach.
      The commanded speed falls off with the remaining error while the noise
      does not, so the same law gives a fast directed reach when far and a
-     struggle when close — no phase change, nothing to blend. */
+     struggle when close , no phase change, nothing to blend. */
   servo(p,v,tx,ty,dt,K,VMAX,LAG,nz){
     const ex=tx-p.x, ey=ty-p.y, d=Math.hypot(ex,ey)||1e-9;
     const sp=Math.min(VMAX,d*K);
@@ -1016,7 +1016,7 @@ const Nav={
     do{ s={r:far(this.target.r),c:far(this.target.c)}; }
     while(Math.hypot(s.r-this.target.r,s.c-this.target.c)<G*.55);
     this.from=s;
-    /* aim a couple of cells off the target — act 1 just showed why */
+    /* aim a couple of cells off the target , act 1 just showed why */
     const th=rnd(0,TAU), off=rnd(1.8,3);
     this.land={r:clamp(this.target.r+Math.sin(th)*off,0,G-1),
                c:clamp(this.target.c+Math.cos(th)*off,0,G-1)};
@@ -1143,7 +1143,7 @@ const Nav={
     ctx.restore();
   },
 
-  /* act 1 — the centre-out reach and its failure to settle */
+  /* act 1 , the centre-out reach and its failure to settle */
   drawRadial(ctx,PL,o){
     const cx=PL.x+PL.w/2, cy=PL.y+PL.h/2, R=Math.min(PL.w,PL.h)*.44;
     const tr=Math.max(3.5,R*this.TR);
@@ -1181,7 +1181,7 @@ const Nav={
     }
   },
 
-  /* act 2 — the grid, the continuous approach, then stepping in */
+  /* act 2 , the grid, the continuous approach, then stepping in */
   drawGrid(ctx,PL,o){
     const G=this.G, side=Math.min(PL.w,PL.h), cs=side/G;
     const gx=PL.x+(PL.w-side)/2, gy=PL.y+(PL.h-side)/2;
@@ -1311,7 +1311,7 @@ const Nav={
    the mouse are the same moment. Segments come from changepoints in the real
    extraction scalars (velocity, height, length, width, area, turning rate) with
    a 300 ms floor; segment means are then clustered into 12 identities. Median
-   segment is 366 ms, which is where real syllables sit — but these are not the
+   segment is 366 ms, which is where real syllables sit , but these are not the
    AR-HMM's labels, and get replaced when the model output turns up. */
 const MOTIFS="9999999999999999999999999999999999999999999999999777777777777777779999999999999999999999999999666666666666666666666777777777111111111111111111111111111111155555555555333333333333333333333333333333332222222222222222222222222222222222222222222222244444444444444444444444444444444444444444444444444444444400000000000000888888888888888888888888000000000000000000000000aaaaaaaaaa88888888888888888aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa77777777777777bbbbbbbbbbbbbb888888888bbbbbbbbbaaaaaaaaaaaaaaaaa2222222222222222222222222222bbbbbbbbbbbbbbbbbbbbbbbbbbbbb000000000bbbbbbbbbbbbbbbbbbbbb3333333333333333000000000";
 const mval=c=>c<='9'?c.charCodeAt(0)-48:c.charCodeAt(0)-87;
@@ -1415,7 +1415,7 @@ const TAIL=()=>`
             <span>I agree to the <a class="s-a" href="privacy.html">privacy policy</a> and to my name, email and message being stored so this can be answered.</span></label>
           <div class="s-crow">
             <button class="s-send" type="submit">Send</button>
-            <p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>
+            <p class="s-cnote" id="cfn"></p>
           </div>
         </form>
       </div>
@@ -1490,7 +1490,7 @@ function wireTiles(){
   const list=document.getElementById('tiles');if(!list)return;
   list.querySelectorAll('.c-tile').forEach(b=>{
     const h=b.dataset.head;
-    /* hover still previews — unless something is being held, in which case a
+    /* hover still previews , unless something is being held, in which case a
        stray pointer cannot take the panel away from you */
     const peek=()=>{ cycling=false; if(locked)return; hovered=h; setActive(h); };
     b.addEventListener('mouseenter',peek);
@@ -1556,9 +1556,9 @@ function wireForm(){
       const r=await fetch(f.action,{method:'POST',body:new FormData(f),
                                     headers:{'Accept':'application/json'}});
       const j=await r.json().catch(()=>({}));
-      if(r.ok&&j.success!==false){ f.reset(); say('Sent — thanks.'); }
+      if(r.ok&&j.success!==false){ f.reset(); say('Sent. Thanks.'); }
       else { btn.disabled=false; say('That did not send. Try again, or find me on LinkedIn.'); }
-    }catch(err){ btn.disabled=false; say('That did not send — check your connection and try again.'); }
+    }catch(err){ btn.disabled=false; say('That did not send. Check your connection and try again.'); }
   });
 }
 
@@ -1567,7 +1567,7 @@ function wireForm(){
 function scrollBlend(){
   /* In the console the tiles are the transport, never the scrollbar. This has
      to be guarded here rather than at the scroll handler, because resize calls
-     it too — and a mobile browser fires resize when the URL bar collapses
+     it too , and a mobile browser fires resize when the URL bar collapses
      during a scroll. That silently handed the readout to whichever tail
      section sat under the anchor line (papers is tagged moseq), undoing a
      tile the reader had just held. */
@@ -1639,7 +1639,7 @@ function frame(ts){
     const o=opts(),R=regions();
     ctx.clearRect(0,0,W,H);
 
-    // INPUT — the modality this section actually records
+    // INPUT , the modality this section actually records
     const t = state.trans==='cut' ? (blend.t<.5?0:1) : blend.t;
     const inA=INPUTS[blend.from],inB=INPUTS[blend.to];
     if(inA&&inA!==inB&&t<1) inA.draw(ctx,R.inp,dt,{...o,int:o.int*(1-t)},R.vertical);
@@ -1657,7 +1657,7 @@ function frame(ts){
       ctx.stroke();ctx.globalAlpha=1;
     }
 
-    // READOUT — three ways of getting from one head to the next
+    // READOUT , three ways of getting from one head to the next
     const hi=R.floating?1:Math.max(.55,o.int);
     if(!blend.from||t>=1){ drawHead(blend.to,R,dt,o,hi); }
     else if(state.trans==='wipe'){

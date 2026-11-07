@@ -12,7 +12,7 @@ rebuilding rather than by being typed twice.
 
 The prerender step is not optional for the site. The page builds itself from a
 content object at run time, so without it the served file contains no readable
-text at all — see tools/prerender.js.
+text at all , see tools/prerender.js.
 
 Fonts are served from this domain in both. Nothing about a visitor reaches a
 font CDN, which is one fewer party in the privacy policy and one round trip
@@ -30,7 +30,7 @@ GOOGLE_FONTS = (
 
 # Root-absolute so the same rules work at / and at /preview/.
 FONT_FACES = """/* IBM Plex Mono, served from this domain rather than a CDN.
-   SIL Open Font License 1.1 — see assets/fonts/LICENSE. */
+   SIL Open Font License 1.1 , see assets/fonts/LICENSE. */
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;
   src:url("/assets/fonts/ibm-plex-mono-latin-400-normal.woff2") format("woff2")}
 @font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;
@@ -77,7 +77,7 @@ SITE_HEAD = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ahmad Abdal Qader</title>
-<meta name="description" content="Ahmad Abdal Qader — neural decoding for brain-computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
+<meta name="description" content="Neural decoding for brain-computer interfaces. Sequence models on intracortical and surface EMG recordings, run online with people with paralysis.">
 <link rel="canonical" href="https://qader.dev/">
 <link rel="icon" href="/images/brain1.png">
 """ + PRELOAD + """
@@ -94,7 +94,7 @@ PREVIEW_HEAD = """<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Design lab — qader.dev</title>
+<title>Design lab · qader.dev</title>
 <meta name="robots" content="noindex,nofollow">
 <link rel="icon" href="/images/brain1.png">
 """ + PRELOAD + """<!-- The prototype, with the switches still attached. Kept out of search on
@@ -116,12 +116,12 @@ def cut(s, start, end, what, replacement=''):
 def common(s):
     """Everything both outputs need: local fonts, no CDN, no tool-specific hints."""
     if GOOGLE_FONTS not in s:
-        sys.exit('font link not found — did the lab head change?')
+        sys.exit('font link not found , did the lab head change?')
     s = s.replace(GOOGLE_FONTS, '')
     s = s.replace('<meta name="claude:viewport-fit-sides" content="cover">\n', '')
     s = s.replace('<style>\n', '<style>\n' + FONT_FACES, 1)
     s = re.sub(r'<title>.*?</title>\n', '', s, count=1, flags=re.S)
-    # One copy of the sprite, at the root, for both pages — the same rule the
+    # One copy of the sprite, at the root, for both pages , the same rule the
     # privacy policy gets. Relative, it resolved to /preview/assets/ and 404'd.
     if "src='assets/depth.png'" not in s:
         sys.exit('depth sprite path not found')
@@ -169,7 +169,7 @@ def build_site(s):
     # under the consent checkbox, so saying where the message goes is the
     # useful thing to put there.
     s = s.replace('<p class="s-cnote" id="cfn">Posts to Web3Forms, as the current site does.</p>',
-                  '<p class="s-cnote" id="cfn">Goes to my inbox, nowhere else.</p>')
+                  '<p class="s-cnote" id="cfn"></p>')
     for needed in ('name="name"', 'name="email"', 'name="message"', 'name="access_key"'):
         if needed not in s:
             sys.exit('form rewrite failed: %s missing' % needed)
@@ -187,9 +187,9 @@ def build_site(s):
       const r=await fetch(f.action,{method:'POST',body:new FormData(f),
                                     headers:{'Accept':'application/json'}});
       const j=await r.json().catch(()=>({}));
-      if(r.ok&&j.success!==false){ f.reset(); say('Sent \u2014 thanks.'); }
+      if(r.ok&&j.success!==false){ f.reset(); say('Sent. Thanks.'); }
       else { btn.disabled=false; say('That did not send. Try again, or find me on LinkedIn.'); }
-    }catch(err){ btn.disabled=false; say('That did not send — check your connection and try again.'); }
+    }catch(err){ btn.disabled=false; say('That did not send. Check your connection and try again.'); }
   });
 }
 """)
@@ -223,5 +223,11 @@ if __name__ == '__main__':
             (out + '/index.html', build_site(lab), SITE_HEAD),
             (out + '/preview/index.html', build_preview(lab), PREVIEW_HEAD)):
         text = close(body, head)
+        if '\u2014' in text:                      # em dash: never, anywhere
+            sys.exit('%s contains an em dash' % path)
         io.open(path, 'w', encoding='utf-8').write(text)
         print('%-28s %7d bytes' % (path, len(text)))
+
+    pv = out + '/privacy.html'                 # not built here, but held to the same rule
+    if os.path.exists(pv) and '\u2014' in io.open(pv, encoding='utf-8').read():
+        sys.exit('%s contains an em dash' % pv)
