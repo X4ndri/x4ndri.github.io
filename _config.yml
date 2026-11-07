@@ -2,11 +2,16 @@
 # told to skip. The site itself is Hugo output committed at the root; Jekyll
 # only has to leave it alone.
 #
-# preview/ IS published — it is the prototype, reachable at /preview/ and
-# marked noindex so it stays out of search. docs/ is not: it holds the design
-# spec and working notes, and a second copy of the privacy policy there would
-# give that page two URLs, which is the one thing it must not have.
+# preview/ IS published: it is the prototype, reachable at /preview/ and
+# marked noindex so it stays out of search. docs/ is not, because it holds the
+# design spec and working notes, and a second copy of the privacy policy there
+# would give that page two URLs, which is the one thing it must not have.
+#
+# blog/ is excluded for now so /blog returns 404 rather than serving the old
+# theme. The 69 files stay in the repository; deleting this one line publishes
+# them again.
 exclude:
+  - blog/          # hidden until it is rebuilt
   - docs/          # design spec, decisions, working notes
   - tools/         # asset generators, not web content
   - contact-worker/
