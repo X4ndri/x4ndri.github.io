@@ -263,6 +263,20 @@ body{margin:0;background:#EEF1F2;-webkit-font-smoothing:antialiased}
    than stacked in the same voice, which read as one muddled block. */
 .c-prob{display:block;font-style:normal}
 .c-fact{display:block;font-style:normal;margin-top:5px;opacity:.68;letter-spacing:.01em}
+/* which half of the tile you are reading. It rides the header row next to the
+   number, so saying so costs no height: as its own line it added 22px a tile
+   and pushed the instrument off the fold. */
+.c-left{display:flex;align-items:baseline;gap:10px;min-width:0}
+.c-cap{font-style:normal;font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;opacity:.5;white-space:nowrap}
+.c-cap-b{display:none}
+.c-tile[aria-current="true"] .c-cap-a{display:none}
+.c-tile[aria-current="true"] .c-cap-b{display:inline}
+/* authorship is a fact about the work, so it stays legible open or closed */
+.c-right{display:flex;align-items:center;gap:9px}
+.c-tag{font-style:normal;font-weight:400;font-size:9.5px;letter-spacing:.07em;
+  background:var(--muted);color:var(--bg);padding:2px 6px 2.5px;white-space:nowrap}
+.c-tile[aria-current="true"] .c-tag{background:var(--ink)}  /* accent stays data-only */
 .c-more{margin-top:7px;font-size:12px;line-height:1.5;max-width:54ch;display:none}
 .c-tile[aria-current="true"]{background:var(--tileOn);border-color:var(--accent)}
 .c-tile[aria-current="true"] .c-num,
@@ -403,27 +417,27 @@ const SITE={
      title:"Intracortical handwriting decoding",
      label:"Each participant needs their own decoder, trained on data only they can provide.",
      stat:"6% CER offline, 14% online \u00b7 4\u00d7 data efficiency",
-     more:"A neural adapter onto a decoder pretrained on surface EMG from many people. Same accuracy from ~4\u00d7 less data, and characters absent from the neural set.",
+     more:"A neural adapter maps cortical activity into a decoder pretrained on surface EMG from many people. Same accuracy from ~4\u00d7 less data, and characters the neural set never contained.",
      body:["Attempted handwriting from a BrainGate2 participant with tetraplegia, decoded with seq2seq models trained with CTC: 6% character error rate offline, 14% online. I collected the corpus and trained and deployed the models.",
            "These models want more data than a participant can give. Instead of collecting more, I trained a cross-modal adapter into an open-source sEMG handwriting decoder pretrained on thousands of hours of muscle activity. About 4\u00d7 more data-efficient than a tuned GRU trained from scratch, and it produced characters held out of the neural training set."]},
-    {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",year:"2023\u2013",
+    {head:"nav",readout:"hybrid continuous–discrete navigation on a dense grid",n:"decoder 02",tag:"co-first author",year:"2023\u2013",
      title:"Hybrid continuous\u2013discrete cursor control",
      label:"A velocity decoder crosses the screen fast, then cannot settle on a small target.",
-     stat:"zero-shot across sessions \u00b7 JNE, in revision",
+     stat:"zero-shot across sessions \u00b7 J. Neural Eng., in revision",
      more:"Added discrete gesture control on demand: reach continuously, lock to the element under the cursor, step in from there.",
      body:["Velocity decoding moves the cursor quickly and then cannot settle: the dial-in period is dominated by decoder noise and dwell keeps resetting. Gesture classification is precise but slow.",
            "We let the user switch between them on demand, locking the cursor to the cell it occupies. Gesture decoders trained on accumulated closed-loop data held up zero-shot in sessions weeks later, through distribution shift in the inputs."]},
     {head:"emg",readout:"closed-loop 1-D control from residual surface EMG",n:"decoder 03",year:"2024\u2014",
      title:"Online decoding from high-density sEMG",
-     label:"Residual surface EMG in tetraplegia is low-amplitude and sparse, and closed-loop control leaves no time to clean it up.",
+     label:"Residual surface EMG after paralysis runs orders of magnitude below healthy muscle.",
      stat:"closed-loop 1-D control \u00b7 4 synchronized modalities",
-     more:"95-channel high-density recording with an online decoding pipeline gave the participant closed-loop 1-D cursor control.",
+     more:"A 95-channel high-density array, decoded online and non-invasively, gave the participant closed-loop 1-D cursor control.",
      body:["A participant with tetraplegia and little to no functional hand movement retains residual surface EMG. I built the online pipeline for a 95-channel high-density band and they drove a 1-D cursor in closed loop.",
            "I then integrated a wireless wristband logging EMG, PPG, IMU and EDA on the same clock as the intracortical stream, giving a multimodal dataset that relates neural activity to physiological state rather than only to intent."]},
-    {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",year:"2022\u20132025",
+    {head:"moseq",readout:"sub-second behavioral motifs from 3D depth video",n:"decoder 04",tag:"first author",year:"2022\u20132025",
      title:"Unsupervised behavioral segmentation",
      label:"Drug effects on behavior are usually read from hand scoring or a summary like distance travelled.",
-     stat:"first author, Dystonia 2025",
+     stat:"Dystonia, 2025",
      more:"An AR-HMM discretizes free behavior into reusable sub-second syllables, so the drug effect appears as a shift in which syllables the animal uses.",
      body:["Spontaneous mouse behavior from 3D depth video, segmented into sub-second motifs with a hierarchical autoregressive HMM. Trihexyphenidyl produced a consistent signature across genotypes, with sex differences.",
            "Also extracted single-neuron traces from low-SNR one-photon striatal calcium imaging with CNMF-E, including motion correction and batch processing. The depth video beside this section is real: 600 extracted frames, with measured centroid velocity."]}
@@ -1415,7 +1429,7 @@ const TAIL=()=>`
 function consoleHTML(){
   return `
   <div class="s-page s-wrap">
-    <div class="t-top"><span class="t-mark" aria-label="qader.dev"><span class="t-br">&lt;</span><svg viewBox="0 0 40 32" width="26" height="21" role="img" aria-label="brain"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 5.2C17.6 2.6 12.6 2.9 10.6 6.2 6.9 5.9 4.2 8.8 5.1 12.3 2.6 14 2.6 18.2 5.2 19.9c-.3 4.2 3.6 7.3 7.7 6.5 1.6 2.2 5.4 2.4 7.1.4"/><path d="M20 5.2c2.4-2.6 7.4-2.3 9.4 1 3.7-.3 6.4 2.6 5.5 6.1 2.5 1.7 2.5 5.9-.1 7.6.3 4.2-3.6 7.3-7.7 6.5-1.6 2.2-5.4 2.4-7.1.4"/><path d="M20 5.2v21.6M13.4 10.3c2 .5 3.4 1.9 3.6 3.9M26.6 10.3c-2 .5-3.4 1.9-3.6 3.9M12.9 19.6c2.2-.6 3.9.3 4.1 2.4M27.1 19.6c-2.2-.6-3.9.3-4.1 2.4"/></g></svg><span class="t-br">/&gt;</span></span><nav class="t-links"><a href="pdfs/cv-redacted.pdf">cv</a><a href="https://github.com/X4ndri">github</a><a href="https://www.linkedin.com/in/aaqader">linkedin</a><a href="https://orcid.org/0009-0001-3030-9864">orcid</a><a href="/blog">blog</a><a href="#contact">contact</a></nav></div>
+    <div class="t-top"><span class="t-mark" aria-label="qader.dev"><span class="t-br">&lt;</span><svg viewBox="0 0 36 32" width="26" height="23" role="img" aria-label="brain"><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 7.1C16.2 4 11.6 3.1 8.8 5.4 6.5 3.9 3.3 5.3 3 8.1c-2.6 1.4-2.7 5.4-.2 7 -1.3 2.6.4 5.9 3.3 6.4 1 2.2 3.9 2.9 5.8 1.4"/><path d="M18 7.1c1.8-3.1 6.4-4 9.2-1.7 2.3-1.5 5.5-.1 5.8 2.7 2.6 1.4 2.7 5.4.2 7 1.3 2.6-.4 5.9-3.3 6.4-1 2.2-3.9 2.9-5.8 1.4"/><path d="M18 7.1v17.6"/><path d="M15.4 24.7h5.2"/><path d="M11.9 23.2c0-2.6 2-4.1 4.3-4"/><path d="M24.1 23.2c0-2.6-2-4.1-4.3-4"/></g></svg><span class="t-br">/&gt;</span></span><nav class="t-links"><a href="pdfs/cv-redacted.pdf">cv</a><a href="https://github.com/X4ndri">github</a><a href="https://www.linkedin.com/in/aaqader">linkedin</a><a href="https://orcid.org/0009-0001-3030-9864">orcid</a><a href="/blog">blog</a><a href="#contact">contact</a></nav></div>
     <hr class="t-rule">
     <h1 class="s-name">${SITE.name}</h1>
     <p class="s-sub">${SITE.sub}</p>
@@ -1424,12 +1438,12 @@ function consoleHTML(){
       <dl class="t-meta">${SITE.meta.map(([k,v])=>`<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl>
     </div>
 
-    <p class="t-label">decoders &nbsp;&nbsp;<span id="chint">hover to open &middot; click to hold</span></p>
+    <p class="t-label">projects &nbsp;&nbsp;<span id="chint">hover to open &middot; click to hold</span></p>
     <div class="c-grid">
       <ul class="c-tiles" id="tiles">
         ${SITE.sections.map(s=>`
           <li><button class="c-tile" type="button" data-head="${s.head}" aria-current="false" data-held="false">
-            <span class="c-head"><span class="c-num">${s.n.replace('decoder ','')}</span><span class="c-flag"></span></span>
+            <span class="c-head"><span class="c-left"><span class="c-num">${s.n.replace('decoder ','')}</span><i class="c-cap c-cap-a">problem</i><i class="c-cap c-cap-b">what we did</i></span><span class="c-right">${s.tag?`<b class="c-tag">${s.tag}</b>`:''}<span class="c-flag"></span></span></span>
             <span class="c-title">${s.title}</span>
             <span class="c-sig"><i class="c-prob">${s.label}</i><i class="c-fact">${s.stat}</i></span>
             <span class="c-more">${s.more}</span>
